@@ -1,0 +1,39 @@
+tailwind.sm:
+  label: Small (640px)
+  mediaQuery: '(min-width: 640px)'
+  weight: 0
+  multipliers:
+    - 1x
+    - 2x
+
+tailwind.md:
+  label: Medium (768px)
+  mediaQuery: '(min-width: 768px)'
+  weight: 1
+  multipliers:
+    - 1x
+    - 2x
+
+tailwind.lg:
+  label: Large (1024px)
+  mediaQuery: '(min-width: 1024px)'
+  weight: 2
+  multipliers:
+    - 1x
+    - 2x
+
+tailwind.xl:
+  label: Extra Large (1280px)
+  mediaQuery: '(min-width: 1280px)'
+  weight: 3
+  multipliers:
+    - 1x
+    - 2x
+
+tailwind.2xl:
+  label: 2X Large (1536px)
+  mediaQuery: '(min-width: 1536px)'
+  weight: 4
+  multipliers:
+    - 1x
+    - 2x

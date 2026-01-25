@@ -1,0 +1,12 @@
+name: Example
+status: ready
+description: 'An example Single Directory Component'
+props:
+  title:
+    type: string
+    title: Title
+    required: true
+  content:
+    type: string
+    title: Content
+    required: false

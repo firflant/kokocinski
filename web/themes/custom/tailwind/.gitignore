@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Build files (built in deployment pipeline)
+dist/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.sublime-*
+
+# Yarn debug log
+yarn-debug.log*
+yarn-error.log*
+
+# Package lock files (optional - uncomment if you want to ignore)
+# package-lock.json

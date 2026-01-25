@@ -1,0 +1,23 @@
+# Ignore core when managing all of a project's dependencies with Composer
+# including Drupal core.
+core
+
+# Ignore configuration files that may contain sensitive information.
+sites/*/settings*.php
+sites/*/services*.yml
+
+# Ignore paths that contain user-generated content.
+sites/*/files
+sites/*/private
+
+# Ignore multi-site test environment.
+sites/simpletest
+
+# Contributed modules, themes, and profiles
+modules/contrib/
+themes/contrib/
+profiles/contrib/
+
+# Composer-managed libraries (installed via type:drupal-library)
+libraries/
+/autoload.php

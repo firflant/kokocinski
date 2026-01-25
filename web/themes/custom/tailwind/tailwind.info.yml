@@ -1,0 +1,51 @@
+name: Tailwind
+type: theme
+description: 'A clean, blank Drupal 11 tailwind theme built with Tailwind CSS'
+package: Custom
+core_version_requirement: ^11
+base theme: false
+
+# Enable Single Directory Components (optional)
+components:
+  namespaces:
+    tailwind:
+      - components
+
+regions:
+  header: Header
+  primary_menu: 'Primary menu'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+  content: Content
+  footer: Footer
+
+libraries:
+  - tailwind/global-styling
+
+libraries-override:
+  # Disable core CSS (optional - customize as needed)
+  system/base:
+    css:
+      component:
+        css/components/ajax-progress.module.css: false
+        css/components/align.module.css: false
+        css/components/autocomplete-loading.module.css: false
+        css/components/fieldgroup.module.css: false
+        css/components/container-inline.module.css: false
+        css/components/clearfix.module.css: false
+        css/components/details.module.css: false
+        css/components/hidden.module.css: false
+        css/components/item-list.module.css: false
+        css/components/js.module.css: false
+        css/components/nowrap.module.css: false
+        css/components/position-container.module.css: false
+        css/components/progress.module.css: false
+        css/components/reset-appearance.module.css: false
+        css/components/resize.module.css: false
+        css/components/sticky-header.module.css: false
+        css/components/system-status-counter.css: false
+        css/components/system-status-report-counters.css: false
+        css/components/system-status-report-general-info.css: false
+        css/components/tabledrag.module.css: false
+        css/components/tablesort.module.css: false
+        css/components/tree-child.module.css: false

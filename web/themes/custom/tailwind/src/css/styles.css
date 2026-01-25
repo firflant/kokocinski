@@ -1,0 +1,318 @@
+/**
+ * @file
+ * Main stylesheet with Tailwind directives.
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+  * Custom base styles
+  */
+@layer base {
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply text-stone-200 bg-zinc-950;
+  }
+}
+
+/**
+  * Custom component styles
+  */
+@layer components {
+  /* Add your custom component styles here */
+
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn {
+    @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm;
+  }
+
+  .btn-primary {
+    @apply btn text-zinc-950 bg-primary-500 hover:bg-primary-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500;
+    @apply shadow-lg shadow-primary-500/50 hover:shadow-xl hover:shadow-primary-500/60 transition-all duration-200;
+  }
+
+  /* Form Styles for Dark Theme */
+  form {
+    @apply space-y-6;
+  }
+
+  .form-item {
+    @apply mb-6;
+  }
+
+  .form-item label {
+    @apply block text-sm font-medium text-stone-200 mb-2;
+  }
+
+  .form-item label.option {
+    @apply inline-flex items-center text-base font-normal;
+  }
+
+  .form-item .description {
+    @apply mt-2 text-sm text-stone-400;
+  }
+
+  .form-item .form-required::after {
+    @apply text-primary-500 ml-1;
+    content: "*";
+  }
+
+  /* Text inputs, textareas, selects */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="search"],
+  input[type="date"],
+  input[type="time"],
+  input[type="datetime-local"],
+  textarea,
+  select {
+    @apply block w-full rounded-md border-zinc-700 bg-zinc-800 text-stone-200 placeholder-stone-500;
+    @apply focus:border-primary-500 focus:ring-primary-500 focus:ring-1;
+    @apply transition-colors duration-200;
+  }
+
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="password"]:focus,
+  input[type="number"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="search"]:focus,
+  input[type="date"]:focus,
+  input[type="time"]:focus,
+  input[type="datetime-local"]:focus,
+  textarea:focus,
+  select:focus {
+    @apply outline-none ring-2 ring-primary-500 ring-offset-2 ring-offset-zinc-950;
+  }
+
+  input[type="text"]:disabled,
+  input[type="email"]:disabled,
+  input[type="password"]:disabled,
+  textarea:disabled,
+  select:disabled {
+    @apply opacity-50 cursor-not-allowed bg-zinc-900;
+  }
+
+  textarea {
+    @apply min-h-[100px] resize-y;
+  }
+
+  /* Checkboxes and Radio buttons */
+  input[type="checkbox"],
+  input[type="radio"] {
+    @apply h-4 w-4 rounded border-zinc-700 bg-zinc-800 text-primary-500;
+    @apply focus:ring-primary-500 focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-950;
+    @apply transition-colors duration-200;
+  }
+
+  input[type="checkbox"]:checked,
+  input[type="radio"]:checked {
+    @apply bg-primary-500 border-primary-500;
+  }
+
+  /* Submit buttons */
+  input[type="submit"],
+  button[type="submit"],
+  .form-submit {
+    @apply inline-flex items-center justify-center px-6 py-3 border border-transparent;
+    @apply text-base font-medium rounded-md text-zinc-950 bg-primary-500;
+    @apply hover:bg-primary-400 focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply focus:ring-primary-500 shadow-lg shadow-primary-500/50 hover:shadow-xl hover:shadow-primary-500/60 transition-all duration-200;
+  }
+
+  input[type="submit"]:disabled,
+  button[type="submit"]:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+
+  /* Form actions */
+  .form-actions {
+    @apply flex items-center gap-4 pt-4;
+  }
+
+  /* Error states */
+  .form-item--error input,
+  .form-item--error textarea,
+  .form-item--error select {
+    @apply border-rose-500 focus:border-rose-500 focus:ring-rose-500;
+  }
+
+  .form-item--error-message {
+    @apply mt-2 text-sm text-rose-400;
+  }
+
+  /* Fieldset */
+  fieldset {
+    @apply border border-zinc-700 rounded-md p-4 mb-6;
+  }
+
+  fieldset legend {
+    @apply px-2 text-sm font-medium text-stone-200;
+  }
+
+  /* Select dropdown styling */
+  select {
+    @apply appearance-none bg-zinc-800;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a8a29e' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+  }
+}
+
+/**
+  * Custom utility styles
+  */
+@layer utilities {
+  /* Golden accent utilities */
+  .golden-glow {
+    box-shadow: 0 0 20px rgba(211, 157, 55, 0.3);
+  }
+
+  .golden-border {
+    @apply border-primary-500/30;
+  }
+
+  .golden-border-hover {
+    @apply border-primary-500/30 hover:border-primary-500/60 transition-colors;
+  }
+
+  .text-golden {
+    @apply text-primary-400;
+  }
+
+  .text-golden-hover {
+    @apply text-primary-400 hover:text-primary-300 transition-colors;
+  }
+}
+
+/**
+  * Contextual Links Styling for Dark Theme
+  */
+.contextual-region {
+  position: relative;
+}
+
+.contextual {
+  position: absolute !important;
+  top: 0.5rem !important;
+  right: 0.5rem !important;
+  z-index: 999 !important;
+  display: block !important;
+}
+
+.contextual .trigger {
+  @apply bg-zinc-500 text-zinc-950 rounded-full p-2 shadow-lg hover:bg-zinc-400 transition;
+  width: 2rem !important;
+  height: 2rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: none !important;
+  cursor: pointer !important;
+}
+
+.contextual .trigger::before {
+  content: "☰" !important;
+  font-size: 1rem !important;
+  line-height: 1 !important;
+}
+
+.contextual-links {
+  @apply bg-zinc-800 border border-zinc-700 rounded-lg shadow-xl overflow-hidden;
+  min-width: 200px !important;
+  z-index: 1000 !important;
+}
+
+.contextual-links a {
+  @apply block px-4 py-2 text-sm text-stone-200 hover:bg-zinc-500 hover:text-zinc-950 transition no-underline;
+}
+
+/* Make contextual links visible on hover of contextual region */
+.contextual-region:hover .contextual {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.contextual-region .contextual {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.2s,
+    visibility 0.2s;
+}
+
+.contextual-region .contextual.open,
+.contextual-region .contextual.is-locked {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/**
+  * Visually Hidden Content
+  * Hides content visually but keeps it accessible for screen readers
+  */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/**
+  * Local Tasks (Tabs) Styling
+  */
+.tabs.primary,
+.tabs.secondary {
+  @apply flex flex-wrap gap-0 mb-0 list-none;
+}
+
+.tabs.primary li,
+.tabs.secondary li {
+  @apply inline-block;
+}
+
+.tabs.primary li.is-active,
+.tabs.secondary li.is-active {
+  @apply border-b-2 border-primary-500;
+}
+
+.tabs.primary a,
+.tabs.secondary a {
+  @apply block px-4 py-3 text-sm font-medium transition-colors no-underline;
+}
+
+.tabs.primary a {
+  @apply text-stone-300 hover:text-primary-400;
+}
+
+.tabs.primary .is-active a {
+  @apply text-primary-400;
+}
+
+/* GLightbox styles */
+.glightbox-clean .gslide-description {
+  background-color: #27272a !important;
+  color: #e7e5e4;
+  font-size: 18px;
+  font-weight: 600;
+}
