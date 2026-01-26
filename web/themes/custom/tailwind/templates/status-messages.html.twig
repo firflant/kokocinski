@@ -1,0 +1,44 @@
+{#
+/**
+ * @file
+ * Theme override for status messages.
+ *
+ * Displays status, error, and warning messages, grouped by type.
+ *
+ * Available variables:
+ * - message_list: List of messages to be displayed, grouped by type.
+ * - status_headings: List of all status types.
+ * - attributes: HTML attributes for the element, including:
+ *   - class: HTML classes.
+ */
+#}
+<div data-drupal-messages class="space-y-3">
+{% for type, messages in message_list %}
+  {% set border_class = type == 'error' ? 'border-rose-500' : (type == 'warning' ? 'border-amber-500' : (type == 'status' ? 'border-green-500' : 'border-primary-500')) %}
+  {% set bg_class = type == 'error' ? 'bg-rose-900/80' : (type == 'warning' ? 'bg-amber-900/80' : (type == 'status' ? 'bg-green-900/80' : 'bg-primary-900/80')) %}
+
+  <div role="contentinfo" aria-label="{{ status_headings[type] }}"{{ attributes|without('role', 'aria-label') }} class="status-message-container transition-all duration-500 ease-in-out overflow-hidden">
+    <div{{ type == 'error' ? ' role="alert"' : '' }} class="w-full border-l-4 {{ border_class }} {{ bg_class }} p-5 status-message">
+      <div class="flex items-center justify-between gap-4">
+        <div class="flex-1">
+          {% if status_headings[type] %}
+            <div class="mb-2 font-semibold text-zinc-100">{{ status_headings[type] }}</div>
+          {% endif %}
+          <div class="font-regular text-zinc-300">
+            {% if messages|length > 1 %}
+              <ul class="space-y-1">
+                {% for message in messages %}
+                  <li>{{ message }}</li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              {{ messages|first }}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</div>
+

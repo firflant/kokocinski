@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Theme override for a page node in default view mode.
+ */
+#}
+<article{{ attributes }}>
+  {# Page Content with Prose Styling #}
+  {% if content %}
+    <div class="prose prose-lg prose-invert max-w-none">
+      {{ content }}
+    </div>
+  {% endif %}
+</article>
+

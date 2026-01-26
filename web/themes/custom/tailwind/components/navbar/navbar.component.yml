@@ -1,0 +1,4 @@
+name: Navbar
+status: ready
+description: 'Main site navbar'
+props: { }

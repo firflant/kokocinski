@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Theme override to display a single page.
+ * Theme override to display a single page using Single Directory Components.
  *
  * The doctype, html, head and body tags are not in this template. Instead they
  * can be found in the html.html.twig template in this directory.
@@ -37,27 +37,23 @@
 #}
 {{ page.page_top }}
 
+{{ include('tailwind:navbar') }}
+
+{# Use narrow container for page content type and system pages, full width for others #}
+{% set container_class = (node and node.bundle == 'page') ? 'max-w-5xl' : 'max-w-7xl' %}
+
 {# Header region #}
 {% if page.header %}
-  <header role="banner" class="border-b">
-    <div class="container mx-auto px-4">
+  <header class="bg-primary-950 border-b border-primary-800">
+    <div class="{{ container_class }} mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-12 pb-4 md:pb-6">
       {{ page.header }}
     </div>
   </header>
 {% endif %}
 
-{# Primary menu region #}
-{% if page.primary_menu %}
-  <nav role="navigation" aria-label="Primary menu">
-    <div class="container mx-auto px-4">
-      {{ page.primary_menu }}
-    </div>
-  </nav>
-{% endif %}
-
-{# Main Content Area #}
-<main id="main-content" role="main">
-  <div class="container mx-auto px-4 py-8">
+{# Main Content Area - Simplified to ensure content renders #}
+<main id="main-content" role="main" class="bg-primary-900 min-h-screen">
+  <div class="{{ container_class }} mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 text-stone-200">
     {# Status messages #}
     {% if messages %}
       <div class="mb-4">
@@ -71,11 +67,10 @@
 
 {# Footer region #}
 {% if page.footer %}
-  <footer role="contentinfo" class="border-t mt-8">
-    <div class="container mx-auto px-4 py-8">
-      {{ page.footer }}
-    </div>
-  </footer>
+  {{ page.footer }}
 {% endif %}
 
+{{ include('tailwind:footer') }}
+
 {{ page.page_bottom }}
+

@@ -39,13 +39,13 @@
   * Custom component styles
   */
 @layer components {
-  /* Navigation styles */
-  #main-navigation {
+  /* Navbar styles */
+  #main-navbar {
     position: static;
     @apply bg-transparent border-none;
   }
 
-  #main-navigation.sticky-nav-active {
+  #main-navbar.sticky-nav-active {
     position: fixed !important;
     border-bottom-style: solid;
     @apply border-b border-white/5 bg-primary-900/80 backdrop-blur-md;

@@ -7,12 +7,12 @@
   "use strict";
 
   /**
-   * Navigation sticky behavior on scroll up.
+   * Navbar sticky behavior on scroll up.
    */
-  Drupal.behaviors.tailwindNavigation = {
+  Drupal.behaviors.tailwindNavbar = {
     attach: (context, settings) => {
-      const navigation = context.querySelector("#main-navigation");
-      if (!navigation) {
+      const navbar = context.querySelector("#main-navbar");
+      if (!navbar) {
         return;
       }
 
@@ -28,19 +28,19 @@
           // Scrolling up
           if (!isScrollingUp && currentScrollY > 100) {
             isScrollingUp = true;
-            navigation.classList.add("sticky-nav-active");
+            navbar.classList.add("sticky-nav-active");
           }
         } else if (scrollDifference > 0) {
           // Scrolling down
           if (isScrollingUp) {
             isScrollingUp = false;
-            navigation.classList.remove("sticky-nav-active");
+            navbar.classList.remove("sticky-nav-active");
           }
         }
 
         // Reset to static if at top of page
         if (currentScrollY <= 0) {
-          navigation.classList.remove("sticky-nav-active");
+          navbar.classList.remove("sticky-nav-active");
           isScrollingUp = false;
         }
 
