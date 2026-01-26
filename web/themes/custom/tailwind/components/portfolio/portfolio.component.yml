@@ -1,0 +1,4 @@
+name: Portfolio
+status: ready
+description: 'Portfolio showcase section'
+props: { }

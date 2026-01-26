@@ -1,0 +1,15 @@
+uuid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+langcode: en
+status: true
+dependencies: {}
+name: portfolio_teaser
+label: "Portfolio Teaser"
+effects:
+  8d965aa9-a593-4623-8aaa-542ed07ade88:
+    uuid: 8d965aa9-a593-4623-8aaa-542ed07ade88
+    id: image_scale_and_crop
+    weight: 2
+    data:
+      width: 598
+      height: 256
+      anchor: center-top

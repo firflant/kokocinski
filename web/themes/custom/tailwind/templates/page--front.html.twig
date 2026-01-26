@@ -1,0 +1,42 @@
+{#
+/**
+ * @file
+ * Theme override for the front page (homepage).
+ */
+#}
+{{ page.page_top }}
+
+{# Content region will contain the custom blocks placed via module #}
+<main id="main-content" role="main">
+  {# Status messages #}
+  {% if messages %}
+    {{ messages }}
+  {% endif %}
+
+  {# Navigation - positioned at top #}
+  {{ include('tailwind:navigation') }}
+
+  {# Hero Header #}
+  {{ include('tailwind:hero-header') }}
+
+  {# About Services #}
+  {{ include('tailwind:about-services') }}
+
+  {# Tailored Solutions #}
+  {{ include('tailwind:tailored-solutions') }}
+
+  {{ page.content }}
+
+  {# Contact #}
+  {{ include('tailwind:contact') }}
+
+  {# Footer #}
+  {{ include('tailwind:footer') }}
+
+  {# Footer region #}
+  {% if page.footer %}
+    {{ page.footer }}
+  {% endif %}
+</main>
+
+{{ page.page_bottom }}

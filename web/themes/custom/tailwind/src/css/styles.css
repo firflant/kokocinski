@@ -20,10 +20,37 @@
   }
 }
 
+/* Custom Scrollbar for a premium feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
 /**
   * Custom component styles
   */
 @layer components {
+  /* Navigation styles */
+  #main-navigation {
+    position: static;
+    @apply bg-transparent border-none;
+  }
+
+  #main-navigation.sticky-nav-active {
+    position: fixed !important;
+    border-bottom-style: solid;
+    @apply border-b border-white/5 bg-primary-900/80 backdrop-blur-md;
+  }
+
   /* Add your custom component styles here */
 
   .container-custom {
@@ -197,6 +224,11 @@
 
   .text-golden-hover {
     @apply text-primary-400 hover:text-primary-300 transition-colors;
+  }
+
+  /* Animation delay utility */
+  .animation-delay-2000 {
+    animation-delay: 2000ms;
   }
 }
 

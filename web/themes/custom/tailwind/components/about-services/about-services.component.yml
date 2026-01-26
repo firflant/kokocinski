@@ -1,0 +1,4 @@
+name: About Services
+status: ready
+description: 'About section with service cards'
+props: { }

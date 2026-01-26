@@ -1,0 +1,22 @@
+uuid: b432fd84-cafc-498d-9305-244ebeb3692f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_description
+    - node.type.portfolio_item
+  module:
+    - text
+id: node.portfolio_item.field_description
+field_name: field_description
+entity_type: node
+bundle: portfolio_item
+label: Description
+description: 'A detailed description of the project or work.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

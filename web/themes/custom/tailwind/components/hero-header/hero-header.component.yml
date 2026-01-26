@@ -1,0 +1,4 @@
+name: Hero Header
+status: ready
+description: 'Hero section with profile image and introduction'
+props: { }

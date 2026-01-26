@@ -1,0 +1,11 @@
+uuid: 2246a151-ecfb-4866-a56b-3e62d7e47dc4
+langcode: en
+status: true
+dependencies: {  }
+name: 'Portfolio Item'
+type: portfolio_item
+description: 'A portfolio item showcasing a project or work.'
+help: 'Create a portfolio item to showcase your work, including an image, description, technologies used, and optional link.'
+new_revision: true
+preview_mode: 1
+display_submitted: false

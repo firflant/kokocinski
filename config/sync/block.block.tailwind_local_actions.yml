@@ -1,0 +1,20 @@
+uuid: f2734ae0-604c-4e5a-bcef-7563d855464d
+langcode: en
+status: false
+dependencies:
+  theme:
+    - tailwind
+_core:
+  default_config_hash: ABoKnlk20KHqZRw_2Qr4EvaFvH4lnQ2nuhunHeE1JIU
+id: tailwind_local_actions
+theme: tailwind
+region: content
+weight: -4
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

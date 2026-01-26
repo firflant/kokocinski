@@ -1,0 +1,65 @@
+{#
+/**
+ * @file
+ * Theme override for all portfolio view block displays.
+ *
+ * Available variables:
+ * - view: The view object.
+ * - title: The title of this group of rows. May be empty.
+ * - header: The view header
+ * - footer: The view footer
+ * - rows: The results of the view query, if any.
+ * - empty: The content to display if there are no rows.
+ * - pager: The pager next/prev links to display, if any.
+ * - exposed: Exposed widget form/info to display.
+ * - feed_icons: Any feed icons to display, if any.
+ * - more: An optional link to the next page of results.
+ * - attachment_before: An optional attachment before the rows.
+ * - attachment_after: An optional attachment after the rows.
+ *
+ * @see template_preprocess_views_view()
+ */
+#}
+<section id="portfolio" class="relative z-10 py-24 bg-primary-800/30 border-t border-white/5">
+  <div class="max-w-7xl mx-auto px-6">
+    {# Header #}
+    <div class="flex justify-between items-end mb-12">
+      <div>
+        <h2 class="text-3xl font-bold text-white mb-2">{{ title|default('Selected Works') }}</h2>
+        {% if header %}
+          <div class="text-slate-400">
+            {{ header }}
+          </div>
+        {% else %}
+          <p class="text-slate-400">A curation of recent technical challenges.</p>
+        {% endif %}
+      </div>
+      {# Optional GitHub link can be added via block configuration or header #}
+    </div>
+
+    {# Rows #}
+    {% if rows %}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {{ rows }}
+      </div>
+    {% elseif empty %}
+      <div class="empty">
+        {{ empty }}
+      </div>
+    {% endif %}
+
+    {# Pager #}
+    {% if pager %}
+      <div class="mt-8">
+        {{ pager }}
+      </div>
+    {% endif %}
+
+    {# Footer #}
+    {% if footer %}
+      <div class="mt-8">
+        {{ footer }}
+      </div>
+    {% endif %}
+  </div>
+</section>

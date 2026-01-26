@@ -1,0 +1,22 @@
+uuid: 20b36d90-328c-4a9a-9d90-248a902cf63e
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - text
+id: node.field_technologies
+field_name: field_technologies
+entity_type: node
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

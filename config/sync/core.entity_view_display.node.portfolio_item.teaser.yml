@@ -1,0 +1,62 @@
+uuid: bbd82b7c-0ff8-41b8-b322-43267d4cbd5d
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.portfolio_item.field_description
+    - field.field.node.portfolio_item.field_image
+    - field.field.node.portfolio_item.field_link
+    - field.field.node.portfolio_item.field_technologies
+    - image.style.portfolio_teaser
+    - node.type.portfolio_item
+  module:
+    - image
+    - text
+    - user
+id: node.portfolio_item.teaser
+targetEntityType: node
+bundle: portfolio_item
+mode: teaser
+content:
+  field_description:
+    type: text_trimmed
+    label: hidden
+    settings:
+      trim_length: 200
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_image:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: portfolio_teaser
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_link:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_technologies:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+hidden:
+  promote: true
+  sticky: true

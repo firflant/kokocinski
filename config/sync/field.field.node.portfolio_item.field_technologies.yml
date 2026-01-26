@@ -1,0 +1,21 @@
+uuid: d534428a-39ca-48eb-9d70-f927ca92c4ad
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_technologies
+    - node.type.portfolio_item
+  module:
+    - text
+id: node.portfolio_item.field_technologies
+field_name: field_technologies
+entity_type: node
+bundle: portfolio_item
+label: Technologies
+description: 'Technologies, frameworks, or tools used in this project (e.g., "React, TypeScript, Recharts").'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

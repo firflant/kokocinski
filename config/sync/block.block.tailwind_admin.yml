@@ -1,0 +1,27 @@
+uuid: 79e34049-45ad-4c4e-8baa-6a1f4157efc0
+langcode: en
+status: false
+dependencies:
+  config:
+    - system.menu.admin
+  module:
+    - system
+  theme:
+    - tailwind
+_core:
+  default_config_hash: O-D8Nl1TR7UCNonzFkR4yexcwpIbqT5arx6HdRFMzYU
+id: tailwind_admin
+theme: tailwind
+region: header
+weight: 2
+provider: null
+plugin: 'system_menu_block:admin'
+settings:
+  id: 'system_menu_block:admin'
+  label: Administration
+  label_display: visible
+  provider: system
+  level: 1
+  depth: null
+  expand_all_items: false
+visibility: {  }

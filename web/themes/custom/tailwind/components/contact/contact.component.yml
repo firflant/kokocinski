@@ -1,0 +1,4 @@
+name: Contact
+status: ready
+description: 'Contact section with CTA buttons'
+props: { }

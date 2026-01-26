@@ -1,0 +1,4 @@
+name: Navigation
+status: ready
+description: 'Main site navigation'
+props: { }
