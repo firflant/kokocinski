@@ -26,12 +26,14 @@
 {% macro menu_links(items, attributes, menu_level) %}
   {% import _self as menus %}
   {% if items %}
-    {% for item in items %}
-      <a href="{{ item.url }}" class="text-stone-300 hover:text-primary-400 px-3 py-2 text-sm font-medium transition-colors relative group">
-        {{ item.title }}
-        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-500 group-hover:w-full transition-all duration-300"></span>
-      </a>
-    {% endfor %}
+    <ul class="flex space-x-8 text-sm font-medium text-slate-400">
+      {% for item in items %}
+        <li>
+          <a href="{{ item.url }}" class="hover:text-white transition-colors">
+            {{ item.title }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
   {% endif %}
 {% endmacro %}
-

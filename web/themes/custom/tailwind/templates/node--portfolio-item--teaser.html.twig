@@ -42,7 +42,7 @@
 <a href="{{ link_url }}"{{ attributes.addClass(classes) }}>
   {# Image #}
   {% if node.field_image.entity %}
-    <div class="h-64 overflow-hidden portfolio-image">
+    <div class="overflow-hidden [&_img]:min-w-full">
       {{ content.field_image|render|striptags('<img>')|raw }}
     </div>
   {% endif %}

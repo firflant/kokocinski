@@ -1,0 +1,25 @@
+uuid: cbd1ebae-3e8a-47bd-be1b-5fdf583d60f4
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - tailwind
+id: tailwind_mainnavigation
+theme: tailwind
+region: primary_menu
+weight: 0
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: null
+  expand_all_items: false
+visibility: {  }

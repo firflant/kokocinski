@@ -1,12 +1,50 @@
-<nav id="main-navbar" class="w-full z-50 top-0 transition-all duration-300 h-16">
+<nav id="main-navbar" class="relative w-full z-50 top-0 transition-all duration-300 h-16 border-white/5">
   <div class="max-w-7xl mx-auto px-6 h-full flex justify-between items-center">
     <a href="/" class="text-xl font-bold text-white tracking-tight">
       kokocinski<span class="text-accent-teal">.</span>me
     </a>
-    <ul class="flex space-x-8 text-sm font-medium text-slate-400">
-      <li><a href="#services" class="hover:text-white transition-colors">Services</a></li>
-      <li><a href="#portfolio" class="hover:text-white transition-colors">Portfolio</a></li>
-      <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
-    </ul>
+
+    {# Primary Menu and Social Links #}
+    <div class="hidden md:flex md:items-center md:space-x-8">
+      {% if page.primary_menu %}
+        {{ page.primary_menu }}
+      {% endif %}
+    </div>
+
+    {# Mobile menu button and social links #}
+    <div class="md:hidden flex items-center gap-2">
+      <button
+        type="button"
+        id="mobile-menu-button"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Toggle mobile menu"
+        class="text-stone-300 hover:text-primary-400 p-2 transition-colors"
+      >
+        {# Hamburger icon #}
+        <svg id="mobile-menu-icon-open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        {# Close icon (hidden by default) #}
+        <svg id="mobile-menu-icon-close" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  {# Mobile menu #}
+  <div
+    id="mobile-menu"
+    class="md:hidden origin-right transform scale-x-0 opacity-0 max-h-0 overflow-hidden transition-all duration-300 ease-out border-b border-t border-white/5 bg-primary-900/80 backdrop-blur-md sm:-mx-6 lg:-mx-8"
+    aria-labelledby="mobile-menu-button"
+  >
+    <div class="space-y-1 px-4 py-4 sm:px-6 lg:px-8">
+      {% if page.primary_menu %}
+        <div class="flex flex-col space-y-2 items-end">
+          {{ page.primary_menu }}
+        </div>
+      {% endif %}
+    </div>
   </div>
 </nav>

@@ -5,6 +5,7 @@ dependencies:
   config:
     - views.view.portfolio
   module:
+    - system
     - views
   theme:
     - tailwind
