@@ -194,4 +194,150 @@
       });
     },
   };
+
+  /**
+   * Unified accordion behavior with configurable options.
+   */
+  const initAccordion = (context, config) => {
+    const {
+      singleOpen = false,
+      targetSelector = null,
+      openedOnDesktop = false,
+    } = config;
+
+    // Unified classes - all accordions use the same class names
+    const ATTACHED_ATTR = "data-accordion-attached";
+    const OPEN_CLASS = "accordion-item-open";
+    const ITEM_SELECTOR = ".accordion-item";
+    const BUTTON_SELECTOR = ".accordion-button";
+    const CONTENT_SELECTOR = ".accordion-content";
+    const ICON_SELECTOR = ".accordion-icon";
+
+    // Desktop breakpoint (768px = md in Tailwind)
+    const isDesktop = () => window.innerWidth >= 768;
+
+    // Limit search scope if targetSelector is provided
+    const searchScope = targetSelector
+      ? context.querySelector(targetSelector)
+      : context;
+    if (!searchScope) {
+      return;
+    }
+
+    const items = searchScope.querySelectorAll(
+      `${ITEM_SELECTOR}:not([${ATTACHED_ATTR}])`,
+    );
+    if (items.length === 0) {
+      return;
+    }
+
+    const updateAccordion = (button, content, icon, isOpen) => {
+      if (isOpen) {
+        // Open - use Tailwind classes
+        content.classList.remove("max-h-0", "opacity-0", "hidden");
+        content.classList.add("opacity-100", "block");
+        // Set dynamic max-height for smooth animation
+        requestAnimationFrame(() => {
+          const height = content.scrollHeight;
+          if (height > 0) {
+            content.style.maxHeight = `${height}px`;
+          }
+        });
+        if (icon) {
+          icon.classList.remove("rotate-0");
+          icon.classList.add("rotate-180");
+        }
+      } else {
+        // Close - use Tailwind classes
+        content.classList.remove("opacity-100", "block");
+        content.classList.add("max-h-0", "opacity-0");
+        content.style.maxHeight = "0";
+        if (icon) {
+          icon.classList.remove("rotate-180");
+          icon.classList.add("rotate-0");
+        }
+        setTimeout(() => {
+          content.classList.add("hidden");
+        }, 300);
+      }
+    };
+
+    items.forEach((item) => {
+      item.setAttribute(ATTACHED_ATTR, "true");
+
+      const button = item.querySelector(BUTTON_SELECTOR);
+      const content = item.querySelector(CONTENT_SELECTOR);
+      const icon = item.querySelector(ICON_SELECTOR);
+
+      if (!button || !content) {
+        return;
+      }
+
+      // Handle toggle
+      const handleToggle = () => {
+        const isCurrentlyOpen = button.getAttribute("aria-expanded") === "true";
+        const willBeOpen = !isCurrentlyOpen;
+
+        // If single-open, close all other items in the search scope
+        if (singleOpen && willBeOpen) {
+          const allItems = searchScope.querySelectorAll(ITEM_SELECTOR);
+
+          allItems.forEach((otherItem) => {
+            if (otherItem !== item) {
+              const otherButton = otherItem.querySelector(BUTTON_SELECTOR);
+              const otherContent = otherItem.querySelector(CONTENT_SELECTOR);
+              const otherIcon = otherItem.querySelector(ICON_SELECTOR);
+
+              if (otherButton && otherContent) {
+                otherButton.setAttribute("aria-expanded", "false");
+                updateAccordion(otherButton, otherContent, otherIcon, false);
+                otherItem.classList.remove(OPEN_CLASS);
+              }
+            }
+          });
+        }
+
+        // Toggle this item
+        button.setAttribute("aria-expanded", willBeOpen);
+        updateAccordion(button, content, icon, willBeOpen);
+        item.classList.toggle(OPEN_CLASS, willBeOpen);
+      };
+
+      button.addEventListener("click", handleToggle);
+
+      // If openedOnDesktop is true, disable pointer events on desktop
+      if (openedOnDesktop) {
+        button.classList.add("md:pointer-events-none");
+      }
+
+      // Initialize based on openedOnDesktop and initial state
+      if (openedOnDesktop && isDesktop()) {
+        // On desktop with openedOnDesktop: initialize as open
+        button.setAttribute("aria-expanded", "true");
+        updateAccordion(button, content, icon, true);
+        item.classList.add(OPEN_CLASS);
+      } else {
+        // Normal initialization
+        const initialExpanded = button.getAttribute("aria-expanded") === "true";
+        if (initialExpanded) {
+          updateAccordion(button, content, icon, true);
+        } else {
+          button.setAttribute("aria-expanded", "false");
+        }
+      }
+    });
+  };
+
+  /**
+   * Services accordion behavior.
+   */
+  Drupal.behaviors.servicesAccordion = {
+    attach: (context, settings) => {
+      initAccordion(context, {
+        targetSelector: ".services-accordions",
+        singleOpen: false,
+        openedOnDesktop: true,
+      });
+    },
+  };
 })(Drupal);

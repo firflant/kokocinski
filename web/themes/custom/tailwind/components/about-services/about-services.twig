@@ -8,55 +8,80 @@
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div class="p-8 rounded-2xl bg-white/5 border border-white/5 hover:border-accent-main/50 transition-colors group">
+    <div class="services-accordions grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="accordion-item p-8 rounded-2xl bg-white/5 border border-white/5 hover:border-accent-main/50 transition-colors group">
         <div class="w-12 h-12 bg-indigo-500/20 rounded-lg flex items-center justify-center mb-6 text-indigo-400 group-hover:text-white transition-colors">
           <i class="fab fa-react text-2xl"></i>
         </div>
-        <h3 class="text-xl font-semibold text-white mb-3">Modern Frontend Architecture</h3>
-        <p class="text-slate-400 leading-relaxed">
-          Scalable, type-safe Single Page Applications (SPA) built with <strong>React</strong> and <strong>TypeScript</strong>. Focused on performance, component reusability, and state management.
-        </p>
+          <button class="accordion-button w-full text-left flex items-center justify-between" aria-expanded="false">
+          <h3 class="text-xl font-semibold text-white">Modern Frontend Architecture</h3>
+          <i class="accordion-icon fas fa-chevron-down text-white/60 transition-transform duration-300 ml-4 md:hidden"></i>
+        </button>
+        <div class="accordion-content overflow-hidden transition-all duration-300 hidden">
+          <p class="text-slate-400 leading-relaxed mt-3">
+            Scalable, type-safe Single Page Applications (SPA) built with <strong>React</strong> and <strong>TypeScript</strong>. Focused on performance, component reusability, and state management.
+          </p>
+        </div>
       </div>
 
-      <div class="p-8 rounded-2xl bg-white/5 border border-white/5 hover:border-accent-teal/50 transition-colors group">
+      <div class="accordion-item p-8 rounded-2xl bg-white/5 border border-white/5 hover:border-accent-teal/50 transition-colors group">
         <div class="w-12 h-12 bg-teal-500/20 rounded-lg flex items-center justify-center mb-6 text-teal-400 group-hover:text-white transition-colors">
           <i class="fab fa-drupal text-2xl"></i>
         </div>
-        <h3 class="text-xl font-semibold text-white mb-3">Content Management Systems</h3>
-        <p class="text-slate-400 leading-relaxed">
-          Building everything from company websites to complex, content-heavy platforms using <strong>Drupal</strong> and <strong>PHP</strong>. Configuration, theming, custom module development, hosting, strict coding standards, and security-focused architecture.
-        </p>
+          <button class="accordion-button w-full text-left flex items-center justify-between" aria-expanded="false">
+          <h3 class="text-xl font-semibold text-white">Content Management Systems</h3>
+          <i class="accordion-icon fas fa-chevron-down text-white/60 transition-transform duration-300 ml-4 md:hidden"></i>
+        </button>
+        <div class="accordion-content overflow-hidden transition-all duration-300 hidden">
+          <p class="text-slate-400 leading-relaxed mt-3">
+            Building everything from company websites to complex, content-heavy platforms using <strong>Drupal</strong> and <strong>PHP</strong>. Configuration, theming, custom module development, hosting, strict coding standards, and security-focused architecture.
+          </p>
+        </div>
       </div>
 
-      <div class="p-8 rounded-2xl bg-white/5 border border-white/5 hover:border-purple-500/50 transition-colors group">
+      <div class="accordion-item p-8 rounded-2xl bg-white/5 border border-white/5 hover:border-purple-500/50 transition-colors group">
         <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-6 text-purple-400 group-hover:text-white transition-colors">
           <i class="fas fa-layer-group text-2xl"></i>
         </div>
-        <h3 class="text-xl font-semibold text-white mb-3">Headless Drupal & Decoupled</h3>
-        <p class="text-slate-400 leading-relaxed">
-          The best of both worlds. Using Drupal as a robust <strong>API provider</strong> and React for a high-performance, interactive frontend. Fullstack freedom with enterprise management.
-        </p>
+          <button class="accordion-button w-full text-left flex items-center justify-between" aria-expanded="false">
+          <h3 class="text-xl font-semibold text-white">Headless Drupal & Decoupled</h3>
+          <i class="accordion-icon fas fa-chevron-down text-white/60 transition-transform duration-300 ml-4 md:hidden"></i>
+        </button>
+        <div class="accordion-content overflow-hidden transition-all duration-300 hidden">
+          <p class="text-slate-400 leading-relaxed mt-3">
+            The best of both worlds. Using Drupal as a robust <strong>API provider</strong> and React for a high-performance, interactive frontend. Fullstack freedom with enterprise management.
+          </p>
+        </div>
       </div>
 
-      <div class="p-8 rounded-2xl bg-white/5 border border-white/5 hover:border-blue-500/50 transition-colors group">
+      <div class="accordion-item p-8 rounded-2xl bg-white/5 border border-white/5 hover:border-blue-500/50 transition-colors group">
         <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-6 text-blue-400 group-hover:text-white transition-colors">
           <i class="fas fa-tools text-2xl"></i>
         </div>
-        <h3 class="text-xl font-semibold text-white mb-3">React & Drupal Maintenance</h3>
-        <p class="text-slate-400 leading-relaxed">
-          New features implementation, security upgrades, migrations, redesigns, and more to keep your project secure, user-friendly, and modern.
-        </p>
+          <button class="accordion-button w-full text-left flex items-center justify-between" aria-expanded="false">
+          <h3 class="text-xl font-semibold text-white">React & Drupal Maintenance</h3>
+          <i class="accordion-icon fas fa-chevron-down text-white/60 transition-transform duration-300 ml-4 md:hidden"></i>
+        </button>
+        <div class="accordion-content overflow-hidden transition-all duration-300 hidden">
+          <p class="text-slate-400 leading-relaxed mt-3">
+            New features implementation, security upgrades, migrations, redesigns, and more to keep your project secure, user-friendly, and modern.
+          </p>
+        </div>
       </div>
 
-      <div class="p-8 rounded-2xl bg-white/5 border border-white/5 hover:border-amber-500/50 transition-colors group">
+      <div class="accordion-item p-8 rounded-2xl bg-white/5 border border-white/5 hover:border-amber-500/50 transition-colors group">
         <div class="w-12 h-12 bg-amber-500/20 rounded-lg flex items-center justify-center mb-6 text-amber-400 group-hover:text-white transition-colors">
           <i class="fas fa-brain text-2xl"></i>
         </div>
-        <h3 class="text-xl font-semibold text-white mb-3">AI Driven UX Engineering</h3>
-        <p class="text-slate-400 leading-relaxed">
-          Using AI tools to develop UI, prototyping and refining user experiences, basing on existing design system or starting from scratch.
-        </p>
+          <button class="accordion-button w-full text-left flex items-center justify-between" aria-expanded="false">
+          <h3 class="text-xl font-semibold text-white">AI Driven UX Engineering</h3>
+          <i class="accordion-icon fas fa-chevron-down text-white/60 transition-transform duration-300 ml-4 md:hidden"></i>
+        </button>
+        <div class="accordion-content overflow-hidden transition-all duration-300 hidden">
+          <p class="text-slate-400 leading-relaxed mt-3">
+            Using AI tools to develop UI, prototyping and refining user experiences, basing on existing design system or starting from scratch.
+          </p>
+        </div>
       </div>
     </div>
   </div>
