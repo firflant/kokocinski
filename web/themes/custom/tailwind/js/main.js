@@ -233,29 +233,29 @@
 
     const updateAccordion = (button, content, icon, isOpen) => {
       if (isOpen) {
-        // Open - use Tailwind classes
-        content.classList.remove("max-h-0", "opacity-0", "hidden");
-        content.classList.add("opacity-100", "block");
-        // Set dynamic max-height for smooth animation
+        // Open - remove hidden, set initial state, then animate
+        content.classList.remove("hidden");
+        content.style.maxHeight = "0";
+        content.style.opacity = "0";
+        // Force reflow, then animate to full height
         requestAnimationFrame(() => {
           const height = content.scrollHeight;
-          if (height > 0) {
-            content.style.maxHeight = `${height}px`;
-          }
+          content.style.maxHeight = `${height}px`;
+          content.style.opacity = "1";
         });
         if (icon) {
           icon.classList.remove("rotate-0");
           icon.classList.add("rotate-180");
         }
       } else {
-        // Close - use Tailwind classes
-        content.classList.remove("opacity-100", "block");
-        content.classList.add("max-h-0", "opacity-0");
+        // Close - animate to collapsed state
         content.style.maxHeight = "0";
+        content.style.opacity = "0";
         if (icon) {
           icon.classList.remove("rotate-180");
           icon.classList.add("rotate-0");
         }
+        // Add hidden after animation completes
         setTimeout(() => {
           content.classList.add("hidden");
         }, 300);
@@ -323,6 +323,9 @@
           updateAccordion(button, content, icon, true);
         } else {
           button.setAttribute("aria-expanded", "false");
+          // Set initial closed state
+          content.style.maxHeight = "0";
+          content.style.opacity = "0";
         }
       }
     });
