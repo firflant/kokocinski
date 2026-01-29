@@ -10,5 +10,8 @@ label: Global
 tags:
   canonical_url: "[current-page:url]"
   title: "[current-page:title] | [site:name]"
+  description: "I bridge modern frontend architecture with enterprise Drupal stability. Leveraging LLMs and Prompt Engineering to deliver quality software with optimized time-to-value."
+  og_description: "I bridge modern frontend architecture with enterprise Drupal stability. Leveraging LLMs and Prompt Engineering to deliver quality software with optimized time-to-value."
   og_image: "[site:url]themes/custom/tailwind/images/profile-pic.jpeg"
+  twitter_cards_description: "I bridge modern frontend architecture with enterprise Drupal stability. Leveraging LLMs and Prompt Engineering to deliver quality software with optimized time-to-value."
   twitter_cards_image: "[site:url]themes/custom/tailwind/images/profile-pic.jpeg"
