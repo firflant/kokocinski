@@ -1,3 +1,4 @@
+uuid: 322f3563-9ecc-4006-b1f7-38685b7a6ae8
 langcode: en
 status: true
 dependencies:
@@ -7,7 +8,7 @@ dependencies:
     - metatag_open_graph
     - metatag_twitter_cards
 id: node__blog_post
-label: "Content: Blog post"
+label: 'Content: Blog post'
 tags:
-  og_image: "[node:field_image:blog_social:url]"
-  twitter_cards_image: "[node:field_image:blog_social:url]"
+  og_image: '[node:field_image:blog_social:url]'
+  twitter_cards_image: '[node:field_image:blog_social:url]'

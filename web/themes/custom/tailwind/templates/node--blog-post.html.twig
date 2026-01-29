@@ -20,4 +20,17 @@
   <div class="prose prose-lg prose-invert max-w-none text-slate-300">
     {{ content|without('field_image') }}
   </div>
+
+  <footer class="mt-12 pt-8 border-t border-white/10 not-prose" aria-label="{{ 'About the author'|t }}">
+    <div class="flex flex-col sm:flex-row gap-5 sm:gap-6 items-start">
+      <img src="/{{ directory }}/images/profile-pic.jpeg" alt="{{ 'About the author'|t }}" class="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-full ring-2 ring-white/10 ring-offset-2 ring-offset-primary-900 shrink-0" loading="lazy" width="80" height="80" />
+      <div class="min-w-0 max-w-xl">
+        <p class="text-xs font-medium uppercase tracking-wider text-slate-500 mb-1.5">{{ 'Written by'|t }}</p>
+        <p class="text-white font-semibold text-base m-0">Michał Kokociński</p>
+        <p class="text-slate-400 text-sm mt-2 mb-0 leading-relaxed">
+          Senior React & Drupal Engineer. I bridge modern frontend architecture with enterprise PHP/Drupal stability. I use prompt engineering and AI-assisted development to deliver high-quality software, from new builds to modernizing legacy systems.
+        </p>
+      </div>
+    </div>
+  </footer>
 </article>

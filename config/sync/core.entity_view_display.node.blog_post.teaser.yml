@@ -17,26 +17,26 @@ targetEntityType: node
 bundle: blog_post
 mode: teaser
 content:
-  field_image:
-    type: image
-    label: hidden
-    settings:
-      image_link: ""
-      image_style: portfolio_teaser
-    third_party_settings: {}
-    weight: 0
-    region: content
   body:
     type: text_trimmed
     label: hidden
     settings:
       trim_length: 300
-    third_party_settings: {}
+    third_party_settings: {  }
     weight: 2
     region: content
+  field_image:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: portfolio_teaser
+    third_party_settings: {  }
+    weight: 0
+    region: content
   links:
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
     weight: 101
     region: content
 hidden:

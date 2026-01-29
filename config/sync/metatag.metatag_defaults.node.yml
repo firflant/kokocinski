@@ -1,9 +1,10 @@
+uuid: 2a61ac42-85fe-4f0f-93eb-08201b3ba5c4
 langcode: en
 status: true
-dependencies: {}
+dependencies: {  }
 id: node
 label: Content
 tags:
-  title: "[node:title] | [site:name]"
-  description: "[node:summary]"
-  canonical_url: "[node:url]"
+  title: '[node:title] | [site:name]'
+  description: '[node:summary]'
+  canonical_url: '[node:url]'

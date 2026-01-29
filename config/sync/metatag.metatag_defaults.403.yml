@@ -1,9 +1,10 @@
+uuid: 84cf73b7-0729-4b5c-a45a-9dabd6419747
 langcode: en
 status: true
-dependencies: {}
-id: "403"
-label: "403 access denied"
+dependencies: {  }
+id: '403'
+label: '403 access denied'
 tags:
   robots: noindex
-  canonical_url: "[site:url]"
-  shortlink: "[site:url]"
+  canonical_url: '[site:url]'
+  shortlink: '[site:url]'

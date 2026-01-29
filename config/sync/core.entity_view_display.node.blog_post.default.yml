@@ -16,25 +16,25 @@ targetEntityType: node
 bundle: blog_post
 mode: default
 content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
   field_image:
     type: image
     label: hidden
     settings:
-      image_link: ""
+      image_link: ''
       image_style: blog_full
-    third_party_settings: {}
+    third_party_settings: {  }
     weight: 0
     region: content
-  body:
-    type: text_default
-    label: hidden
-    settings: {}
-    third_party_settings: {}
-    weight: 100
-    region: content
   links:
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
     weight: 101
     region: content
 hidden:

@@ -1,9 +1,10 @@
+uuid: b020bce5-0dc1-4b80-bfc2-3a253bf5ab34
 langcode: en
 status: true
-dependencies: {}
+dependencies: {  }
 id: user
 label: User
 tags:
-  canonical_url: "[user:url]"
-  description: "[site:name]"
-  title: "[user:display-name] | [site:name]"
+  canonical_url: '[user:url]'
+  description: '[site:name]'
+  title: '[user:display-name] | [site:name]'
