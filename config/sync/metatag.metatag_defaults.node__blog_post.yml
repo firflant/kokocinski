@@ -14,4 +14,6 @@ tags:
   og_description: '[node:summary]'
   twitter_cards_description: '[node:summary]'
   og_image: '[node:field_image:blog_social:url]'
+  og_image_width: '[node:field_image:blog_social:width]'
+  og_image_height: '[node:field_image:blog_social:height]'
   twitter_cards_image: '[node:field_image:blog_social:url]'

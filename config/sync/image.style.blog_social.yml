@@ -15,3 +15,9 @@ effects:
       width: 1200
       height: 630
       crop_type: focal_point
+  fc7d5f55-325c-4b06-973d-5edaa515c039:
+    uuid: fc7d5f55-325c-4b06-973d-5edaa515c039
+    id: image_convert
+    weight: 2
+    data:
+      extension: jpeg
