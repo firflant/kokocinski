@@ -1,0 +1,48 @@
+{#
+/**
+ * @file
+ * Theme override for the blog view page display.
+ *
+ * Available variables:
+ * - view: The view object.
+ * - title: The title of this group of rows. May be empty.
+ * - header: The view header
+ * - footer: The view footer
+ * - rows: The results of the view query, if any.
+ * - empty: The content to display if there are no rows.
+ * - pager: The pager next/prev links to display, if any.
+ * - exposed: Exposed widget form/info to display.
+ * - feed_icons: Any feed icons to display, if any.
+ * - more: An optional link to the next page of results.
+ * - attachment_before: An optional attachment before the rows.
+ * - attachment_after: An optional attachment after the rows.
+ *
+ * @see template_preprocess_views_view()
+ */
+#}
+<section id="blog">
+  {# Rows #}
+  {% if rows %}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {{ rows }}
+    </div>
+  {% elseif empty %}
+    <div class="empty text-center py-12">
+      <p class="text-slate-400 text-lg">{{ empty }}</p>
+    </div>
+  {% endif %}
+
+  {# Pager #}
+  {% if pager %}
+    <div class="mt-12">
+      {{ pager }}
+    </div>
+  {% endif %}
+
+  {# Footer #}
+  {% if footer %}
+    <div class="mt-8">
+      {{ footer }}
+    </div>
+  {% endif %}
+</section>

@@ -39,12 +39,11 @@
 
 {{ include('tailwind:navbar') }}
 
-{# Use narrow container for page content type and system pages, full width for others #}
-{% set container_class = (node and node.bundle == 'page') ? 'max-w-5xl' : 'max-w-7xl' %}
+{% set container_class = 'max-w-5xl' %}
 
 {# Header region #}
 {% if page.header %}
-  <header class="bg-primary-950 border-b border-primary-800">
+  <header class="bg-primary-900 border-b border-primary-800">
     <div class="{{ container_class }} mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-12 pb-4 md:pb-6">
       {{ page.header }}
     </div>
@@ -52,8 +51,8 @@
 {% endif %}
 
 {# Main Content Area - Simplified to ensure content renders #}
-<main id="main-content" role="main" class="bg-primary-900 min-h-screen">
-  <div class="{{ container_class }} mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 text-stone-200">
+<main id="main-content" role="main" class="bg-primary-800/30 min-h-screen">
+  <div class="{{ container_class }} mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
     {# Status messages #}
     {% if messages %}
       <div class="mb-4">

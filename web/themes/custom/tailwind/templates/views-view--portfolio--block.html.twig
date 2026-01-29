@@ -25,13 +25,13 @@
     {# Header #}
     <div class="flex justify-between items-end mb-12">
       <div>
-        <h2 class="text-3xl font-bold text-white mb-2">{{ title|default('Selected Works') }}</h2>
+        <h2 class="text-3xl font-bold text-white mb-2">{{ title|default('Latest Works') }}</h2>
         {% if header %}
           <div class="text-slate-400">
             {{ header }}
           </div>
         {% else %}
-          <p class="text-slate-400">A curation of recent technical challenges.</p>
+          <p class="text-slate-400">A selection of recent technical challenges.</p>
         {% endif %}
       </div>
       {# Optional GitHub link can be added via block configuration or header #}

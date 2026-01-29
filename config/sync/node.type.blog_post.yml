@@ -1,0 +1,11 @@
+uuid: 42383a98-90e2-47d0-b185-99e827a0a8ae
+langcode: en
+status: true
+dependencies: {  }
+name: 'Blog Post'
+type: blog_post
+description: 'Use blog posts for articles and blog entries.'
+help: 'Create a blog post to share articles, thoughts, or updates with your audience.'
+new_revision: true
+preview_mode: 1
+display_submitted: false

@@ -1,0 +1,65 @@
+{#
+/**
+ * @file
+ * Theme override to display a blog post node in teaser view mode.
+ *
+ * Available variables:
+ * - node: The node entity with limited access to object properties and methods.
+ * - label: The title of the node.
+ * - content: All node items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.body }}. Use
+ *   {{ content|without('body') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - url: Direct URL of the current node.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ *
+ * @see template_preprocess_node()
+ */
+#}
+ {# #}
+{%
+  set classes = [
+    'group',
+    'block',
+    'h-full',
+    'flex',
+    'flex-col',
+    'overflow-hidden',
+    'rounded-2xl',
+    'bg-white/5',
+    'border',
+    'border-white/5',
+    'hover:border-accent-main/50',
+    'transition-all',
+    'p-8',
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  {# Title #}
+  {% if label %}
+    <h3 class="text-xl font-bold text-white mb-3 transition-colors">
+      <a href="{{ url }}" class="hover:underline">{{ label }}</a>
+    </h3>
+  {% endif %}
+
+  {# Date #}
+  {# {% if node.created.value %}
+    <time datetime="{{ node.created.value|date('Y-m-d') }}" class="text-slate-400 text-sm mb-3 block">
+      {{ node.created.value|date('F j, Y') }}
+    </time>
+  {% endif %} #}
+
+  {# Body excerpt #}
+  {% if content.body %}
+    <div class="text-slate-400 text-sm leading-relaxed line-clamp-3 mb-4">
+      {{ content.body }}
+    </div>
+  {% endif %}
+
+  {# Read more link #}
+  <a href="{{ url }}" class="text-accent-main hover:text-accent-main/80 text-sm font-medium inline-flex items-center mt-auto">
+    Read more
+    <i class="fas fa-arrow-right ml-2 text-xs"></i>
+  </a>
+</article>
