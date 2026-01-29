@@ -10,5 +10,5 @@ label: Global
 tags:
   canonical_url: "[current-page:url]"
   title: "[current-page:title] | [site:name]"
-  og_image: "[site:url]sites/default/files/profile-pic.jpeg"
-  twitter_cards_image: "[site:url]sites/default/files/profile-pic.jpeg"
+  og_image: "[site:url]themes/custom/tailwind/images/profile-pic.jpeg"
+  twitter_cards_image: "[site:url]themes/custom/tailwind/images/profile-pic.jpeg"
