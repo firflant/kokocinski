@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Theme override for a blog post node in default view mode.
+ *
+ * Available variables:
+ * - node: The node entity.
+ * - content: All node items. Use {{ content }} to print them all.
+ *
+ * @see template_preprocess_node()
+ */
+#}
+<article{{ attributes }}>
+  {% if node.field_image.entity %}
+    <div class="mb-8 overflow-hidden rounded-2xl">
+      {{ content.field_image }}
+    </div>
+  {% endif %}
+
+  <div class="prose prose-lg prose-invert max-w-none text-slate-300">
+    {{ content|without('field_image') }}
+  </div>
+</article>

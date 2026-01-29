@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - metatag_open_graph
+    - metatag_twitter_cards
+id: global
+label: Global
+tags:
+  canonical_url: "[current-page:url]"
+  title: "[current-page:title] | [site:name]"
+  og_image: "[site:url]/sites/default/files/profile-pic.jpeg"
+  twitter_cards_image: "[site:url]/sites/default/files/profile-pic.jpeg"

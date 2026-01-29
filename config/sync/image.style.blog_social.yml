@@ -1,0 +1,17 @@
+uuid: d4e5f607-8901-2345-def0-blogsocialstyle01
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: blog_social
+label: "Blog social (Open Graph / Twitter)"
+effects:
+  e5f60789-0123-4567-ef01-blogsocial000001:
+    uuid: e5f60789-0123-4567-ef01-blogsocial000001
+    id: focal_point_scale_and_crop
+    weight: 2
+    data:
+      width: 1200
+      height: 630
+      crop_type: focal_point
