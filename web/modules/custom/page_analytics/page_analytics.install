@@ -45,6 +45,17 @@ function page_analytics_schema() {
 }
 
 /**
+ * Implements hook_install().
+ */
+function page_analytics_install(): void {
+  $schema = \Drupal::database()->schema();
+  if (!$schema->tableExists('page_analytics_daily')) {
+    $def = page_analytics_schema();
+    $schema->createTable('page_analytics_daily', $def['page_analytics_daily']);
+  }
+}
+
+/**
  * Implements hook_uninstall().
  */
 function page_analytics_uninstall(): void {
