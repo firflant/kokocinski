@@ -1,4 +1,2 @@
-view page analytics:
-  title: "View page analytics report"
-  description: "Access the page analytics report at /admin/reports/page-analytics."
-  restrict access: true
+# Report route uses "access site reports"; no custom permission required.
+{}

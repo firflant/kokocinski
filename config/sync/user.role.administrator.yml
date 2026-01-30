@@ -8,7 +8,6 @@ dependencies:
     - block
     - filter
     - node
-    - page_analytics
     - system
     - toolbar
     - update
@@ -17,46 +16,45 @@ label: Administrator
 weight: 2
 is_admin: false
 permissions:
-  - 'access administration pages'
-  - 'access content'
-  - 'access content overview'
-  - 'access site in maintenance mode'
-  - 'access site reports'
-  - 'access toolbar'
-  - 'access user profiles'
-  - 'administer account settings'
-  - 'administer actions'
-  - 'administer blocks'
-  - 'administer content types'
-  - 'administer filters'
-  - 'administer menu'
-  - 'administer modules'
-  - 'administer node published status'
-  - 'administer nodes'
-  - 'administer permissions'
-  - 'administer site configuration'
-  - 'administer software updates'
-  - 'administer themes'
-  - 'administer users'
-  - 'bypass node access'
-  - 'cancel account'
-  - 'change own username'
-  - 'create page content'
-  - 'delete all revisions'
-  - 'delete any page content'
-  - 'delete own page content'
-  - 'delete page revisions'
-  - 'edit any page content'
-  - 'edit own page content'
-  - 'link to any page'
-  - 'rebuild node access permissions'
-  - 'revert all revisions'
-  - 'revert page revisions'
-  - 'select account cancellation method'
-  - 'view all revisions'
-  - 'view own unpublished content'
-  - 'view page analytics'
-  - 'view page revisions'
-  - 'view the administration theme'
-  - 'view update notifications'
-  - 'view user email addresses'
+  - "access administration pages"
+  - "access content"
+  - "access content overview"
+  - "access site in maintenance mode"
+  - "access site reports"
+  - "access toolbar"
+  - "access user profiles"
+  - "administer account settings"
+  - "administer actions"
+  - "administer blocks"
+  - "administer content types"
+  - "administer filters"
+  - "administer menu"
+  - "administer modules"
+  - "administer node published status"
+  - "administer nodes"
+  - "administer permissions"
+  - "administer site configuration"
+  - "administer software updates"
+  - "administer themes"
+  - "administer users"
+  - "bypass node access"
+  - "cancel account"
+  - "change own username"
+  - "create page content"
+  - "delete all revisions"
+  - "delete any page content"
+  - "delete own page content"
+  - "delete page revisions"
+  - "edit any page content"
+  - "edit own page content"
+  - "link to any page"
+  - "rebuild node access permissions"
+  - "revert all revisions"
+  - "revert page revisions"
+  - "select account cancellation method"
+  - "view all revisions"
+  - "view own unpublished content"
+  - "view page revisions"
+  - "view the administration theme"
+  - "view update notifications"
+  - "view user email addresses"

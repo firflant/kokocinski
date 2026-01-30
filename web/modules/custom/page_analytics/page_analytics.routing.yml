@@ -4,7 +4,7 @@ page_analytics.report:
     _controller: "page_analytics.report_controller:report"
     _title: "Page analytics"
   requirements:
-    _permission: "view page analytics"
+    _permission: "access site reports"
   options:
     _admin_route: true
 
