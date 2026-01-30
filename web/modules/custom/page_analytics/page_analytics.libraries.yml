@@ -1,0 +1,7 @@
+page_analytics.report:
+  js:
+    https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js:
+      { type: external, minified: true }
+    js/page-analytics-charts.js: {}
+  dependencies:
+    - core/drupal

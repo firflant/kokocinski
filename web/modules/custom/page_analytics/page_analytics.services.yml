@@ -1,0 +1,16 @@
+services:
+  page_analytics.report_controller:
+    class: Drupal\page_analytics\Controller\PageAnalyticsReportController
+    arguments:
+      - "@database"
+      - "@config.factory"
+
+  page_analytics.event_subscriber:
+    class: Drupal\page_analytics\EventSubscriber\PageAnalyticsSubscriber
+    arguments:
+      - "@config.factory"
+      - "@router.admin_context"
+      - "@queue"
+      - "@datetime.time"
+    tags:
+      - { name: event_subscriber }

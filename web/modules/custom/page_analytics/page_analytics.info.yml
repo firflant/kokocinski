@@ -1,0 +1,6 @@
+name: Page Analytics
+type: module
+description: "Server-side analytics: daily page view counts per non-admin page with admin report and charts."
+package: Custom
+core_version_requirement: ^11
+dependencies: []

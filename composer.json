@@ -23,7 +23,6 @@
         "drupal/focal_point": "^2.1",
         "drupal/metatag": "^2.0",
         "drupal/pathauto": "^1.14",
-        "drupal/statistics": "^1.0",
         "drupal/token_default": "2.0.0-rc2",
         "drush/drush": "^13.7"
     },

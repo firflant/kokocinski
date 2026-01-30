@@ -1,0 +1,13 @@
+page_analytics.report:
+  title: "Page analytics"
+  description: "View daily page view statistics per non-admin page."
+  route_name: page_analytics.report
+  parent: system.admin_reports
+  weight: 0
+
+page_analytics.settings:
+  title: "Page analytics"
+  description: "Configure sampling rate and data retention."
+  route_name: page_analytics.settings
+  parent: system.admin_config_system
+  weight: 0

@@ -1,0 +1,19 @@
+page_analytics.report:
+  path: "/admin/reports/page-analytics"
+  defaults:
+    _controller: "page_analytics.report_controller:report"
+    _title: "Page analytics"
+  requirements:
+    _permission: "view page analytics"
+  options:
+    _admin_route: true
+
+page_analytics.settings:
+  path: "/admin/config/system/page-analytics"
+  defaults:
+    _form: '\Drupal\page_analytics\Form\PageAnalyticsSettingsForm'
+    _title: "Page analytics"
+  requirements:
+    _permission: "administer site configuration"
+  options:
+    _admin_route: true

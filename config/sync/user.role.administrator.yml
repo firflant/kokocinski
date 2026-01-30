@@ -8,6 +8,7 @@ dependencies:
     - block
     - filter
     - node
+    - page_analytics
     - system
     - toolbar
     - update
@@ -54,6 +55,7 @@ permissions:
   - 'select account cancellation method'
   - 'view all revisions'
   - 'view own unpublished content'
+  - 'view page analytics'
   - 'view page revisions'
   - 'view the administration theme'
   - 'view update notifications'

@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Page Analytics module.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_schema().
+ */
+function page_analytics_schema() {
+  $schema['page_analytics_daily'] = [
+    'description' => 'Daily page view counts per path for non-admin pages.',
+    'fields' => [
+      'path' => [
+        'description' => 'Normalized request path (no query string).',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'stat_date' => [
+        'description' => 'Date of the statistic (YYYY-MM-DD).',
+        'type' => 'varchar',
+        'length' => 10,
+        'not null' => TRUE,
+      ],
+      'view_count' => [
+        'description' => 'Number of page views for this path on this date.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+    ],
+    'primary key' => ['path', 'stat_date'],
+    'indexes' => [
+      'stat_date' => ['stat_date'],
+    ],
+  ];
+
+  return $schema;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function page_analytics_uninstall(): void {
+  \Drupal::database()->schema()->dropTable('page_analytics_daily');
+}

@@ -1,0 +1,10 @@
+page_analytics.settings:
+  type: config_object
+  label: "Page analytics settings"
+  mapping:
+    sampling_rate:
+      type: integer
+      label: "Sampling rate (1 in N)"
+    retention_days:
+      type: integer
+      label: "Retention (days)"
