@@ -2,7 +2,6 @@
 
 namespace Drupal\page_analytics\Controller;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Url;
@@ -31,23 +30,13 @@ class PageAnalyticsReportController extends ControllerBase {
   protected Connection $connection;
 
   /**
-   * The config factory.
-   *
-   * @var \Drupal\Core\Config\ConfigFactoryInterface
-   */
-  protected ConfigFactoryInterface $configFactoryService;
-
-  /**
    * Constructs the controller.
    *
    * @param \Drupal\Core\Database\Connection $connection
    *   The database connection.
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The config factory.
    */
-  public function __construct(Connection $connection, ConfigFactoryInterface $configFactory) {
+  public function __construct(Connection $connection) {
     $this->connection = $connection;
-    $this->configFactoryService = $configFactory;
   }
 
   /**
@@ -64,14 +53,6 @@ class PageAnalyticsReportController extends ControllerBase {
     if ($period !== 7 && $period !== 30) {
       $period = 7;
     }
-
-    $sampling_rate = (int) $this->configFactoryService->get('page_analytics.settings')->get('sampling_rate');
-    if ($sampling_rate < 1) {
-      $sampling_rate = 1;
-    }
-    $sampling_note = $sampling_rate > 1
-      ? $this->t('Numbers are estimated from 1 in @rate sampling.', ['@rate' => $sampling_rate])
-      : '';
 
     $today = date('Y-m-d');
     $top_from = date('Y-m-d', strtotime('-' . self::TOP_DAYS . ' days'));
@@ -95,8 +76,6 @@ class PageAnalyticsReportController extends ControllerBase {
         '#period' => $period,
         '#period_7_url' => Url::fromRoute('page_analytics.report', ['query' => ['period' => 7]])->toString(),
         '#period_30_url' => Url::fromRoute('page_analytics.report', ['query' => ['period' => 30]])->toString(),
-        '#sampling_rate' => $sampling_rate,
-        '#sampling_note' => $sampling_note,
         '#attached' => [
           'library' => ['page_analytics/page_analytics.report'],
         ],
@@ -135,8 +114,8 @@ class PageAnalyticsReportController extends ControllerBase {
       $values = [];
       foreach ($date_labels as $d) {
         $v = $daily_by_path[$path][$d] ?? 0;
-        $values[] = $v * $sampling_rate;
-        $period_total += $v * $sampling_rate;
+        $values[] = $v;
+        $period_total += $v;
       }
 
       $rows[] = [
@@ -155,8 +134,6 @@ class PageAnalyticsReportController extends ControllerBase {
       '#period' => $period,
       '#period_7_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 7]])->toString(),
       '#period_30_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 30]])->toString(),
-      '#sampling_rate' => $sampling_rate,
-      '#sampling_note' => $sampling_note,
       '#attached' => [
         'library' => ['page_analytics/page_analytics.report'],
       ],

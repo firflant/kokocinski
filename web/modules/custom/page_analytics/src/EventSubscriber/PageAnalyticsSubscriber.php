@@ -4,6 +4,7 @@ namespace Drupal\page_analytics\EventSubscriber;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Routing\AdminContext;
+use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Component\Datetime\TimeInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
@@ -17,9 +18,9 @@ use Drupal\Core\Queue\QueueFactory;
 class PageAnalyticsSubscriber implements EventSubscriberInterface {
 
   /**
-   * Buffer of (path, date) to push to the queue after the response is sent.
+   * Buffer of (path, date, sampling_rate) to push to the queue after response.
    *
-   * @var array<int, array{path: string, date: string}>
+   * @var array<int, array{path: string, date: string, sampling_rate: int}>
    */
   protected static array $buffer = [];
 
@@ -52,6 +53,13 @@ class PageAnalyticsSubscriber implements EventSubscriberInterface {
   protected TimeInterface $time;
 
   /**
+   * The current user.
+   *
+   * @var \Drupal\Core\Session\AccountProxyInterface
+   */
+  protected AccountProxyInterface $currentUser;
+
+  /**
    * Constructs the subscriber.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
@@ -62,17 +70,21 @@ class PageAnalyticsSubscriber implements EventSubscriberInterface {
    *   The queue factory.
    * @param \Drupal\Component\Datetime\TimeInterface $time
    *   The time service.
+   * @param \Drupal\Core\Session\AccountProxyInterface $currentUser
+   *   The current user.
    */
   public function __construct(
     ConfigFactoryInterface $configFactory,
     AdminContext $adminContext,
     QueueFactory $queueFactory,
     TimeInterface $time,
+    AccountProxyInterface $currentUser,
   ) {
     $this->configFactory = $configFactory;
     $this->adminContext = $adminContext;
     $this->queueFactory = $queueFactory;
     $this->time = $time;
+    $this->currentUser = $currentUser;
   }
 
   /**
@@ -112,6 +124,11 @@ class PageAnalyticsSubscriber implements EventSubscriberInterface {
       return;
     }
 
+    if ($this->configFactory->get('page_analytics.settings')->get('exclude_authenticated_users')
+      && !$this->currentUser->isAnonymous()) {
+      return;
+    }
+
     if (static::isImagePath($path)) {
       return;
     }
@@ -124,12 +141,14 @@ class PageAnalyticsSubscriber implements EventSubscriberInterface {
     if ($rate >= 2 && mt_rand(1, $rate) !== 1) {
       return;
     }
+    $rate = max(1, $rate);
 
     $date = date('Y-m-d', $this->time->getRequestTime());
 
     self::$buffer[] = [
       'path' => $path,
       'date' => $date,
+      'sampling_rate' => $rate,
     ];
   }
 

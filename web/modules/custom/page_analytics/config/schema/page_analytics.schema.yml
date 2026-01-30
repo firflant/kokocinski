@@ -8,3 +8,6 @@ page_analytics.settings:
     retention_days:
       type: integer
       label: "Retention (days)"
+    exclude_authenticated_users:
+      type: boolean
+      label: "Exclude logged-in users"

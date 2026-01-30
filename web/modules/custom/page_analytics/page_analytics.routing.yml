@@ -17,3 +17,13 @@ page_analytics.settings:
     _permission: "administer site configuration"
   options:
     _admin_route: true
+
+page_analytics.flush:
+  path: "/admin/config/system/page-analytics/flush"
+  defaults:
+    _form: '\Drupal\page_analytics\Form\PageAnalyticsFlushForm'
+    _title: "Flush analytics"
+  requirements:
+    _permission: "administer site configuration"
+  options:
+    _admin_route: true

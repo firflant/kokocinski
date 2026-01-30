@@ -3,7 +3,6 @@ services:
     class: Drupal\page_analytics\Controller\PageAnalyticsReportController
     arguments:
       - "@database"
-      - "@config.factory"
 
   page_analytics.event_subscriber:
     class: Drupal\page_analytics\EventSubscriber\PageAnalyticsSubscriber
@@ -12,5 +11,6 @@ services:
       - "@router.admin_context"
       - "@queue"
       - "@datetime.time"
+      - "@current_user"
     tags:
       - { name: event_subscriber }

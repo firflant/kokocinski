@@ -93,10 +93,13 @@ class PageAnalyticsQueueWorker extends QueueWorkerBase implements ContainerFacto
       $path = substr($path, 0, 255);
     }
 
-    // Aggregate: key "path|date" => count. Start with the current item.
+    // Weight = estimated views for this sampled hit (1 sample at rate N => N views).
+    $weight = isset($data['sampling_rate']) ? max(1, (int) $data['sampling_rate']) : 1;
+
+    // Aggregate: key "path|date" => sum of weights (estimated total views).
     $aggregate = [];
     $key = $path . '|' . $date;
-    $aggregate[$key] = ['path' => $path, 'date' => $date, 'count' => 1];
+    $aggregate[$key] = ['path' => $path, 'date' => $date, 'count' => $weight];
 
     // Claim additional items from the queue (current item is deleted by cron).
     $queue = $this->queueFactory->get('page_analytics');
@@ -121,11 +124,13 @@ class PageAnalyticsQueueWorker extends QueueWorkerBase implements ContainerFacto
         $p = substr($p, 0, 255);
       }
 
+      $itemWeight = isset($itemData['sampling_rate']) ? max(1, (int) $itemData['sampling_rate']) : 1;
+
       $k = $p . '|' . $d;
       if (!isset($aggregate[$k])) {
         $aggregate[$k] = ['path' => $p, 'date' => $d, 'count' => 0];
       }
-      $aggregate[$k]['count']++;
+      $aggregate[$k]['count'] += $itemWeight;
     }
 
     // One merge per unique (path, date) with the summed count.
