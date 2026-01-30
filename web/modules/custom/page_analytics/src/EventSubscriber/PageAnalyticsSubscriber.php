@@ -129,7 +129,7 @@ class PageAnalyticsSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    if (static::isImagePath($path)) {
+    if (static::isExcludedAssetPath($path)) {
       return;
     }
 
@@ -171,17 +171,17 @@ class PageAnalyticsSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Checks if the path looks like an image file request.
+   * Checks if the path looks like an excluded asset (e.g. image or JS).
    *
    * @param string $path
-   *   The request path (e.g. /sites/default/files/photo.jpg).
+   *   The request path (e.g. /sites/default/files/photo.jpg or /themes/…/script.js).
    *
    * @return bool
-   *   TRUE if the path appears to be an image file, FALSE otherwise.
+   *   TRUE if the path appears to be an excluded asset file, FALSE otherwise.
    */
-  protected static function isImagePath(string $path): bool {
+  protected static function isExcludedAssetPath(string $path): bool {
     $extensions = [
-      'avif', 'bmp', 'gif', 'ico', 'jpeg', 'jpg', 'png', 'svg', 'webp',
+      'avif', 'bmp', 'gif', 'ico', 'jpeg', 'jpg', 'js', 'png', 'svg', 'webp',
     ];
     $lower = strtolower($path);
     foreach ($extensions as $ext) {

@@ -3,8 +3,6 @@
   Template for the page analytics report.
 #}
 <div class="page-analytics-report">
-  <h1>{{ 'Page analytics'|t }}</h1>
-
   {% if sampling_rate > 1 and sampling_note %}
     <p class="page-analytics-sampling-note">{{ sampling_note }}</p>
   {% endif %}

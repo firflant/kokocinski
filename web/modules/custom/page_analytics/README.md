@@ -41,10 +41,10 @@ Go to **Administration » Configuration » System » Page analytics** to configu
 
 ## How it works
 
-- On each successful (200) response for a non-admin, non-image path, the module
-  may enqueue a view (subject to sampling and optional exclusion of
-  authenticated users). Paths under `/admin` and image file extensions (e.g.
-  `.jpg`, `.png`) are not tracked. Paths longer than 255 characters are
+- On each successful (200) response for a non-admin path that is not a static
+  asset, the module may enqueue a view (subject to sampling and optional
+  exclusion of authenticated users). Paths under `/admin` and asset file
+  extensions (e.g. `.jpg`, `.png`, `.js`) are not tracked. Paths longer than 255 characters are
   truncated.
 - After the response is sent, enqueued items are added to the `page_analytics`
   queue.
@@ -64,7 +64,7 @@ sampling rate and "Exclude logged-in users" settings match your expectations.
 
 **Q: I want to exclude certain paths from being tracked.**
 **A:** The module does not expose path exclusion patterns in the UI. Admin
-routes and image paths are excluded by default. For custom exclusions, you
+routes and asset paths (images, JS, etc.) are excluded by default. For custom exclusions, you
 would need to implement an event subscriber that runs before
 `PageAnalyticsSubscriber` and prevents specific paths from being enqueued, or
 contribute a patch to add configurable path patterns.
