@@ -39,7 +39,7 @@
 
 {{ include('tailwind:navbar') }}
 
-{% set container_class = 'max-w-5xl' %}
+{% set container_class = node ? 'max-w-4xl' : 'max-w-7xl' %}
 
 {# Header region #}
 {% if page.header %}
