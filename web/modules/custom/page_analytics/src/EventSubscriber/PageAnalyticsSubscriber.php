@@ -181,7 +181,7 @@ class PageAnalyticsSubscriber implements EventSubscriberInterface {
    */
   protected static function isExcludedAssetPath(string $path): bool {
     $extensions = [
-      'avif', 'bmp', 'gif', 'ico', 'jpeg', 'jpg', 'js', 'png', 'svg', 'webp',
+      'avif', 'bmp', 'gif', 'ico', 'jpeg', 'jpg', 'js', 'php', 'png', 'svg', 'webp',
     ];
     $lower = strtolower($path);
     foreach ($extensions as $ext) {
