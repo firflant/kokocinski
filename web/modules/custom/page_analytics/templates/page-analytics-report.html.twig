@@ -8,7 +8,13 @@
   {% endif %}
 
   <p class="page-analytics-period">
-    {{ 'Show chart for:'|t }}
+    {{ 'Showing top'|t }}
+    <select class="page-analytics-top-select" onchange="if(this.value) window.location.href=this.value" aria-label="{{ 'Number of top paths to show'|t }}">
+      {% for opt in top_options %}
+        <option value="{{ opt.url|e('html_attr') }}" {{ top_limit == opt.value ? 'selected' }}>{{ opt.value }}</option>
+      {% endfor %}
+    </select>
+    {{ 'pages from the last:'|t }}
     {% if period == 7 %}
       <strong>{{ 'Last 7 days'|t }}</strong>
       | <a href="{{ period_30_url }}">{{ 'Last 30 days'|t }}</a>

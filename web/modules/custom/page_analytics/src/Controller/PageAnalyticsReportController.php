@@ -13,9 +13,16 @@ use Symfony\Component\HttpFoundation\Request;
 class PageAnalyticsReportController extends ControllerBase {
 
   /**
-   * Number of top paths to display.
+   * Allowed "top N" limit options for the report (query param: top).
+   *
+   * Public so preprocess can use it to build template options.
    */
-  protected const TOP_LIMIT = 50;
+  public const TOP_LIMIT_OPTIONS = [30, 100, 300];
+
+  /**
+   * Default number of top paths to display.
+   */
+  protected const DEFAULT_TOP_LIMIT = 30;
 
   /**
    * Days to use for "top paths" aggregation (always last 30 days).
@@ -54,6 +61,11 @@ class PageAnalyticsReportController extends ControllerBase {
       $period = 7;
     }
 
+    $top_limit = (int) $request->query->get('top', self::DEFAULT_TOP_LIMIT);
+    if (!in_array($top_limit, self::TOP_LIMIT_OPTIONS, TRUE)) {
+      $top_limit = self::DEFAULT_TOP_LIMIT;
+    }
+
     $today = date('Y-m-d');
     $top_from = date('Y-m-d', strtotime('-' . self::TOP_DAYS . ' days'));
     $chart_from = date('Y-m-d', strtotime('-' . $period . ' days'));
@@ -65,7 +77,7 @@ class PageAnalyticsReportController extends ControllerBase {
     $query->condition('r.stat_date', $today, '<=');
     $query->groupBy('r.path');
     $query->orderBy('total', 'DESC');
-    $query->range(0, self::TOP_LIMIT);
+    $query->range(0, $top_limit);
 
     $top_paths = $query->execute()->fetchAllKeyed(0, 1);
 
@@ -74,8 +86,9 @@ class PageAnalyticsReportController extends ControllerBase {
         '#theme' => 'page_analytics_report',
         '#rows' => [],
         '#period' => $period,
-        '#period_7_url' => Url::fromRoute('page_analytics.report', ['query' => ['period' => 7]])->toString(),
-        '#period_30_url' => Url::fromRoute('page_analytics.report', ['query' => ['period' => 30]])->toString(),
+        '#period_7_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 7, 'top' => $top_limit]])->toString(),
+        '#period_30_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 30, 'top' => $top_limit]])->toString(),
+        '#top_limit' => $top_limit,
         '#attached' => [
           'library' => ['page_analytics/page_analytics.report'],
         ],
@@ -132,8 +145,9 @@ class PageAnalyticsReportController extends ControllerBase {
       '#theme' => 'page_analytics_report',
       '#rows' => $rows,
       '#period' => $period,
-      '#period_7_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 7]])->toString(),
-      '#period_30_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 30]])->toString(),
+      '#period_7_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 7, 'top' => $top_limit]])->toString(),
+      '#period_30_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 30, 'top' => $top_limit]])->toString(),
+      '#top_limit' => $top_limit,
       '#attached' => [
         'library' => ['page_analytics/page_analytics.report'],
       ],
