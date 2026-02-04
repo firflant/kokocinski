@@ -10,21 +10,18 @@ use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Component\Datetime\TimeInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
-use Symfony\Component\HttpKernel\Event\TerminateEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Drupal\Core\Queue\QueueFactory;
 
 /**
  * Subscribes to kernel response to enqueue non-admin page views for analytics.
+ *
+ * Items are queued during the response phase (not on TERMINATE) so that
+ * collection still works when the client or reverse proxy closes the
+ * connection after the response is sent—a common production scenario where
+ * TERMINATE may never run.
  */
 class PageAnalyticsSubscriber implements EventSubscriberInterface {
-
-  /**
-   * Buffer of (path, date, sampling_rate) to push to the queue after response.
-   *
-   * @var array<int, array{path: string, date: string, sampling_rate: int}>
-   */
-  protected static array $buffer = [];
 
   /**
    * The config factory.
@@ -95,7 +92,6 @@ class PageAnalyticsSubscriber implements EventSubscriberInterface {
   public static function getSubscribedEvents(): array {
     return [
       KernelEvents::RESPONSE => ['onKernelResponse', -100],
-      KernelEvents::TERMINATE => ['onKernelTerminate'],
     ];
   }
 
@@ -147,29 +143,11 @@ class PageAnalyticsSubscriber implements EventSubscriberInterface {
 
     $date = date('Y-m-d', $this->time->getRequestTime());
 
-    self::$buffer[] = [
+    $this->queueFactory->get('page_analytics')->createItem([
       'path' => $path,
       'date' => $date,
       'sampling_rate' => $rate,
-    ];
-  }
-
-  /**
-   * Flushes the buffer to the queue after the response has been sent.
-   *
-   * @param \Symfony\Component\HttpKernel\Event\TerminateEvent $event
-   *   The terminate event.
-   */
-  public function onKernelTerminate(TerminateEvent $event): void {
-    if (self::$buffer === []) {
-      return;
-    }
-
-    $queue = $this->queueFactory->get('page_analytics');
-    foreach (self::$buffer as $item) {
-      $queue->createItem($item);
-    }
-    self::$buffer = [];
+    ]);
   }
 
   /**
