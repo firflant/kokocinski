@@ -39,6 +39,11 @@ Go to **Administration » Configuration » System » Page analytics** to configu
 - Charts show daily view counts for the selected period (7 or 30 days).
 - Use the period links to switch between 7-day and 30-day chart ranges.
 
+## Drush
+
+- **`drush page-analytics:status`** (alias: **`drush past`**) — Shows queue size,
+  table row count, last cron run, and current config.
+
 ## How it works
 
 - On each successful (200) response for a non-admin path that is not a static

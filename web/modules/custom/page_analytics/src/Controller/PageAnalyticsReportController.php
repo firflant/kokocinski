@@ -116,6 +116,7 @@ class PageAnalyticsReportController extends ControllerBase {
         ],
         '#cache' => [
           'max-age' => 0,
+          'contexts' => ['url.query_args'],
         ],
       ];
     }
@@ -178,6 +179,7 @@ class PageAnalyticsReportController extends ControllerBase {
       ],
       '#cache' => [
         'max-age' => 0,
+        'contexts' => ['url.query_args'],
       ],
     ];
   }
