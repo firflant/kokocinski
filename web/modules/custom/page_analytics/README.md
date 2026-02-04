@@ -46,8 +46,8 @@ Go to **Administration » Configuration » System » Page analytics** to configu
   exclusion of authenticated users). Paths under `/admin` and asset file
   extensions (e.g. `.jpg`, `.png`, `.js`) are not tracked. Paths longer than 255 characters are
   truncated.
-- After the response is sent, enqueued items are added to the `page_analytics`
-  queue.
+- Eligible page views are added to the `page_analytics` queue during the
+  response.
 - When cron runs, the queue worker upserts into the `page_analytics_daily`
   table (path + date, incrementing view count). The worker processes up to 100
   items per cron run and respects the configured sampling rate when

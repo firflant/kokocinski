@@ -1,0 +1,10 @@
+services:
+  page_analytics.commands:
+    class: Drupal\page_analytics\Drush\Commands\PageAnalyticsCommands
+    arguments:
+      - "@queue"
+      - "@database"
+      - "@state"
+      - "@config.factory"
+    tags:
+      - { name: drush.command }
