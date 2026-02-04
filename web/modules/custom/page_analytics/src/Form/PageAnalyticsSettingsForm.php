@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\page_analytics\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
@@ -70,7 +72,9 @@ class PageAnalyticsSettingsForm extends ConfigFormBase {
       ];
     }
     catch (RouteNotFoundException $e) {
-      // Route not yet registered (e.g. cache not cleared after deploy).
+      $this->getLogger('page_analytics')->debug('Flush route not available: @message', [
+        '@message' => $e->getMessage(),
+      ]);
     }
 
     return parent::buildForm($form, $form_state);

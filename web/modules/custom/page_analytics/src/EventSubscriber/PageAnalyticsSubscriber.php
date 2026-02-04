@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\page_analytics\EventSubscriber;
 
 use Drupal\Core\Config\ConfigFactoryInterface;

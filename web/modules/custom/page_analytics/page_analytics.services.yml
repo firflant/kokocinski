@@ -3,6 +3,7 @@ services:
     class: Drupal\page_analytics\Controller\PageAnalyticsReportController
     arguments:
       - "@database"
+      - "@datetime.time"
 
   page_analytics.event_subscriber:
     class: Drupal\page_analytics\EventSubscriber\PageAnalyticsSubscriber

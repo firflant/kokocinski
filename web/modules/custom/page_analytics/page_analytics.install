@@ -10,7 +10,7 @@ declare(strict_types=1);
 /**
  * Implements hook_schema().
  */
-function page_analytics_schema() {
+function page_analytics_schema(): array {
   $schema['page_analytics_daily'] = [
     'description' => 'Daily page view counts per path for non-admin pages.',
     'fields' => [
@@ -42,17 +42,6 @@ function page_analytics_schema() {
   ];
 
   return $schema;
-}
-
-/**
- * Implements hook_install().
- */
-function page_analytics_install(): void {
-  $schema = \Drupal::database()->schema();
-  if (!$schema->tableExists('page_analytics_daily')) {
-    $def = page_analytics_schema();
-    $schema->createTable('page_analytics_daily', $def['page_analytics_daily']);
-  }
 }
 
 /**

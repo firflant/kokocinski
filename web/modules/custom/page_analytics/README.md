@@ -34,8 +34,8 @@ Go to **Administration » Configuration » System » Page analytics** to configu
 
 ## Report
 
-- **Reports » Page analytics** shows the top 50 paths by total views over the
-  last 30 days.
+- **Reports » Page analytics** shows the top 30, 100, or 300 paths by total
+  views over the last 30 days (configurable via the report page).
 - Charts show daily view counts for the selected period (7 or 30 days).
 - Use the period links to switch between 7-day and 30-day chart ranges.
 
@@ -54,6 +54,13 @@ Go to **Administration » Configuration » System » Page analytics** to configu
   estimating totals.
 - The report reads from `page_analytics_daily` and uses the configured
   retention so that old rows are removed on cron.
+
+## Dependencies
+
+The report page uses [Chart.js](https://www.chartjs.org/) for line charts,
+loaded from a CDN (jsDelivr). Sites with a strict Content-Security-Policy or
+that disallow external scripts may need to override the `page_analytics/report`
+library to serve Chart.js from a local or allowed source.
 
 ## Troubleshooting & FAQ
 

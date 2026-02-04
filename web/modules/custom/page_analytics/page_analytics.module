@@ -29,27 +29,6 @@ function page_analytics_theme(array $existing, string $type, string $theme, stri
 }
 
 /**
- * Implements hook_preprocess_HOOK() for page_analytics_report.
- *
- * Builds top_options in PHP so the array reaches Twig without going through
- * the render-array pass that can drop or alter array variables.
- */
-function page_analytics_preprocess_page_analytics_report(array &$variables): void {
-  $period = (int) ($variables['period'] ?? 7);
-  $top_limit = (int) ($variables['top_limit'] ?? 30);
-
-  $variables['top_options'] = [];
-  foreach (\Drupal\page_analytics\Controller\PageAnalyticsReportController::TOP_LIMIT_OPTIONS as $n) {
-    $variables['top_options'][] = [
-      'value' => $n,
-      'url' => \Drupal\Core\Url::fromRoute('page_analytics.report', [], [
-        'query' => ['period' => $period, 'top' => $n],
-      ])->toString(),
-    ];
-  }
-}
-
-/**
  * Implements hook_cron().
  */
 function page_analytics_cron(): void {
