@@ -51,8 +51,8 @@ Go to **Administration » Configuration » System » Page analytics** to configu
   exclusion of authenticated users). Paths under `/admin` and asset file
   extensions (e.g. `.jpg`, `.png`, `.js`) are not tracked. Paths longer than 255 characters are
   truncated.
-- Eligible page views are added to the `page_analytics` queue during the
-  response.
+- Tracking runs in HTTP middleware before the page cache, so every 200
+  response is counted—including when the page is served from cache. Eligible page views are added to the `page_analytics` queue.
 - When cron runs, the queue worker upserts into the `page_analytics_daily`
   table (path + date, incrementing view count). The worker processes up to 100
   items per cron run and respects the configured sampling rate when
@@ -77,9 +77,9 @@ sampling rate and "Exclude logged-in users" settings match your expectations.
 **Q: I want to exclude certain paths from being tracked.**
 **A:** The module does not expose path exclusion patterns in the UI. Admin
 routes and asset paths (images, JS, etc.) are excluded by default. For custom exclusions, you
-would need to implement an event subscriber that runs before
-`PageAnalyticsSubscriber` and prevents specific paths from being enqueued, or
-contribute a patch to add configurable path patterns.
+would need to implement custom logic (e.g. a request policy or middleware)
+that prevents those paths from being enqueued, or contribute a patch to add
+configurable path patterns.
 
 **Q: Does this work with reverse proxies or CDNs?**
 **A:** Yes. Tracking happens in PHP on the Drupal server, so it counts requests

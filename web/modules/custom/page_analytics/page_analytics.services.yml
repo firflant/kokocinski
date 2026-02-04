@@ -5,13 +5,13 @@ services:
       - "@database"
       - "@datetime.time"
 
-  page_analytics.event_subscriber:
-    class: Drupal\page_analytics\EventSubscriber\PageAnalyticsSubscriber
+  # Before page cache (priority 210 > 200) so cache hits are counted too.
+  http_middleware.page_analytics:
+    class: Drupal\page_analytics\StackMiddleware\PageAnalyticsMiddleware
     arguments:
       - "@config.factory"
-      - "@router.admin_context"
       - "@queue"
       - "@datetime.time"
       - "@current_user"
     tags:
-      - { name: event_subscriber }
+      - { name: http_middleware, priority: 210 }
