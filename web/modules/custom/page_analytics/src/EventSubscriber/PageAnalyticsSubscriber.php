@@ -182,16 +182,8 @@ class PageAnalyticsSubscriber implements EventSubscriberInterface {
    *   TRUE if the path appears to be an excluded asset file, FALSE otherwise.
    */
   protected static function isExcludedAssetPath(string $path): bool {
-    $extensions = [
-      'avif', 'bmp', 'gif', 'ico', 'jpeg', 'jpg', 'js', 'php', 'png', 'svg', 'webp',
-    ];
-    $lower = strtolower($path);
-    foreach ($extensions as $ext) {
-      if (str_ends_with($lower, '.' . $ext)) {
-        return TRUE;
-      }
-    }
-    return FALSE;
+    // Exclude any path that ends with a file extension (.*).
+    return (bool) preg_match('/\.[a-zA-Z0-9]+$/', $path);
   }
 
 }
