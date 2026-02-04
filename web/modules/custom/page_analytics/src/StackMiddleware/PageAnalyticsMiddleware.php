@@ -108,7 +108,8 @@ class PageAnalyticsMiddleware implements HttpKernelInterface {
       $path = '/';
     }
 
-    if (str_starts_with($path, '/admin')) {
+    // Exclude /admin and /[lang]/admin (lang = 2- or 3-letter code, e.g. /en/admin, /und/admin).
+    if (preg_match('#^(?:/admin(?:/|$)|/[a-z]{2,3}/admin(?:/|$))#', $path)) {
       return $response;
     }
 
