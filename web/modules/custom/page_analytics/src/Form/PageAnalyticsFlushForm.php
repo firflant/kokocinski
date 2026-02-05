@@ -53,21 +53,21 @@ class PageAnalyticsFlushForm extends ConfirmFormBase implements ContainerInjecti
    * {@inheritdoc}
    */
   public function getQuestion(): string {
-    return $this->t('Are you sure you want to flush all page analytics data?');
+    return (string) $this->t('Are you sure you want to flush all page analytics data?');
   }
 
   /**
    * {@inheritdoc}
    */
   public function getDescription(): string {
-    return $this->t('All recorded page view counts will be permanently deleted. This action cannot be undone.');
+    return (string) $this->t('All recorded page view counts will be permanently deleted. This action cannot be undone.');
   }
 
   /**
    * {@inheritdoc}
    */
   public function getConfirmText(): string {
-    return $this->t('Flush analytics');
+    return (string) $this->t('Flush analytics');
   }
 
   /**
