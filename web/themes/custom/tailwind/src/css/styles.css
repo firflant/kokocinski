@@ -335,6 +335,12 @@
   @apply text-primary-400;
 }
 
+/* Remove backticks from prose inline code (Typography plugin adds them by default) */
+.prose code::before,
+.prose code::after {
+  content: none !important;
+}
+
 /* GLightbox styles */
 .glightbox-clean .gslide-description {
   background-color: #27272a !important;

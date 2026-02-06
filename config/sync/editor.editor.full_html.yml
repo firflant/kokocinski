@@ -13,6 +13,7 @@ settings:
     items:
       - bold
       - italic
+      - code
       - '|'
       - link
       - '|'
@@ -22,9 +23,9 @@ settings:
       - blockQuote
       - drupalInsertImage
       - insertTable
+      - codeBlock
       - '|'
       - heading
-      - codeBlock
   plugins:
     ckeditor5_codeBlock:
       languages:
