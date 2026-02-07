@@ -1,0 +1,40 @@
+{#
+/**
+ * @file
+ * Theme override for the "Other posts" block display - unformatted rows.
+ * Displays blog post teasers in a 2-column grid (same card form as listing).
+ *
+ * Available variables:
+ * - title: The title of this group of rows. May be empty.
+ * - rows: A list of the view's row items.
+ *   - attributes: The row's HTML attributes.
+ *   - content: The row's content.
+ * - view: The view object.
+ * - default_row_class: A flag indicating whether default classes should be
+ *   used on rows.
+ *
+ * @see template_preprocess_views_view_unformatted()
+ */
+#}
+{% if rows %}
+  <section class="pt-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-3xl font-bold text-white mb-0">{{ title|default('See my other posts') }}</h2>
+        <a href="{{ path('view.blog.page_1') }}" class="text-accent-main hover:text-accent-main/80 text-sm font-medium focus:outline-none focus:underline">{{ 'All posts'|t }}</a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {% for row in rows %}
+        {%
+          set row_classes = [
+            default_row_class ? 'views-row',
+          ]
+        %}
+        <div{{ row.attributes.addClass(row_classes) }}>
+          {{ row.content }}
+        </div>
+      {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endif %}

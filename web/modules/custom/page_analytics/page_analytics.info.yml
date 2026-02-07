@@ -4,4 +4,6 @@ description: "Server-side analytics: daily page view counts per non-admin page w
 package: Statistics
 core_version_requirement: ^11
 configure: page_analytics.settings
-dependencies: []
+dependencies:
+  - drupal:node
+  - drupal:views

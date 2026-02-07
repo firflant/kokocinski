@@ -1,0 +1,30 @@
+uuid: cc701156-044a-4db8-b56a-d88e0582bc55
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.blog
+  module:
+    - system
+    - views
+  theme:
+    - tailwind
+id: tailwind_views_block__blog_block_other_posts
+theme: tailwind
+region: footer
+weight: 0
+provider: null
+plugin: 'views_block:blog-block_other_posts'
+settings:
+  id: 'views_block:blog-block_other_posts'
+  label: ''
+  label_display: '0'
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: null
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/blog/*'
