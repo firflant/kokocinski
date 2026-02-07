@@ -62,9 +62,9 @@ class PageAnalyticsMiddleware implements HttpKernelInterface {
   /**
    * The path exclusion service.
    *
-   * @var \Drupal\page_analytics\PathExclusion\PageAnalyticsExclusion
+   * @var \Drupal\page_analytics\PathExclusion\PageAnalyticsExclusion|null
    */
-  protected PageAnalyticsExclusion $pathExclusion;
+  protected ?PageAnalyticsExclusion $pathExclusion;
 
   /**
    * Constructs the middleware.
@@ -88,7 +88,7 @@ class PageAnalyticsMiddleware implements HttpKernelInterface {
     QueueFactory $queueFactory,
     TimeInterface $time,
     AccountProxyInterface $currentUser,
-    PageAnalyticsExclusion $pathExclusion,
+    ?PageAnalyticsExclusion $pathExclusion = NULL,
   ) {
     $this->httpKernel = $http_kernel instanceof HttpKernelInterface
       ? fn () => $http_kernel
@@ -120,7 +120,7 @@ class PageAnalyticsMiddleware implements HttpKernelInterface {
       $path = '/';
     }
 
-    if ($this->pathExclusion->isPathExcluded($path)) {
+    if ($this->pathExclusion !== NULL && $this->pathExclusion->isPathExcluded($path)) {
       return $response;
     }
 
