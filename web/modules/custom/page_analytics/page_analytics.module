@@ -18,8 +18,6 @@ function page_analytics_theme(array $existing, string $type, string $theme, stri
         'period' => 7,
         'period_7_url' => '',
         'period_30_url' => '',
-        'top_limit' => 30,
-        'top_options' => [],
         'sampling_rate' => 1,
         'sampling_note' => '',
       ],

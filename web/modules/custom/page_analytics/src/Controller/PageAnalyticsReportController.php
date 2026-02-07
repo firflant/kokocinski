@@ -6,6 +6,7 @@ namespace Drupal\page_analytics\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Database\Query\PagerSelectExtender;
 use Drupal\Core\Url;
 use Drupal\Component\Datetime\TimeInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,14 +17,9 @@ use Symfony\Component\HttpFoundation\Request;
 class PageAnalyticsReportController extends ControllerBase {
 
   /**
-   * Allowed "top N" limit options for the report (query param: top).
+   * Number of rows per page (pager limit).
    */
-  public const TOP_LIMIT_OPTIONS = [30, 100, 300];
-
-  /**
-   * Default number of top paths to display.
-   */
-  protected const DEFAULT_TOP_LIMIT = 30;
+  protected const LIMIT_PER_PAGE = 25;
 
   /**
    * Days to use for "top paths" aggregation (always last 30 days).
@@ -72,11 +68,6 @@ class PageAnalyticsReportController extends ControllerBase {
       $period = 7;
     }
 
-    $top_limit = (int) $request->query->get('top', self::DEFAULT_TOP_LIMIT);
-    if (!in_array($top_limit, self::TOP_LIMIT_OPTIONS, TRUE)) {
-      $top_limit = self::DEFAULT_TOP_LIMIT;
-    }
-
     $request_time = $this->time->getRequestTime();
     $today = date('Y-m-d', $request_time);
     $top_from = date('Y-m-d', strtotime('-' . self::TOP_DAYS . ' days', $request_time));
@@ -87,38 +78,37 @@ class PageAnalyticsReportController extends ControllerBase {
     $sampling_note = $sampling_rate > 1
       ? (string) $this->t('Totals are estimated from sampled page views.')
       : '';
-    $top_options = $this->buildTopOptions($period);
 
-    $query = $this->connection->select('page_analytics_daily', 'r');
+    $query = $this->connection->select('page_analytics_daily', 'r')
+      ->extend(PagerSelectExtender::class);
     $query->addField('r', 'path');
     $query->addExpression('SUM(r.view_count)', 'total');
     $query->condition('r.stat_date', $top_from, '>=');
     $query->condition('r.stat_date', $today, '<=');
     $query->groupBy('r.path');
     $query->orderBy('total', 'DESC');
-    $query->range(0, $top_limit);
+    $query->limit(self::LIMIT_PER_PAGE);
 
     $top_paths = $query->execute()->fetchAllKeyed(0, 1);
 
     if (empty($top_paths)) {
-      return [
-        '#theme' => 'page_analytics_report',
-        '#rows' => [],
-        '#period' => $period,
-        '#period_7_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 7, 'top' => $top_limit]])->toString(),
-        '#period_30_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 30, 'top' => $top_limit]])->toString(),
-        '#top_limit' => $top_limit,
-        '#top_options' => $top_options,
-        '#sampling_rate' => $sampling_rate,
-        '#sampling_note' => $sampling_note,
-        '#attached' => [
-          'library' => ['page_analytics/page_analytics.report'],
+      $build = [
+        'report' => [
+          '#theme' => 'page_analytics_report',
+          '#rows' => [],
+          '#period' => $period,
+          '#period_7_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 7]])->toString(),
+          '#period_30_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 30]])->toString(),
+          '#sampling_rate' => $sampling_rate,
+          '#sampling_note' => $sampling_note,
+          '#attached' => [
+            'library' => ['page_analytics/page_analytics.report'],
+          ],
         ],
-        '#cache' => [
-          'max-age' => 0,
-          'contexts' => ['url.query_args'],
-        ],
+        'pager' => ['#type' => 'pager'],
       ];
+      $build['report']['#cache'] = ['max-age' => 0, 'contexts' => ['url.query_args']];
+      return $build;
     }
 
     $daily_query = $this->connection->select('page_analytics_daily', 'r');
@@ -164,46 +154,23 @@ class PageAnalyticsReportController extends ControllerBase {
       $index++;
     }
 
-    return [
-      '#theme' => 'page_analytics_report',
-      '#rows' => $rows,
-      '#period' => $period,
-      '#period_7_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 7, 'top' => $top_limit]])->toString(),
-      '#period_30_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 30, 'top' => $top_limit]])->toString(),
-      '#top_limit' => $top_limit,
-      '#top_options' => $top_options,
-      '#sampling_rate' => $sampling_rate,
-      '#sampling_note' => $sampling_note,
-      '#attached' => [
-        'library' => ['page_analytics/page_analytics.report'],
+    $build = [
+      'report' => [
+        '#theme' => 'page_analytics_report',
+        '#rows' => $rows,
+        '#period' => $period,
+        '#period_7_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 7]])->toString(),
+        '#period_30_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 30]])->toString(),
+        '#sampling_rate' => $sampling_rate,
+        '#sampling_note' => $sampling_note,
+        '#attached' => [
+          'library' => ['page_analytics/page_analytics.report'],
+        ],
       ],
-      '#cache' => [
-        'max-age' => 0,
-        'contexts' => ['url.query_args'],
-      ],
+      'pager' => ['#type' => 'pager'],
     ];
-  }
-
-  /**
-   * Builds the top_options array for the report template.
-   *
-   * @param int $period
-   *   The selected period (7 or 30 days).
-   *
-   * @return array<int, array{value: int, url: string}>
-   *   Options for the top N selector.
-   */
-  protected function buildTopOptions(int $period): array {
-    $options = [];
-    foreach (self::TOP_LIMIT_OPTIONS as $n) {
-      $options[] = [
-        'value' => $n,
-        'url' => Url::fromRoute('page_analytics.report', [], [
-          'query' => ['period' => $period, 'top' => $n],
-        ])->toString(),
-      ];
-    }
-    return $options;
+    $build['report']['#cache'] = ['max-age' => 0, 'contexts' => ['url.query_args']];
+    return $build;
   }
 
 }
