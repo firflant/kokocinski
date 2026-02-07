@@ -5,6 +5,12 @@ services:
       - "@database"
       - "@datetime.time"
 
+  page_analytics.path_exclusion:
+    class: Drupal\page_analytics\PathExclusion\PageAnalyticsExclusion
+    arguments:
+      - "@config.factory"
+      - "@path.matcher"
+
   # Before page cache (priority 210 > 200) so cache hits are counted too.
   http_middleware.page_analytics:
     class: Drupal\page_analytics\StackMiddleware\PageAnalyticsMiddleware
@@ -13,5 +19,6 @@ services:
       - "@queue"
       - "@datetime.time"
       - "@current_user"
+      - "@page_analytics.path_exclusion"
     tags:
       - { name: http_middleware, priority: 210 }

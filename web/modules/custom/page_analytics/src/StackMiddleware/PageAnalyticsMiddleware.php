@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\page_analytics\StackMiddleware;
 
+use Drupal\page_analytics\PathExclusion\PageAnalyticsExclusion;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Queue\QueueFactory;
 use Drupal\Core\Session\AccountProxyInterface;
@@ -59,6 +60,13 @@ class PageAnalyticsMiddleware implements HttpKernelInterface {
   protected AccountProxyInterface $currentUser;
 
   /**
+   * The path exclusion service.
+   *
+   * @var \Drupal\page_analytics\PathExclusion\PageAnalyticsExclusion
+   */
+  protected PageAnalyticsExclusion $pathExclusion;
+
+  /**
    * Constructs the middleware.
    *
    * @param \Symfony\Component\HttpKernel\HttpKernelInterface|\Closure $http_kernel
@@ -71,6 +79,8 @@ class PageAnalyticsMiddleware implements HttpKernelInterface {
    *   The time service.
    * @param \Drupal\Core\Session\AccountProxyInterface $currentUser
    *   The current user.
+   * @param \Drupal\page_analytics\PathExclusion\PageAnalyticsExclusion $pathExclusion
+   *   The path exclusion service.
    */
   public function __construct(
     HttpKernelInterface|\Closure $http_kernel,
@@ -78,6 +88,7 @@ class PageAnalyticsMiddleware implements HttpKernelInterface {
     QueueFactory $queueFactory,
     TimeInterface $time,
     AccountProxyInterface $currentUser,
+    PageAnalyticsExclusion $pathExclusion,
   ) {
     $this->httpKernel = $http_kernel instanceof HttpKernelInterface
       ? fn () => $http_kernel
@@ -86,6 +97,7 @@ class PageAnalyticsMiddleware implements HttpKernelInterface {
     $this->queueFactory = $queueFactory;
     $this->time = $time;
     $this->currentUser = $currentUser;
+    $this->pathExclusion = $pathExclusion;
   }
 
   /**
@@ -108,17 +120,12 @@ class PageAnalyticsMiddleware implements HttpKernelInterface {
       $path = '/';
     }
 
-    // Exclude /admin and /[lang]/admin (lang = 2- or 3-letter code, e.g. /en/admin, /und/admin).
-    if (preg_match('#^(?:/admin(?:/|$)|/[a-z]{2,3}/admin(?:/|$))#', $path)) {
+    if ($this->pathExclusion->isPathExcluded($path)) {
       return $response;
     }
 
     $settings = $this->configFactory->get('page_analytics.settings');
     if ($settings->get('exclude_authenticated_users') && !$this->currentUser->isAnonymous()) {
-      return $response;
-    }
-
-    if (self::isExcludedAssetPath($path)) {
       return $response;
     }
 
@@ -141,13 +148,6 @@ class PageAnalyticsMiddleware implements HttpKernelInterface {
     ]);
 
     return $response;
-  }
-
-  /**
-   * Checks if the path looks like an excluded asset (e.g. image or JS).
-   */
-  protected static function isExcludedAssetPath(string $path): bool {
-    return (bool) preg_match('/\.[a-zA-Z0-9]+$/', $path);
   }
 
 }

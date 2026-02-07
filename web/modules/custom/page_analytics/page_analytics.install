@@ -45,6 +45,16 @@ function page_analytics_schema(): array {
 }
 
 /**
+ * Set default excluded_paths for existing configs.
+ */
+function page_analytics_update_1001(): void {
+  $config = \Drupal::configFactory()->getEditable('page_analytics.settings');
+  if ($config->get('excluded_paths') === NULL) {
+    $config->set('excluded_paths', "/admin*\n/en/admin*")->save();
+  }
+}
+
+/**
  * Implements hook_uninstall().
  */
 function page_analytics_uninstall(): void {

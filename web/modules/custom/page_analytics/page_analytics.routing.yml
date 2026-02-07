@@ -22,7 +22,17 @@ page_analytics.flush:
   path: "/admin/config/system/page-analytics/flush"
   defaults:
     _form: '\Drupal\page_analytics\Form\PageAnalyticsFlushForm'
-    _title: "Flush analytics"
+    _title: "Flush all analytics"
+  requirements:
+    _permission: "administer site configuration"
+  options:
+    _admin_route: true
+
+page_analytics.prune_excluded:
+  path: "/admin/config/system/page-analytics/prune-excluded"
+  defaults:
+    _form: '\Drupal\page_analytics\Form\PageAnalyticsPruneExcludedForm'
+    _title: "Flush excluded paths"
   requirements:
     _permission: "administer site configuration"
   options:

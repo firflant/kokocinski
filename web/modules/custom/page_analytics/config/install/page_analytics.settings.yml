@@ -1,3 +1,6 @@
 sampling_rate: 3
 retention_days: 365
 exclude_authenticated_users: false
+excluded_paths: |
+  /admin*
+  /en/admin*

@@ -11,3 +11,6 @@ page_analytics.settings:
     exclude_authenticated_users:
       type: boolean
       label: "Exclude logged-in users"
+    excluded_paths:
+      type: string
+      label: "Excluded paths"

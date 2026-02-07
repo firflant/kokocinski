@@ -32,6 +32,9 @@ Go to **Administration » Configuration » System » Page analytics** to configu
    When enabled, page views by authenticated users are not counted. Use this
    to exclude staff or admin traffic from analytics.
 
+4. **Excluded paths**
+   Paths matching these rules are not tracked.
+
 ## Report
 
 - **Reports » Page analytics** shows the top 30, 100, or 300 paths by total
@@ -46,11 +49,10 @@ Go to **Administration » Configuration » System » Page analytics** to configu
 
 ## How it works
 
-- On each successful (200) response for a non-admin path that is not a static
-  asset, the module may enqueue a view (subject to sampling and optional
-  exclusion of authenticated users). Paths under `/admin` and asset file
-  extensions (e.g. `.jpg`, `.png`, `.js`) are not tracked. Paths longer than 255 characters are
-  truncated.
+- On each successful (200) response, the module may enqueue a view (subject to
+  sampling, excluded paths, and optional exclusion of authenticated users).
+  Path exclusion is configurable (prefix/suffix rules, wildcards). Paths
+  longer than 255 characters are truncated.
 - Tracking runs in HTTP middleware before the page cache, so every 200
   response is counted—including when the page is served from cache. Eligible page views are added to the `page_analytics` queue.
 - When cron runs, the queue worker upserts into the `page_analytics_daily`
@@ -75,11 +77,10 @@ Views are processed only when the queue worker runs. Also check that the
 sampling rate and "Exclude logged-in users" settings match your expectations.
 
 **Q: I want to exclude certain paths from being tracked.**
-**A:** The module does not expose path exclusion patterns in the UI. Admin
-routes and asset paths (images, JS, etc.) are excluded by default. For custom exclusions, you
-would need to implement custom logic (e.g. a request policy or middleware)
-that prevents those paths from being enqueued, or contribute a patch to add
-configurable path patterns.
+**A:** Use the "Excluded paths" textarea on the settings page. One rule per line;
+`/` = path prefix, `.` = file extension, `*` = wildcard. Use "Remove data for
+excluded paths" under Reset data to delete stored analytics for paths that
+match the current rules.
 
 **Q: Does this work with reverse proxies or CDNs?**
 **A:** Yes. Tracking happens in PHP on the Drupal server, so it counts requests
@@ -88,6 +89,6 @@ hitting Drupal are not counted unless you configure your stack to pass through
 (or re-request) for counting.
 
 **Q: How do I reset all data and start over?**
-**A:** Go to **Configuration » System » Page analytics** and use **Flush
-analytics** under "Reset data". Confirm on the next page. All rows in
-`page_analytics_daily` are deleted.
+**A:** Go to **Configuration » System » Page analytics**. Under "Reset data",
+use **Flush analytics** to delete all rows, or **Remove data for excluded
+paths** to delete only paths matching the current exclusion rules.

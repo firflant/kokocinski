@@ -63,6 +63,7 @@ final class PageAnalyticsCommands extends DrushCommands {
     $config = $this->configFactory->get('page_analytics.settings');
     $samplingRate = (int) $config->get('sampling_rate') ?: 1;
     $excludeAuth = (bool) $config->get('exclude_authenticated_users');
+    $excludedPaths = trim((string) $config->get('excluded_paths'));
 
     $this->output()->writeln('');
     $this->output()->writeln('Page Analytics status');
@@ -71,6 +72,18 @@ final class PageAnalyticsCommands extends DrushCommands {
     $this->output()->writeln('Table (page_analytics_daily): ' . ($tableExists ? $rowCount . ' rows' : 'MISSING'));
     $this->output()->writeln('Last cron run:           ' . $lastCronStr);
     $this->output()->writeln('Config: sampling_rate=' . $samplingRate . ', exclude_authenticated_users=' . ($excludeAuth ? 'yes' : 'no'));
+    $this->output()->writeln('Excluded paths:');
+    if ($excludedPaths !== '') {
+      foreach (explode("\n", $excludedPaths) as $line) {
+        $line = trim($line);
+        if ($line !== '') {
+          $this->output()->writeln('  ' . $line);
+        }
+      }
+    }
+    else {
+      $this->output()->writeln('  (none)');
+    }
     $this->output()->writeln('');
 
     if ($queueCount > 0 && $rowCount === 0 && !$lastCron) {

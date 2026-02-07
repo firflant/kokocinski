@@ -67,7 +67,7 @@ class PageAnalyticsFlushForm extends ConfirmFormBase implements ContainerInjecti
    * {@inheritdoc}
    */
   public function getConfirmText(): string {
-    return (string) $this->t('Flush analytics');
+    return (string) $this->t('Flush all analytics');
   }
 
   /**
