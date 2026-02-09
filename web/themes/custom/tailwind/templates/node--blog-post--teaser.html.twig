@@ -54,11 +54,11 @@
   {% endif %}
 
   {# Date #}
-  {# {% if node.created.value %}
+  {% if node.created.value %}
     <time datetime="{{ node.created.value|date('Y-m-d') }}" class="text-slate-400 text-sm mb-3 block">
       {{ node.created.value|date('F j, Y') }}
     </time>
-  {% endif %} #}
+  {% endif %}
 
   {# Body excerpt #}
   {% if content.body %}

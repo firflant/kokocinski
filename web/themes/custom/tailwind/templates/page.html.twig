@@ -45,6 +45,14 @@
 {% if page.header %}
   <header class="bg-primary-900 border-b border-primary-800">
     <div class="{{ container_class }} mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-12 pb-4 md:pb-6">
+      {% if node and node.bundle == 'blog_post' %}
+        {# Date #}
+        {% if node.created.value %}
+          <time datetime="{{ node.created.value|date('Y-m-d') }}" class="text-slate-400 text-sm mb-3 block">
+            {{ node.created.value|date('F j, Y') }}
+          </time>
+        {% endif %}
+      {% endif %}
       {{ page.header }}
     </div>
   </header>
