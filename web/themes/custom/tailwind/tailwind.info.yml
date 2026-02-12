@@ -1,6 +1,6 @@
 name: Tailwind
 type: theme
-description: 'A clean, blank Drupal 11 tailwind theme built with Tailwind CSS'
+description: "A clean, blank Drupal 11 tailwind theme built with Tailwind CSS"
 package: Custom
 core_version_requirement: ^11
 base theme: false
@@ -13,9 +13,6 @@ components:
 
 regions:
   header: Header
-  primary_menu: 'Primary menu'
-  page_top: 'Page top'
-  page_bottom: 'Page bottom'
   content: Content
   footer: Footer
 

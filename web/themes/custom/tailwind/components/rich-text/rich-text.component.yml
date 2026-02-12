@@ -1,0 +1,8 @@
+name: Rich Text
+status: ready
+description: "Prose wrapper for rich text / node body content"
+props:
+  content:
+    type: string
+    title: "Rendered content (e.g. node body)"
+    required: true

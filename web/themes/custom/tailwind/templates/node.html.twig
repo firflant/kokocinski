@@ -4,10 +4,4 @@
  * Theme override for a node in default view mode.
  */
 #}
-<article{{ attributes }}>
-  {% if content %}
-    <div class="prose prose-lg prose-invert max-w-none text-slate-300">
-      {{ content }}
-    </div>
-  {% endif %}
-</article>
+{{ include('tailwind:rich-text', { content: content }) }}

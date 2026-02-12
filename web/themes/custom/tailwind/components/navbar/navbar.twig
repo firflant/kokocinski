@@ -1,3 +1,5 @@
+{{ attach_library('tailwind/navbar') }}
+
 <nav id="main-navbar" class="relative w-full z-50 top-0 transition-all duration-300 h-16 border-white/5">
   <div class="max-w-7xl mx-auto px-6 h-full flex justify-between items-center">
     <a href="/" class="text-xl font-bold text-white tracking-tight">
@@ -6,8 +8,8 @@
 
     {# Primary Menu and Social Links #}
     <div class="hidden md:flex md:items-center md:space-x-8">
-      {% if page.primary_menu %}
-        {{ page.primary_menu }}
+      {% if primary_menu %}
+        {{ primary_menu }}
       {% endif %}
     </div>
 
@@ -40,9 +42,9 @@
     aria-labelledby="mobile-menu-button"
   >
     <div class="space-y-1 px-4 py-4 sm:px-6 lg:px-8">
-      {% if page.primary_menu %}
+      {% if primary_menu %}
         <div class="flex flex-col space-y-2 items-end">
-          {{ page.primary_menu }}
+          {{ primary_menu }}
         </div>
       {% endif %}
     </div>

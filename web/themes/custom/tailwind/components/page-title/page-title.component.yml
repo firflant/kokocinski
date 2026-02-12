@@ -1,0 +1,20 @@
+name: Page Title
+status: ready
+description: 'Page header with optional date (e.g. blog post) and header region content'
+props:
+  content:
+    type: string
+    title: 'Header region content (rendered)'
+    required: true
+  container_class:
+    type: string
+    title: 'CSS class for the inner container'
+    required: false
+  date_iso:
+    type: string
+    title: 'Date in ISO format (datetime attribute)'
+    required: false
+  date_formatted:
+    type: string
+    title: 'Date formatted for display'
+    required: false

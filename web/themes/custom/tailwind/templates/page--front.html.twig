@@ -4,14 +4,17 @@
  * Theme override for the front page (homepage).
  */
 #}
-{{ page.page_top }}
+
+{% set container_class = node ? 'max-w-4xl' : 'max-w-7xl' %}
 
 {# Content region will contain the custom blocks placed via module #}
 <main id="main-content" role="main">
   {# Status messages #}
-  {% if messages %}
-    {{ messages }}
-  {% endif %}
+  <div class="{{ container_class }} mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+    {% if messages %}
+        {{ messages }}
+    {% endif %}
+  </div>
 
   {# Navbar - positioned at top #}
   {{ include('tailwind:navbar') }}
@@ -30,13 +33,11 @@
   {# Contact #}
   {{ include('tailwind:contact') }}
 
-  {# Footer #}
-  {{ include('tailwind:footer') }}
-
   {# Footer region #}
   {% if page.footer %}
     {{ page.footer }}
   {% endif %}
-</main>
 
-{{ page.page_bottom }}
+  {# Footer #}
+  {% include('@tailwind/footer.html.twig') %}
+</main>

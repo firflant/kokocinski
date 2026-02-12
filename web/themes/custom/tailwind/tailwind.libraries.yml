@@ -1,9 +1,27 @@
 global-styling:
-  version: 1.0.0
   css:
     theme:
       dist/css/styles.css: {}
   js:
     js/main.js: {}
+  dependencies:
+    - core/drupal
+
+accordion:
+  js:
+    js/accordion.js: {}
+  dependencies:
+    - core/drupal
+
+about-services:
+  js:
+    components/about-services/about-services.js: {}
+  dependencies:
+    - core/drupal
+    - tailwind/accordion
+
+navbar:
+  js:
+    components/navbar/navbar.js: {}
   dependencies:
     - core/drupal
