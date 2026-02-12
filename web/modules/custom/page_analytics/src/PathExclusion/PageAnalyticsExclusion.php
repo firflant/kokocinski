@@ -39,14 +39,14 @@ class PageAnalyticsExclusion {
    *
    * @var \Drupal\Core\Routing\RouteProviderInterface
    */
-  protected RouteProviderInterface $routeProvider;
+  protected ?RouteProviderInterface $routeProvider;
 
   /**
    * Admin route helper.
    *
    * @var \Drupal\Core\Routing\AdminContext
    */
-  protected AdminContext $adminContext;
+  protected ?AdminContext $adminContext;
 
   /**
    * Constructs the service.
@@ -55,16 +55,16 @@ class PageAnalyticsExclusion {
    *   The config factory.
    * @param \Drupal\Core\Path\PathMatcherInterface $pathMatcher
    *   The path matcher (core path.matcher).
-   * @param \Drupal\Core\Routing\RouteProviderInterface $routeProvider
+   * @param \Drupal\Core\Routing\RouteProviderInterface|null $routeProvider
    *   Route provider service.
-   * @param \Drupal\Core\Routing\AdminContext $adminContext
+   * @param \Drupal\Core\Routing\AdminContext|null $adminContext
    *   Admin route helper service.
    */
   public function __construct(
     ConfigFactoryInterface $configFactory,
     PathMatcherInterface $pathMatcher,
-    RouteProviderInterface $routeProvider,
-    AdminContext $adminContext,
+    ?RouteProviderInterface $routeProvider = NULL,
+    ?AdminContext $adminContext = NULL,
   ) {
     $this->configFactory = $configFactory;
     $this->pathMatcher = $pathMatcher;
@@ -85,7 +85,7 @@ class PageAnalyticsExclusion {
    */
   public function isPathExcludedByCurrentRules(string $path): bool {
     $settings = $this->configFactory->get('page_analytics.settings');
-    if ((bool) $settings->get('exclude_admin_paths')) {
+    if ((bool) $settings->get('exclude_admin_paths') && $this->routeProvider !== NULL && $this->adminContext !== NULL) {
       try {
         $routes = $this->routeProvider->getRoutesByPattern($path);
         foreach ($routes as $route) {
