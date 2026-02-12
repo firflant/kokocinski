@@ -62,22 +62,40 @@ final class PageAnalyticsCommands extends DrushCommands {
 
     $config = $this->configFactory->get('page_analytics.settings');
     $samplingRate = (int) $config->get('sampling_rate') ?: 1;
-    $excludeAuth = (bool) $config->get('exclude_authenticated_users');
+    $retentionDays = (int) $config->get('retention_days') ?: 365;
+    $excludeAdminPaths = (bool) ($config->get('exclude_admin_paths') ?? TRUE);
+    $excludedRoles = $config->get('excluded_roles');
+    if (!is_array($excludedRoles)) {
+      $excludedRoles = [];
+    }
+    $excludedRoles = array_values(array_filter($excludedRoles, static fn ($role): bool => is_string($role) && $role !== ''));
     $excludedPaths = trim((string) $config->get('excluded_paths'));
 
     $this->output()->writeln('');
     $this->output()->writeln('Page Analytics status');
-    $this->output()->writeln('--------------------');
-    $this->output()->writeln('Queue (page_analytics):  ' . $queueCount . ' items');
-    $this->output()->writeln('Table (page_analytics_daily): ' . ($tableExists ? $rowCount . ' rows' : 'MISSING'));
-    $this->output()->writeln('Last cron run:           ' . $lastCronStr);
-    $this->output()->writeln('Config: sampling_rate=' . $samplingRate . ', exclude_authenticated_users=' . ($excludeAuth ? 'yes' : 'no'));
-    $this->output()->writeln('Excluded paths:');
+    $this->output()->writeln('-----------------------------------------------------');
+    $this->output()->writeln('Queue:                  ' . $queueCount . ' items');
+    $this->output()->writeln('Database table:         ' . ($tableExists ? $rowCount . ' rows' : 'MISSING'));
+    $this->output()->writeln('Last cron run:          ' . $lastCronStr);
+    $this->output()->writeln('Config:');
+    $this->output()->writeln('  Sampling rate:        ' . $samplingRate);
+    $this->output()->writeln('  Retention days:       ' . $retentionDays);
+    $this->output()->writeln('  Exclude admin paths:  ' . ($excludeAdminPaths ? 'yes' : 'no'));
+    $this->output()->writeln('  Excluded roles:');
+    if ($excludedRoles !== []) {
+      foreach ($excludedRoles as $role) {
+        $this->output()->writeln('    - ' . $role);
+      }
+    }
+    else {
+      $this->output()->writeln('    (none)');
+    }
+    $this->output()->writeln('  Excluded paths:');
     if ($excludedPaths !== '') {
       foreach (explode("\n", $excludedPaths) as $line) {
         $line = trim($line);
         if ($line !== '') {
-          $this->output()->writeln('  ' . $line);
+          $this->output()->writeln('    - ' . $line);
         }
       }
     }
@@ -91,12 +109,6 @@ final class PageAnalyticsCommands extends DrushCommands {
     }
     elseif ($queueCount > 0 && $rowCount === 0) {
       $this->logger()->warning('Queue has items but table is empty. Cron may not be running often enough or the worker may be failing. Run drush cron and check logs.');
-    }
-    elseif ($queueCount === 0 && $rowCount === 0) {
-      $this->logger()->notice('No queue items and no data. Either no eligible requests are reaching Drupal (e.g. all served from cache), or "Exclude logged-in users" is on and you are testing while logged in. Visit the site as an anonymous user and run this command again.');
-    }
-    if ($excludeAuth) {
-      $this->logger()->notice('"Exclude logged-in users" is ON: logged-in visits are not counted. Test anonymously.');
     }
   }
 

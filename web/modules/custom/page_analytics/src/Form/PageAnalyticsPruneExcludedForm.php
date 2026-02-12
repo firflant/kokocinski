@@ -92,7 +92,7 @@ class PageAnalyticsPruneExcludedForm extends ConfirmFormBase implements Containe
     $paths = $this->getExcludedPaths();
     $count = count($paths);
     if ($count === 0) {
-      return (string) $this->t('No stored paths match the current exclusion rules. Nothing will be removed.');
+      return (string) $this->t('No stored paths match the current exclusion rules (admin routes and excluded paths). Nothing will be removed.');
     }
     return (string) $this->t('The following @count path(s) will have their analytics data permanently removed:', [
       '@count' => $count,
@@ -154,7 +154,7 @@ class PageAnalyticsPruneExcludedForm extends ConfirmFormBase implements Containe
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $paths = $this->getExcludedPaths();
     if ($paths === []) {
-      $this->messenger()->addStatus($this->t('No paths matched the exclusion rules.'));
+      $this->messenger()->addStatus($this->t('No paths matched the current exclusion rules (admin routes and excluded paths).'));
       $form_state->setRedirectUrl($this->getCancelUrl());
       return;
     }
@@ -190,7 +190,7 @@ class PageAnalyticsPruneExcludedForm extends ConfirmFormBase implements Containe
       ->fetchCol();
 
     $this->excludedPaths = array_values(array_filter($all, function (string $path): bool {
-      return $this->pathExclusion->isPathExcluded($path);
+      return $this->pathExclusion->isPathExcludedByCurrentRules($path);
     }));
 
     return $this->excludedPaths;

@@ -6,6 +6,10 @@ namespace Drupal\page_analytics\PathExclusion;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Path\PathMatcherInterface;
+use Drupal\Core\Routing\AdminContext;
+use Drupal\Core\Routing\RouteProviderInterface;
+use Symfony\Component\Routing\Exception\ExceptionInterface as RoutingExceptionInterface;
+use Symfony\Component\Routing\Route;
 
 /**
  * Determines if a path is excluded from analytics using configurable rules.
@@ -31,30 +35,71 @@ class PageAnalyticsExclusion {
   protected PathMatcherInterface $pathMatcher;
 
   /**
+   * Route provider service.
+   *
+   * @var \Drupal\Core\Routing\RouteProviderInterface
+   */
+  protected RouteProviderInterface $routeProvider;
+
+  /**
+   * Admin route helper.
+   *
+   * @var \Drupal\Core\Routing\AdminContext
+   */
+  protected AdminContext $adminContext;
+
+  /**
    * Constructs the service.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The config factory.
    * @param \Drupal\Core\Path\PathMatcherInterface $pathMatcher
    *   The path matcher (core path.matcher).
+   * @param \Drupal\Core\Routing\RouteProviderInterface $routeProvider
+   *   Route provider service.
+   * @param \Drupal\Core\Routing\AdminContext $adminContext
+   *   Admin route helper service.
    */
-  public function __construct(ConfigFactoryInterface $configFactory, PathMatcherInterface $pathMatcher) {
+  public function __construct(
+    ConfigFactoryInterface $configFactory,
+    PathMatcherInterface $pathMatcher,
+    RouteProviderInterface $routeProvider,
+    AdminContext $adminContext,
+  ) {
     $this->configFactory = $configFactory;
     $this->pathMatcher = $pathMatcher;
+    $this->routeProvider = $routeProvider;
+    $this->adminContext = $adminContext;
   }
 
   /**
-   * Checks whether a path should be excluded from analytics.
+   * Checks whether a path is excluded by current rules.
+   *
+   * Includes admin route exclusion and custom excluded path patterns.
    *
    * @param string $path
    *   Normalized path (e.g. /foo/bar or /).
    *
    * @return bool
-   *   TRUE if the path matches any exclusion rule.
+   *   TRUE if excluded by current exclusion rules.
    */
-  public function isPathExcluded(string $path): bool {
-    $raw = (string) $this->configFactory->get('page_analytics.settings')->get('excluded_paths');
-    $patterns = $this->normalizePatterns($raw);
+  public function isPathExcludedByCurrentRules(string $path): bool {
+    $settings = $this->configFactory->get('page_analytics.settings');
+    if ((bool) $settings->get('exclude_admin_paths')) {
+      try {
+        $routes = $this->routeProvider->getRoutesByPattern($path);
+        foreach ($routes as $route) {
+          if ($route instanceof Route && $this->adminContext->isAdminRoute($route)) {
+            return TRUE;
+          }
+        }
+      }
+      catch (RoutingExceptionInterface $e) {
+        // Treat unresolved routes as non-admin here; path patterns may still match.
+      }
+    }
+
+    $patterns = $this->normalizePatterns((string) $settings->get('excluded_paths'));
     if ($patterns === '') {
       return FALSE;
     }

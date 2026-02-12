@@ -47,10 +47,30 @@ function page_analytics_schema(): array {
 /**
  * Set default excluded_paths for existing configs.
  */
-function page_analytics_update_1001(): void {
+function page_analytics_update_11001(): void {
   $config = \Drupal::configFactory()->getEditable('page_analytics.settings');
   if ($config->get('excluded_paths') === NULL) {
     $config->set('excluded_paths', "/admin*\n/en/admin*")->save();
+  }
+}
+
+/**
+ * Migrates user exclusion setting to role-based exclusion.
+ */
+function page_analytics_update_11002(): void {
+  \Drupal::configFactory()->getEditable('page_analytics.settings')
+    ->set('excluded_roles', [\Drupal\user\RoleInterface::AUTHENTICATED_ID])
+    ->clear('exclude_authenticated_users')
+    ->save();
+}
+
+/**
+ * Enables admin route exclusion by default.
+ */
+function page_analytics_update_11003(): void {
+  $config = \Drupal::configFactory()->getEditable('page_analytics.settings');
+  if ($config->get('exclude_admin_paths') === NULL) {
+    $config->set('exclude_admin_paths', TRUE)->save();
   }
 }
 

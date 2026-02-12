@@ -3,10 +3,6 @@
   Template for the page analytics report.
 #}
 <div class="page-analytics-report">
-  {% if sampling_rate > 1 and sampling_note %}
-    <p class="page-analytics-sampling-note">{{ sampling_note }}</p>
-  {% endif %}
-
   <p class="page-analytics-period">
     {{ 'Showing top pages from the last:'|t }}
     {% if period == 7 %}
@@ -19,13 +15,15 @@
   </p>
 
   {% if rows is empty %}
-    <p>{{ 'No page analytics data yet. Visit some non-admin pages and run cron to collect data.'|t }}</p>
+    <p>
+      {{ 'No page analytics data is available yet. Visit pages that do not match your <a href="@settings_url">current exclusion criteria</a> (often anonymously), then run cron.'|t({'@settings_url': path('page_analytics.settings')}) }}
+    </p>
   {% else %}
     <table class="page-analytics-table sticky-enabled">
       <thead>
         <tr>
           <th>{{ 'Path'|t }}</th>
-          <th>{{ 'Views (period)'|t }}</th>
+          <th>{{ 'Views in period'|t }}</th>
           <th>{{ 'Chart'|t }}</th>
         </tr>
       </thead>
@@ -37,13 +35,13 @@
             </td>
             <td>{{ row.total|number_format }}</td>
             <td>
-              <div class="page-analytics-chart-wrap" style="width: 280px; height: 80px;">
+              <div class="page-analytics-chart-wrap" style="width: 320px; height: 80px;">
                 <canvas
                   class="page-analytics-chart"
                   id="page-analytics-chart-{{ row.chart_index }}"
                   data-labels="{{ row.chart_labels|json_encode|e('html_attr') }}"
                   data-values="{{ row.chart_values|json_encode|e('html_attr') }}"
-                  width="280"
+                  width="320"
                   height="80"
                   role="img"
                   aria-label="{{ 'Views per day for'|t }} {{ row.path }}"

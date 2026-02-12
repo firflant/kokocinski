@@ -2,5 +2,7 @@ _core:
   default_config_hash: KgZ4x4uTVYwkqL7ZsQS3dAPxmIwtwRDS11esV_PWGaw
 sampling_rate: 3
 retention_days: 365
-exclude_authenticated_users: true
-excluded_paths: "/admin*\r\n/en/admin*"
+exclude_admin_paths: true
+excluded_roles:
+  - authenticated
+excluded_paths: /user/login

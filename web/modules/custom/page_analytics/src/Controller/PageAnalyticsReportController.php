@@ -73,12 +73,6 @@ class PageAnalyticsReportController extends ControllerBase {
     $top_from = date('Y-m-d', strtotime('-' . self::TOP_DAYS . ' days', $request_time));
     $chart_from = date('Y-m-d', strtotime('-' . $period . ' days', $request_time));
 
-    $settings = $this->config('page_analytics.settings');
-    $sampling_rate = max(1, (int) $settings->get('sampling_rate'));
-    $sampling_note = $sampling_rate > 1
-      ? (string) $this->t('Totals are estimated from sampled page views.')
-      : '';
-
     $query = $this->connection->select('page_analytics_daily', 'r')
       ->extend(PagerSelectExtender::class);
     $query->addField('r', 'path');
@@ -99,8 +93,6 @@ class PageAnalyticsReportController extends ControllerBase {
           '#period' => $period,
           '#period_7_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 7]])->toString(),
           '#period_30_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 30]])->toString(),
-          '#sampling_rate' => $sampling_rate,
-          '#sampling_note' => $sampling_note,
           '#attached' => [
             'library' => ['page_analytics/page_analytics.report'],
           ],
@@ -161,8 +153,6 @@ class PageAnalyticsReportController extends ControllerBase {
         '#period' => $period,
         '#period_7_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 7]])->toString(),
         '#period_30_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 30]])->toString(),
-        '#sampling_rate' => $sampling_rate,
-        '#sampling_note' => $sampling_note,
         '#attached' => [
           'library' => ['page_analytics/page_analytics.report'],
         ],

@@ -8,7 +8,7 @@ in your database and processed via Drupal's queue on cron.
 ## Installation
 
 Install and enable the module as usual. To see data in the report: visit some
-front-end pages (as an anonymous user if "Exclude logged-in users" is on), then
+front-end pages (as a user whose role is not excluded), then
 run cron. The queue worker runs on cron and writes to the analytics table.
 
 **Cron:** Run cron often (e.g. every 15 minutes). If cron runs rarely, the
@@ -28,11 +28,14 @@ Go to **Administration » Configuration » System » Page analytics** to configu
 2. **Keep data for (days)**
    Rows older than this many days are deleted when cron runs. Default is 365.
 
-3. **Exclude logged-in users**
-   When enabled, page views by authenticated users are not counted. Use this
-   to exclude staff or admin traffic from analytics.
+3. **Exclude admin paths**
+   Enabled by default. When enabled, admin routes are not counted.
 
-4. **Excluded paths**
+4. **Exclude following roles**
+   Page views by users with any selected role are not counted. Select
+   **Authenticated** to exclude all logged-in users.
+
+5. **Excluded paths**
    Paths matching these rules are not tracked.
 
 ## Report
@@ -50,7 +53,8 @@ Go to **Administration » Configuration » System » Page analytics** to configu
 ## How it works
 
 - On each successful (200) response, the module may enqueue a view (subject to
-  sampling, excluded paths, and optional exclusion of authenticated users).
+  sampling, admin route exclusion, excluded paths, and optional exclusion of
+  selected user roles).
   Path exclusion is configurable (prefix/suffix rules, wildcards). Paths
   longer than 255 characters are truncated.
 - Tracking runs in HTTP middleware before the page cache, so every 200
@@ -74,13 +78,14 @@ library to serve Chart.js from a local or allowed source.
 **Q: The report is empty or numbers are zero.**
 **A:** Ensure cron is running (e.g. **Reports » Status report** or `drush cron`).
 Views are processed only when the queue worker runs. Also check that the
-sampling rate and "Exclude logged-in users" settings match your expectations.
+sampling rate and role exclusion settings match your expectations.
 
 **Q: I want to exclude certain paths from being tracked.**
 **A:** Use the "Excluded paths" textarea on the settings page. One rule per line;
 `/` = path prefix, `.` = file extension, `*` = wildcard. Use "Remove data for
 excluded paths" under Reset data to delete stored analytics for paths that
-match the current rules.
+match the current rules. Admin routes are handled separately by the
+"Exclude admin paths" setting.
 
 **Q: Does this work with reverse proxies or CDNs?**
 **A:** Yes. Tracking happens in PHP on the Drupal server, so it counts requests

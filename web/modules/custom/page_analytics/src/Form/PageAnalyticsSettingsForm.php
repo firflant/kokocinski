@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\page_analytics\Form;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 /**
@@ -32,6 +35,8 @@ class PageAnalyticsSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
+    $settings = $this->config('page_analytics.settings');
+
     $form['performance'] = [
       '#type' => 'details',
       '#title' => $this->t('Performance settings'),
@@ -57,18 +62,38 @@ class PageAnalyticsSettingsForm extends ConfigFormBase {
       '#title' => $this->t('Excluding'),
       '#open' => TRUE,
     ];
-    $form['excluding']['exclude_authenticated_users'] = [
+    $form['excluding']['exclude_admin_paths'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Exclude logged-in users'),
-      '#config_target' => 'page_analytics.settings:exclude_authenticated_users',
-      '#description' => $this->t('When enabled, page views by authenticated users are not counted. Use this to exclude admin or staff traffic from analytics.'),
+      '#title' => $this->t('Exclude admin paths'),
+      '#config_target' => 'page_analytics.settings:exclude_admin_paths',
+      '#description' => $this->t('When enabled, pages on admin routes are not counted.'),
+    ];
+
+    // Mirror core's role widget approach from user account form:
+    // load roles, exclude anonymous, keep authenticated and custom roles.
+    $roles = Role::loadMultiple();
+    unset($roles[RoleInterface::ANONYMOUS_ID]);
+    $role_options = array_map(static fn (RoleInterface $role): string => Html::escape($role->label()), $roles);
+
+    $excluded_roles = $settings->get('excluded_roles');
+    if (!is_array($excluded_roles)) {
+      $excluded_roles = [];
+    }
+    $excluded_roles = array_values(array_filter($excluded_roles, static fn ($role): bool => is_string($role) && $role !== ''));
+
+    $form['excluding']['excluded_roles'] = [
+      '#type' => 'checkboxes',
+      '#title' => $this->t('Exclude following roles'),
+      '#options' => $role_options,
+      '#default_value' => $excluded_roles,
+      '#description' => $this->t('Page views from users with any selected role are not counted. Select "Authenticated" to exclude all logged-in users.'),
     ];
     $form['excluding']['excluded_paths'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Excluded paths'),
       '#config_target' => 'page_analytics.settings:excluded_paths',
       '#rows' => 6,
-      '#description' => $this->t('One path per line, use <code>*</code> as wildcard. E.g. /admin*, /user/login.'),
+      '#description' => $this->t('One path per line. Path must start with <code>/</code>. Use <code>*</code> as wildcard. E.g. <code>/user/login</code>, <code>/jsonapi/*</code>.'),
     ];
 
     try {
@@ -97,7 +122,7 @@ class PageAnalyticsSettingsForm extends ConfigFormBase {
           '#weight' => 10,
         ];
         $form['flush']['flush_excluded']['description'] = [
-          '#markup' => '<p>' . $this->t('Remove analytics data only for paths that match the current exclusion rules. A confirmation page will list the paths to be removed.') . '</p>',
+          '#markup' => '<p>' . $this->t('Remove analytics data only for paths that match the current exclusion rules (admin routes and excluded paths). A confirmation page will list the paths to be removed.') . '</p>',
         ];
         $form['flush']['flush_excluded']['link'] = [
           '#type' => 'link',
@@ -117,6 +142,29 @@ class PageAnalyticsSettingsForm extends ConfigFormBase {
     }
 
     return parent::buildForm($form, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
+    $excluded_roles = $form_state->getValue('excluded_roles');
+    if (!is_array($excluded_roles)) {
+      $excluded_roles = [];
+    }
+
+    // Checkboxes submit all options; keep only checked role IDs.
+    if (is_string(key($excluded_roles))) {
+      $excluded_roles = array_keys(array_filter($excluded_roles));
+    }
+
+    $excluded_roles = array_values(array_filter($excluded_roles, static fn ($role): bool => is_string($role) && $role !== ''));
+    $this->configFactory()->getEditable('page_analytics.settings')
+      ->set('excluded_roles', $excluded_roles)
+      ->clear('exclude_authenticated_users')
+      ->save();
+
+    parent::submitForm($form, $form_state);
   }
 
 }

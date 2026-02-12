@@ -120,12 +120,18 @@ class PageAnalyticsMiddleware implements HttpKernelInterface {
       $path = '/';
     }
 
-    if ($this->pathExclusion !== NULL && $this->pathExclusion->isPathExcluded($path)) {
+    $settings = $this->configFactory->get('page_analytics.settings');
+    if ($this->pathExclusion !== NULL && $this->pathExclusion->isPathExcludedByCurrentRules($path)) {
       return $response;
     }
 
-    $settings = $this->configFactory->get('page_analytics.settings');
-    if ($settings->get('exclude_authenticated_users') && !$this->currentUser->isAnonymous()) {
+    $excluded_roles = $settings->get('excluded_roles');
+    if (!is_array($excluded_roles)) {
+      $excluded_roles = [];
+    }
+    $excluded_roles = array_values(array_filter($excluded_roles, static fn ($role): bool => is_string($role) && $role !== ''));
+
+    if ($excluded_roles !== [] && array_intersect($this->currentUser->getRoles(), $excluded_roles)) {
       return $response;
     }
 

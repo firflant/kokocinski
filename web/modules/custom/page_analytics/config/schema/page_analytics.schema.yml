@@ -8,9 +8,15 @@ page_analytics.settings:
     retention_days:
       type: integer
       label: "Retention (days)"
-    exclude_authenticated_users:
+    exclude_admin_paths:
       type: boolean
-      label: "Exclude logged-in users"
+      label: "Exclude admin paths"
+    excluded_roles:
+      type: sequence
+      label: "Excluded roles"
+      sequence:
+        type: string
+        label: "Role ID"
     excluded_paths:
       type: string
       label: "Excluded paths"
