@@ -1,0 +1,32 @@
+<article class="group block h-full flex flex-col overflow-hidden rounded-2xl bg-white/5 border border-white/5 hover:border-accent-main/50 transition-all">
+  {% if image %}
+    <a href="{{ url }}" class="block overflow-hidden rounded-t-2xl shrink-0">
+      {{ image }}
+    </a>
+  {% endif %}
+
+  <div class="flex flex-col flex-1 p-8">
+    {% if title %}
+      <h3 class="text-xl font-bold text-white mb-3 transition-colors">
+        <a href="{{ url }}" class="hover:underline">{{ title }}</a>
+      </h3>
+    {% endif %}
+
+    {% if date_iso and date_formatted %}
+      <time datetime="{{ date_iso }}" class="text-slate-400 text-sm mb-3 block">
+        {{ date_formatted }}
+      </time>
+    {% endif %}
+
+    {% if body %}
+      <div class="text-slate-400 text-sm leading-relaxed line-clamp-3 mb-4">
+        {{ body }}
+      </div>
+    {% endif %}
+
+    <a href="{{ url }}" class="text-accent-main hover:text-accent-main/80 text-sm font-medium inline-flex items-center mt-auto">
+      {{ read_more_text|default('Read more') }}
+      <i class="fas fa-arrow-right ml-2 text-xs"></i>
+    </a>
+  </div>
+</article>

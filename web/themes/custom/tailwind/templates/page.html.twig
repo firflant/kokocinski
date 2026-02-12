@@ -46,19 +46,16 @@
   }) }}
 {% endif %}
 
-{# Main Content Area - Simplified to ensure content renders #}
-<main id="main-content" role="main" class="bg-primary-800/30 min-h-screen">
-  <div class="{{ container_class }} mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-    {# Status messages #}
+{% embed 'tailwind:content' with { container: node ? 'narrow' : 'normal' } %}
+  {% block children %}
     {% if messages %}
       <div class="mb-4">
         {{ messages }}
       </div>
     {% endif %}
-
     {{ page.content }}
-  </div>
-</main>
+  {% endblock %}
+{% endembed %}
 
 {# Footer region #}
 {% if page.footer %}

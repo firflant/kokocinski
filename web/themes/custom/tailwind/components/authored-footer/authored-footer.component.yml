@@ -1,0 +1,8 @@
+name: Authored Footer
+status: ready
+description: 'Author bio footer for blog posts'
+props:
+  directory:
+    type: string
+    title: 'Theme directory path (for image URL)'
+    required: false

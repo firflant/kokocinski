@@ -1,0 +1,24 @@
+name: Portfolio Card
+status: ready
+description: 'Card for portfolio item teaser with image, title, technologies and description'
+props:
+  url:
+    type: string
+    title: 'Link URL (entire card is clickable)'
+    required: true
+  image:
+    type: string
+    title: 'Rendered image content'
+    required: false
+  title:
+    type: string
+    title: 'Card title'
+    required: false
+  technologies:
+    type: string
+    title: 'Technologies / tags (plain text)'
+    required: false
+  description:
+    type: string
+    title: 'Short description (plain text)'
+    required: false

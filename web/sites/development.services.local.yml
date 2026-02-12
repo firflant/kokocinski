@@ -1,0 +1,9 @@
+parameters:
+  # Twig development settings
+  # These settings persist through Drupal core updates because this file
+  # is not managed by the scaffold system.
+  twig.config:
+    debug: true
+    auto_reload: true
+    cache: false
+

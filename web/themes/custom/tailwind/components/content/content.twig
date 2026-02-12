@@ -1,0 +1,8 @@
+{% set container_class = container|default('normal') == 'narrow' ? 'max-w-4xl' : 'max-w-7xl' %}
+<main id="main-content" role="main" class="bg-primary-800/30 min-h-screen">
+  <div class="{{ container_class }} mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+    {% block children %}
+      {{ children|default(slots.children|default('')) }}
+    {% endblock %}
+  </div>
+</main>

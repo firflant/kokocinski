@@ -1,0 +1,32 @@
+name: Block Card
+status: ready
+description: 'Card block with optional image, title, date, excerpt and read-more link'
+props:
+  url:
+    type: string
+    title: 'Link URL'
+    required: true
+  title:
+    type: string
+    title: 'Card title'
+    required: false
+  image:
+    type: string
+    title: 'Rendered image (above title)'
+    required: false
+  date_iso:
+    type: string
+    title: 'Date in ISO format (datetime attribute)'
+    required: false
+  date_formatted:
+    type: string
+    title: 'Date formatted for display'
+    required: false
+  body:
+    type: string
+    title: 'Rendered excerpt/body content'
+    required: false
+  read_more_text:
+    type: string
+    title: '"Read more" link label'
+    required: false

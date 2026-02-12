@@ -10,29 +10,10 @@
  * @see template_preprocess_node()
  */
 #}
-<article{{ attributes }}>
-  {% if node.field_image.entity %}
-    <div class="mb-8 overflow-hidden rounded-2xl">
-      {{ content.field_image }}
-    </div>
-  {% endif %}
+{% if node.field_image.entity %}
+  {{ include('tailwind:content-image', { content: content.field_image }) }}
+{% endif %}
 
-  <div class="prose prose-lg prose-invert max-w-none text-slate-300">
-    {{ content|without('field_image') }}
-  </div>
+{{ include('tailwind:rich-text', { content: content|without('field_image') }) }}
 
-  <footer class="mt-12 pt-8 border-t border-white/10 not-prose" aria-label="{{ 'About the author'|t }}">
-    <div class="flex flex-col sm:flex-row gap-5 sm:gap-6 items-start">
-      <a href="/" class="block shrink-0 rounded-full ring-2 ring-white/10 ring-offset-2 ring-offset-primary-900 transition-opacity hover:opacity-90 focus:opacity-90 focus:outline-none focus:ring-2 focus:ring-accent-teal focus:ring-offset-2 focus:ring-offset-primary-900">
-        <img src="/{{ directory }}/images/profile-pic.jpeg" alt="{{ 'About the author'|t }}" class="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-full block" loading="lazy" width="80" height="80" />
-      </a>
-      <div class="min-w-0 max-w-xl">
-        <p class="text-xs font-medium uppercase tracking-wider text-slate-500 mb-1.5">{{ 'Written by'|t }}</p>
-        <p class="text-white font-semibold text-base m-0"><a href="/" class="text-white hover:text-accent-teal focus:text-accent-teal focus:outline-none focus:underline transition-colors">Michał Kokociński</a></p>
-        <p class="text-slate-400 text-sm mt-2 mb-0 leading-relaxed">
-          I mix a combination of skills from both the JavaScript and PHP landscapes. After starting in Drupal, I transitioned into React applications. I have since returned to the Drupal ecosystem, applying modern frontend methodologies to Drupal 11. I am leveraging LLMs and Prompt Engineering to deliver quality software with optimized effort.
-        </p>
-      </div>
-    </div>
-  </footer>
-</article>
+{{ include('tailwind:authored-footer', { directory: directory }) }}

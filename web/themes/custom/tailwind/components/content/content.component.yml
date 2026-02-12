@@ -1,0 +1,23 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Content
+status: stable
+group: Sections
+description: Universal centered content container with configurable width and child slot.
+props:
+  type: object
+  properties:
+    container:
+      type: string
+      title: Container width
+      description: Choose narrow (max-w-4xl) for content pages or normal (max-w-7xl) for wider layouts
+      enum:
+        - normal
+        - narrow
+      default: normal
+      examples:
+        - normal
+        - narrow
+slots:
+  children:
+    title: Children
+    description: Nested content rendered inside the centered container.

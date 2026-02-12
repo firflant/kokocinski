@@ -1,0 +1,8 @@
+name: Content Image
+status: ready
+description: 'Wrapped image for content (e.g. blog post featured image)'
+props:
+  content:
+    type: string
+    title: 'Rendered image field'
+    required: true
