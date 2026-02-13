@@ -51,8 +51,9 @@ class PageAnalyticsFilterForm extends FormBase {
       '#type' => 'search',
       '#name' => 'filter',
       '#title' => $this->t('Filter'),
+      '#title_display' => 'invisible',
       '#size' => 30,
-      '#placeholder' => $this->t('Filter by path'),
+      '#placeholder' => $this->t('Filter by page'),
       '#default_value' => $path_filter,
       '#attributes' => [
         'class' => ['table-filter-text'],

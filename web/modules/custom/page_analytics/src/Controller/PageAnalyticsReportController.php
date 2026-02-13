@@ -78,8 +78,8 @@ class PageAnalyticsReportController extends ControllerBase {
     $period_30_url = Url::fromRoute('page_analytics.report', [], ['query' => $period_query_30])->toString();
 
     $period_links = $period === 7
-      ? Markup::create('<strong>' . $this->t('7 days') . '</strong> | <a href="' . Html::escape($period_30_url) . '">' . $this->t('30 days') . '</a>')
-      : Markup::create('<a href="' . Html::escape($period_7_url) . '">' . $this->t('7 days') . '</a> | <strong>' . $this->t('30 days') . '</strong>');
+      ? Markup::create('<strong>' . $this->t('Week') . '</strong> | <a href="' . Html::escape($period_30_url) . '">' . $this->t('Month') . '</a>')
+      : Markup::create('<a href="' . Html::escape($period_7_url) . '">' . $this->t('Week') . '</a> | <strong>' . $this->t('Month') . '</strong>');
 
     $build = [
       'period_switcher' => [
