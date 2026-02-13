@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Drupal\page_analytics\Controller;
 
+use Drupal\Component\Datetime\TimeInterface;
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Database\Query\PagerSelectExtender;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Url;
-use Drupal\Component\Datetime\TimeInterface;
+use Drupal\page_analytics\Form\PageAnalyticsFilterForm;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -67,6 +70,25 @@ class PageAnalyticsReportController extends ControllerBase {
     if ($period !== 7 && $period !== 30) {
       $period = 7;
     }
+    $path_filter = trim((string) $request->query->get('filter', ''));
+
+    $period_query_7 = array_filter(['period' => 7, 'filter' => $path_filter]);
+    $period_7_url = Url::fromRoute('page_analytics.report', [], ['query' => $period_query_7])->toString();
+    $period_query_30 = array_filter(['period' => 30, 'filter' => $path_filter]);
+    $period_30_url = Url::fromRoute('page_analytics.report', [], ['query' => $period_query_30])->toString();
+
+    $period_links = $period === 7
+      ? Markup::create('<strong>' . $this->t('7 days') . '</strong> | <a href="' . Html::escape($period_30_url) . '">' . $this->t('30 days') . '</a>')
+      : Markup::create('<a href="' . Html::escape($period_7_url) . '">' . $this->t('7 days') . '</a> | <strong>' . $this->t('30 days') . '</strong>');
+
+    $build = [
+      'period_switcher' => [
+        '#type' => 'markup',
+        '#markup' => '<div class="compact-link">' . $this->t('Showing top pages from the last: ') . $period_links . '</div>',
+        '#allowed_tags' => ['div', 'a', 'strong'],
+      ],
+      'filter' => $this->formBuilder()->getForm(PageAnalyticsFilterForm::class),
+    ];
 
     $request_time = $this->time->getRequestTime();
     $today = date('Y-m-d', $request_time);
@@ -82,23 +104,21 @@ class PageAnalyticsReportController extends ControllerBase {
     $query->groupBy('r.path');
     $query->orderBy('total', 'DESC');
     $query->limit(self::LIMIT_PER_PAGE);
+    if ($path_filter !== '') {
+      $query->condition('r.path', '%' . $this->connection->escapeLike($path_filter) . '%', 'LIKE');
+    }
 
     $top_paths = $query->execute()->fetchAllKeyed(0, 1);
 
     if (empty($top_paths)) {
-      $build = [
-        'report' => [
-          '#theme' => 'page_analytics_report',
-          '#rows' => [],
-          '#period' => $period,
-          '#period_7_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 7]])->toString(),
-          '#period_30_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 30]])->toString(),
-          '#attached' => [
-            'library' => ['page_analytics/page_analytics.report'],
-          ],
+      $build['report'] = [
+        '#theme' => 'page_analytics_report',
+        '#rows' => [],
+        '#attached' => [
+          'library' => ['page_analytics/page_analytics.report'],
         ],
-        'pager' => ['#type' => 'pager'],
       ];
+      $build['pager'] = ['#type' => 'pager'];
       $build['report']['#cache'] = ['max-age' => 0, 'contexts' => ['url.query_args']];
       return $build;
     }
@@ -146,19 +166,14 @@ class PageAnalyticsReportController extends ControllerBase {
       $index++;
     }
 
-    $build = [
-      'report' => [
-        '#theme' => 'page_analytics_report',
-        '#rows' => $rows,
-        '#period' => $period,
-        '#period_7_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 7]])->toString(),
-        '#period_30_url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => 30]])->toString(),
-        '#attached' => [
-          'library' => ['page_analytics/page_analytics.report'],
-        ],
+    $build['report'] = [
+      '#theme' => 'page_analytics_report',
+      '#rows' => $rows,
+      '#attached' => [
+        'library' => ['page_analytics/page_analytics.report'],
       ],
-      'pager' => ['#type' => 'pager'],
     ];
+    $build['pager'] = ['#type' => 'pager'];
     $build['report']['#cache'] = ['max-age' => 0, 'contexts' => ['url.query_args']];
     return $build;
   }

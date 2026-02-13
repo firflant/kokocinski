@@ -5,6 +5,9 @@ services:
       - "@database"
       - "@datetime.time"
 
+  Drupal\page_analytics\Form\PageAnalyticsFilterForm:
+    class: Drupal\page_analytics\Form\PageAnalyticsFilterForm
+
   page_analytics.path_exclusion:
     class: Drupal\page_analytics\PathExclusion\PageAnalyticsExclusion
     arguments:

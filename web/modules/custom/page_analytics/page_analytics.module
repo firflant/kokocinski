@@ -16,6 +16,7 @@ function page_analytics_theme(array $existing, string $type, string $theme, stri
       'variables' => [
         'rows' => [],
         'period' => 7,
+        'path_filter' => '',
         'period_7_url' => '',
         'period_30_url' => '',
         'sampling_rate' => 1,
