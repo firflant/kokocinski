@@ -5,3 +5,10 @@ page_analytics.report:
     js/page-analytics-charts.js: {}
   dependencies:
     - core/drupal
+
+page_analytics.filter:
+  css:
+    component:
+      css/page-analytics-filter.css: {}
+  dependencies:
+    - core/drupal

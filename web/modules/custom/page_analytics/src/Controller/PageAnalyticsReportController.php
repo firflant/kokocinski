@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace Drupal\page_analytics\Controller;
 
 use Drupal\Component\Datetime\TimeInterface;
-use Drupal\Component\Utility\Html;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Database\Query\PagerSelectExtender;
-use Drupal\Core\Render\Markup;
 use Drupal\Core\Url;
 use Drupal\page_analytics\Form\PageAnalyticsFilterForm;
 use Symfony\Component\HttpFoundation\Request;
@@ -77,15 +75,12 @@ class PageAnalyticsReportController extends ControllerBase {
     $period_query_30 = array_filter(['period' => 30, 'filter' => $path_filter]);
     $period_30_url = Url::fromRoute('page_analytics.report', [], ['query' => $period_query_30])->toString();
 
-    $period_links = $period === 7
-      ? Markup::create('<strong>' . $this->t('Week') . '</strong> | <a href="' . Html::escape($period_30_url) . '">' . $this->t('Month') . '</a>')
-      : Markup::create('<a href="' . Html::escape($period_7_url) . '">' . $this->t('Week') . '</a> | <strong>' . $this->t('Month') . '</strong>');
-
     $build = [
       'period_switcher' => [
-        '#type' => 'markup',
-        '#markup' => '<div class="compact-link">' . $this->t('Showing top pages from the last: ') . $period_links . '</div>',
-        '#allowed_tags' => ['div', 'a', 'strong'],
+        '#theme' => 'page_analytics_period_switcher',
+        '#period' => $period,
+        '#week_url' => $period_7_url,
+        '#month_url' => $period_30_url,
       ],
       'filter' => $this->formBuilder()->getForm(PageAnalyticsFilterForm::class),
     ];

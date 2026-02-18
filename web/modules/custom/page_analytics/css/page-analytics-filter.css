@@ -1,0 +1,20 @@
+/**
+ * @file
+ * Layout for the page analytics report filter form.
+ * Form controls use the active admin theme's styles.
+ */
+
+.page-analytics-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.page-analytics-filter__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}

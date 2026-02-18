@@ -1,0 +1,12 @@
+{#
+  @file
+  Period switcher (Week / Month) for the page analytics report.
+#}
+<div class="compact-link">
+  {% trans %}Showing top pages from the last:{% endtrans %}
+  {% if period == 7 %}
+    <strong>{% trans %}Week{% endtrans %}</strong> | <a href="{{ month_url|e('html_attr') }}">{% trans %}Month{% endtrans %}</a>
+  {% else %}
+    <a href="{{ week_url|e('html_attr') }}">{% trans %}Week{% endtrans %}</a> | <strong>{% trans %}Month{% endtrans %}</strong>
+  {% endif %}
+</div>

@@ -24,6 +24,14 @@ function page_analytics_theme(array $existing, string $type, string $theme, stri
       ],
       'template' => 'page-analytics-report',
     ],
+    'page_analytics_period_switcher' => [
+      'variables' => [
+        'period' => 7,
+        'week_url' => '',
+        'month_url' => '',
+      ],
+      'template' => 'page-analytics-period-switcher',
+    ],
   ];
 }
 

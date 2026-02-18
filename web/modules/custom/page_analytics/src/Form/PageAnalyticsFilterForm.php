@@ -33,17 +33,12 @@ class PageAnalyticsFilterForm extends FormBase {
 
     $form['#method'] = 'get';
     $form['#action'] = Url::fromRoute('page_analytics.report')->toString();
-    $form['#attached']['library'][] = 'claro/system.admin';
+    $form['#attached']['library'][] = 'page_analytics/filter';
 
     $form['filters'] = [
       '#type' => 'container',
       '#attributes' => [
-        'class' => [
-          'table-filter',
-          'js-show',
-          'modules-table-filter',
-          'container-inline',
-        ],
+        'class' => ['page-analytics-filter'],
       ],
     ];
 
@@ -56,7 +51,6 @@ class PageAnalyticsFilterForm extends FormBase {
       '#placeholder' => $this->t('Filter by page'),
       '#default_value' => $path_filter,
       '#attributes' => [
-        'class' => ['table-filter-text'],
         'autocomplete' => 'off',
       ],
     ];
@@ -69,6 +63,9 @@ class PageAnalyticsFilterForm extends FormBase {
 
     $form['filters']['actions'] = [
       '#type' => 'actions',
+      '#attributes' => [
+        'class' => ['page-analytics-filter__actions'],
+      ],
     ];
 
     $form['filters']['actions']['submit'] = [
