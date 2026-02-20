@@ -1,12 +1,30 @@
 {#
   @file
-  Period switcher (Week / Month) for the page analytics report.
+  Period switcher (Last week, Last month, Last 3 months, Max) for the page analytics report.
 #}
 <div class="compact-link">
-  {% trans %}Showing top pages from the last:{% endtrans %}
-  {% if period == 7 %}
-    <strong>{% trans %}Week{% endtrans %}</strong> | <a href="{{ month_url|e('html_attr') }}">{% trans %}Month{% endtrans %}</a>
+  {% trans %}Showing top pages from the:{% endtrans %}
+  {% if current_period == 7 %}
+    <strong>{% trans %}Last week{% endtrans %}</strong>
   {% else %}
-    <a href="{{ week_url|e('html_attr') }}">{% trans %}Week{% endtrans %}</a> | <strong>{% trans %}Month{% endtrans %}</strong>
+    <a href="{{ url_7|e('html_attr') }}">{% trans %}Last week{% endtrans %}</a>
+  {% endif %}
+  |
+  {% if current_period == 30 %}
+    <strong>{% trans %}Last month{% endtrans %}</strong>
+  {% else %}
+    <a href="{{ url_30|e('html_attr') }}">{% trans %}Last month{% endtrans %}</a>
+  {% endif %}
+  |
+  {% if current_period == 90 %}
+    <strong>{% trans %}Last 3 months{% endtrans %}</strong>
+  {% else %}
+    <a href="{{ url_90|e('html_attr') }}">{% trans %}Last 3 months{% endtrans %}</a>
+  {% endif %}
+  |
+  {% if current_period == 0 %}
+    <strong>{% trans %}Max{% endtrans %}</strong>
+  {% else %}
+    <a href="{{ url_max|e('html_attr') }}">{% trans %}Max{% endtrans %}</a>
   {% endif %}
 </div>

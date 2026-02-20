@@ -24,13 +24,14 @@
             </td>
             <td>{{ row.total|number_format }}</td>
             <td>
-              <div class="page-analytics-chart-wrap" style="width: 320px; height: 80px;">
+              {% set chart_width = chart_wide ? 480 : 320 %}
+              <div class="page-analytics-chart-wrap" style="width: {{ chart_width }}px; height: 80px;">
                 <canvas
                   class="page-analytics-chart"
                   id="page-analytics-chart-{{ row.chart_index }}"
                   data-labels="{{ row.chart_labels|json_encode|e('html_attr') }}"
                   data-values="{{ row.chart_values|json_encode|e('html_attr') }}"
-                  width="320"
+                  width="{{ chart_width }}"
                   height="80"
                   role="img"
                   aria-label="{{ 'Views per day for'|t }} {{ row.path }}"

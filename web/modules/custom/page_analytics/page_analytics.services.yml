@@ -4,6 +4,7 @@ services:
     arguments:
       - "@database"
       - "@datetime.time"
+      - "@config.factory"
 
   Drupal\page_analytics\Form\PageAnalyticsFilterForm:
     class: Drupal\page_analytics\Form\PageAnalyticsFilterForm

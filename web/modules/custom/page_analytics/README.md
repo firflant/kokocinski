@@ -40,10 +40,10 @@ Go to **Administration » Configuration » System » Page analytics** to configu
 
 ## Report
 
-- **Reports » Page analytics** shows the top 30, 100, or 300 paths by total
-  views over the last 30 days (configurable via the report page).
-- Charts show daily view counts for the selected period (7 or 30 days).
-- Use the period links to switch between 7-day and 30-day chart ranges.
+- **Reports » Page analytics** shows the top paths by total views for the
+  selected period (configurable via the report page).
+- Charts show daily view counts for the selected period.
+  **Max** (all retained data per "Keep data for (days)" setting).
 
 ## Drush
 

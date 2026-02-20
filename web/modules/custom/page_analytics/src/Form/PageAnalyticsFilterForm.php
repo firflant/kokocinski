@@ -27,7 +27,8 @@ class PageAnalyticsFilterForm extends FormBase {
     $request = $this->getRequest();
     $path_filter = trim((string) ($request ? $request->query->get('filter', '') : ''));
     $period = (int) ($request ? $request->query->get('period', 7) : 7);
-    if ($period !== 7 && $period !== 30) {
+    $allowed_periods = [0, 7, 30, 90];
+    if (!in_array($period, $allowed_periods, TRUE)) {
       $period = 7;
     }
 

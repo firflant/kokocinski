@@ -15,7 +15,7 @@ function page_analytics_theme(array $existing, string $type, string $theme, stri
     'page_analytics_report' => [
       'variables' => [
         'rows' => [],
-        'period' => 7,
+        'chart_wide' => FALSE,
         'path_filter' => '',
         'period_7_url' => '',
         'period_30_url' => '',
@@ -26,9 +26,11 @@ function page_analytics_theme(array $existing, string $type, string $theme, stri
     ],
     'page_analytics_period_switcher' => [
       'variables' => [
-        'period' => 7,
-        'week_url' => '',
-        'month_url' => '',
+        'current_period' => 7,
+        'url_7' => '',
+        'url_30' => '',
+        'url_90' => '',
+        'url_max' => '',
       ],
       'template' => 'page-analytics-period-switcher',
     ],
