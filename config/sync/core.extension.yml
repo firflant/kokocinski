@@ -5,6 +5,7 @@ module:
   block: 0
   breakpoint: 0
   ckeditor5: 0
+  contextual: 0
   crop: 0
   ctools: 0
   dblog: 0
@@ -15,7 +16,10 @@ module:
   file: 0
   filter: 0
   focal_point: 0
+  help: 0
   image: 0
+  layout_builder: 0
+  layout_discovery: 0
   link: 0
   menu_link_content: 0
   menu_ui: 0
@@ -23,6 +27,7 @@ module:
   metatag_open_graph: 0
   metatag_twitter_cards: 0
   mysql: 0
+  navigation: 0
   node: 0
   page_analytics: 0
   page_cache: 0
@@ -33,7 +38,6 @@ module:
   text: 0
   token: 0
   token_default: 0
-  toolbar: 0
   update: 0
   user: 0
   views: 0
@@ -43,4 +47,5 @@ theme:
   stark: 0
   tailwind: 0
   claro: 0
+  gin: 0
 profile: minimal

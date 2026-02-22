@@ -7,9 +7,9 @@ dependencies:
   module:
     - block
     - filter
+    - navigation
     - node
     - system
-    - toolbar
     - update
 id: administrator
 label: Administrator
@@ -19,9 +19,9 @@ permissions:
   - 'access administration pages'
   - 'access content'
   - 'access content overview'
+  - 'access navigation'
   - 'access site in maintenance mode'
   - 'access site reports'
-  - 'access toolbar'
   - 'access user profiles'
   - 'administer account settings'
   - 'administer actions'

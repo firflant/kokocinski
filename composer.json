@@ -21,6 +21,7 @@
         "drupal/core-recipe-unpack": "^11.3",
         "drupal/core-recommended": "^11.3",
         "drupal/focal_point": "^2.1",
+        "drupal/gin": "^5.0",
         "drupal/metatag": "^2.0",
         "drupal/pathauto": "^1.14",
         "drupal/token_default": "2.0.0-rc2",

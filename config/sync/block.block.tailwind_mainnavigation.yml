@@ -1,6 +1,6 @@
 uuid: cbd1ebae-3e8a-47bd-be1b-5fdf583d60f4
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - system.menu.main
@@ -10,7 +10,7 @@ dependencies:
     - tailwind
 id: tailwind_mainnavigation
 theme: tailwind
-region: primary_menu
+region: header
 weight: 0
 provider: null
 plugin: 'system_menu_block:main'
