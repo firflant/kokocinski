@@ -4,13 +4,13 @@
  * Example Single Directory Component
  *
  * Available variables:
- * - title: The title text
+ * - heading: The title text
  * - content: Optional content text
  */
 #}
 <div class="example-component p-4 border rounded">
-  {% if title %}
-    <h2 class="text-xl font-bold mb-2">{{ title }}</h2>
+  {% if heading %}
+    <h2 class="text-xl font-bold mb-2">{{ heading }}</h2>
   {% endif %}
   {% if content %}
     <div class="text-gray-700">{{ content }}</div>

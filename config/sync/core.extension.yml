@@ -4,12 +4,14 @@ module:
   automated_cron: 0
   block: 0
   breakpoint: 0
+  canvas: 0
   ckeditor5: 0
   config: 0
   config_ignore: 0
   contextual: 0
   crop: 0
   ctools: 0
+  datetime: 0
   dblog: 0
   dynamic_page_cache: 0
   editor: 0
@@ -23,6 +25,8 @@ module:
   layout_builder: 0
   layout_discovery: 0
   link: 0
+  media: 0
+  media_library: 0
   menu_link_content: 0
   menu_ui: 0
   metatag: 0
@@ -31,6 +35,7 @@ module:
   mysql: 0
   navigation: 0
   node: 0
+  options: 0
   page_analytics: 0
   page_cache: 0
   path: 0
@@ -50,4 +55,5 @@ theme:
   tailwind: 0
   claro: 0
   gin: 0
+  canvas_stark: 0
 profile: minimal

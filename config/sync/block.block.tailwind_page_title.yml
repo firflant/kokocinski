@@ -1,6 +1,6 @@
 uuid: c5861c83-9832-4a86-b126-e7a03ed98129
 langcode: en
-status: true
+status: false
 dependencies:
   theme:
     - tailwind
@@ -8,7 +8,7 @@ _core:
   default_config_hash: Oh72CHUkp6cj6dbrXMK2hzCsM05w9cHVoD22rMLQUfk
 id: tailwind_page_title
 theme: tailwind
-region: header
+region: content
 weight: -3
 provider: null
 plugin: page_title_block

@@ -1,3 +1,5 @@
 <div class="mb-8 overflow-hidden rounded-2xl">
-  {{ content }}
+  {% if image and image.src %}
+    <img src="{{ image.src }}" alt="{{ image.alt|default('') }}"{% if image.width %} width="{{ image.width }}"{% endif %}{% if image.height %} height="{{ image.height }}"{% endif %} loading="lazy" class="w-full h-auto object-cover" />
+  {% endif %}
 </div>

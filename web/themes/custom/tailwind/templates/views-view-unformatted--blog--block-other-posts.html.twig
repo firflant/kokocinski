@@ -21,7 +21,7 @@
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center mb-8">
         <h2 class="text-3xl font-bold text-white mb-0">{{ title|default('See my other posts') }}</h2>
-        <a href="{{ path('view.blog.page_1') }}" class="text-accent-main hover:text-accent-main/80 text-sm font-medium focus:outline-none focus:underline">{{ 'All posts'|t }}</a>
+        <a href="{{ base_path }}blog" class="text-accent-main hover:text-accent-main/80 text-sm font-medium focus:outline-none focus:underline">{{ 'All posts'|t }}</a>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {% for row in rows %}

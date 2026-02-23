@@ -24,9 +24,7 @@
  * - node: Fully loaded node, if there is an automatically-loaded node.
  *
  * Regions:
- * - page.header: Items for the header region.
  * - page.content: The main content of the current page.
- * - page.footer: Items for the footer region.
  *
  * @see template_preprocess_page()
  * @see html.html.twig
@@ -37,29 +35,11 @@
 
 {% set container_class = node ? 'max-w-4xl' : 'max-w-7xl' %}
 
-{% if page.header %}
-  {{ include('tailwind:page-title', {
-    content: page.header,
-    container_class: container_class,
-    date_iso: node and node.bundle == 'blog_post' and node.created.value ? node.created.value|date('Y-m-d') : null,
-    date_formatted: node and node.bundle == 'blog_post' and node.created.value ? node.created.value|date('F j, Y') : null
-  }) }}
-{% endif %}
-
-{% embed 'tailwind:content' with { container: node ? 'narrow' : 'normal' } %}
-  {% block children %}
-    {% if messages %}
-      <div class="mb-4">
-        {{ messages }}
-      </div>
-    {% endif %}
-    {{ page.content }}
-  {% endblock %}
-{% endembed %}
-
-{# Footer region #}
-{% if page.footer %}
-  {{ page.footer }}
-{% endif %}
+<main id="main-content" role="main" class="min-h-screen">
+  {% if messages %}
+    <div class="{{ container_class }} mx-auto mb-4">{{ messages }}</div>
+  {% endif %}
+  {{ page.content }}
+</main>
 
 {% include('@tailwind/footer.html.twig') %}

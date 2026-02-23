@@ -10,7 +10,7 @@ _core:
   default_config_hash: sG8t_FghbUscJ-GrnQ8zs_vx5YM4bJCfntrK-J5HcAY
 id: tailwind_branding
 theme: tailwind
-region: header
+region: content
 weight: 0
 provider: null
 plugin: system_branding_block

@@ -1,20 +1,28 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
 name: Page Title
-status: ready
-description: 'Page header with optional date (e.g. blog post) and header region content'
+status: stable
+group: Sections
+description: Page title header bar with configurable container width.
 props:
-  content:
-    type: string
-    title: 'Header region content (rendered)'
-    required: true
-  container_class:
-    type: string
-    title: 'CSS class for the inner container'
-    required: false
-  date_iso:
-    type: string
-    title: 'Date in ISO format (datetime attribute)'
-    required: false
-  date_formatted:
-    type: string
-    title: 'Date formatted for display'
-    required: false
+  type: object
+  properties:
+    title:
+      type: string
+      title: Page title
+      description: Main heading text for the page
+      examples: ["About The Company"]
+    container:
+      type: string
+      title: Container width
+      description: Choose narrow (max-w-4xl) for content pages or normal (max-w-7xl) for wider layouts
+      enum:
+        - normal
+        - narrow
+      default: normal
+      examples: ["normal", "narrow"]
+    date_iso:
+      type: string
+      format: date
+      title: Date (ISO for datetime, formatted for display)
+      description: Wire to node Created/Changed for automatic date display
+      examples: ["2025-02-23"]

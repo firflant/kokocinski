@@ -10,7 +10,7 @@ dependencies:
     - tailwind
 id: tailwind_mainnavigation
 theme: tailwind
-region: header
+region: content
 weight: 0
 provider: null
 plugin: 'system_menu_block:main'

@@ -1,6 +1,6 @@
 uuid: 0688ffce-9700-4b11-8ab9-3b2ea6d1aaec
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - system
@@ -10,7 +10,7 @@ _core:
   default_config_hash: aeqlWs7HwctZeZC7ADcbxfqehJzBRfZKmuZz3DsH3_4
 id: tailwind_messages
 theme: tailwind
-region: header
+region: content
 weight: -1
 provider: null
 plugin: system_messages_block

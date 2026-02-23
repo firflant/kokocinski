@@ -1,8 +1,20 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
 name: Content Image
-status: ready
-description: 'Wrapped image for content (e.g. blog post featured image)'
+status: stable
+group: Content
+description: "Wrapped image for content (e.g. blog post featured image)"
 props:
-  content:
-    type: string
-    title: 'Rendered image field'
-    required: true
+  type: object
+  required:
+    - image
+  properties:
+    image:
+      $ref: json-schema-definitions://canvas.module/image
+      type: object
+      title: "Image"
+      description: "Image object with src, alt, width, height"
+      examples:
+        - src: 'https://example.com/image.jpg'
+          alt: 'Sample image'
+          width: 600
+          height: 400

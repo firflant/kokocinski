@@ -1,24 +1,24 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
 name: Portfolio Card
-status: ready
+status: stable
 description: 'Card for portfolio item teaser with image, title, technologies and description'
 props:
-  url:
-    type: string
-    title: 'Link URL (entire card is clickable)'
-    required: true
-  image:
-    type: string
-    title: 'Rendered image content'
-    required: false
-  title:
-    type: string
-    title: 'Card title'
-    required: false
-  technologies:
-    type: string
-    title: 'Technologies / tags (plain text)'
-    required: false
-  description:
-    type: string
-    title: 'Short description (plain text)'
-    required: false
+  type: object
+  required:
+    - url
+  properties:
+    url:
+      type: string
+      title: 'Link URL (entire card is clickable)'
+    image:
+      type: string
+      title: 'Rendered image content'
+    card_title:
+      type: string
+      title: 'Card title'
+    technologies:
+      type: string
+      title: 'Technologies / tags (plain text)'
+    card_description:
+      type: string
+      title: 'Short description (plain text)'

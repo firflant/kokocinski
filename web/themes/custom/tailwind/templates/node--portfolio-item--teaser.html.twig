@@ -16,7 +16,7 @@
 {{ include('tailwind:portfolio-card', {
   url: link_url,
   image: node.field_image.entity ? (content.field_image|render|striptags('<img>')) : null,
-  title: label,
+  card_title: label|render|striptags,
   technologies: node.field_technologies.value,
-  description: node.field_description.value
+  card_description: node.field_description.value
 }) }}

@@ -1,12 +1,15 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
 name: Example
-status: ready
+status: stable
 description: 'An example Single Directory Component'
 props:
-  title:
-    type: string
-    title: Title
-    required: true
-  content:
-    type: string
-    title: Content
-    required: false
+  type: object
+  required:
+    - heading
+  properties:
+    heading:
+      type: string
+      title: Title
+    content:
+      type: string
+      title: Content

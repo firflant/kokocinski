@@ -14,7 +14,7 @@
 #}
 {{ include('tailwind:block-card', {
   url: url,
-  title: label,
+  card_title: label|render|striptags,
   image: node.field_image.entity ? content.field_image : null,
   date_iso: node.created.value ? node.created.value|date('Y-m-d') : null,
   date_formatted: node.created.value ? node.created.value|date('F j, Y') : null,

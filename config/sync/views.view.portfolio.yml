@@ -12,7 +12,7 @@ id: portfolio
 label: Portfolio
 module: views
 description: 'A view listing portfolio items.'
-tag: default
+tag: portfolio
 base_table: node_field_data
 base_field: nid
 display:

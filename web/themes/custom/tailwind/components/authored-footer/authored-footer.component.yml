@@ -1,8 +1,10 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
 name: Authored Footer
-status: ready
+status: stable
 description: 'Author bio footer for blog posts'
 props:
-  directory:
-    type: string
-    title: 'Theme directory path (for image URL)'
-    required: false
+  type: object
+  properties:
+    directory:
+      type: string
+      title: 'Theme directory path (for image URL)'

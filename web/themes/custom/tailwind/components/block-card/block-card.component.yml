@@ -1,32 +1,30 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
 name: Block Card
-status: ready
+status: stable
 description: 'Card block with optional image, title, date, excerpt and read-more link'
 props:
-  url:
-    type: string
-    title: 'Link URL'
-    required: true
-  title:
-    type: string
-    title: 'Card title'
-    required: false
-  image:
-    type: string
-    title: 'Rendered image (above title)'
-    required: false
-  date_iso:
-    type: string
-    title: 'Date in ISO format (datetime attribute)'
-    required: false
-  date_formatted:
-    type: string
-    title: 'Date formatted for display'
-    required: false
-  body:
-    type: string
-    title: 'Rendered excerpt/body content'
-    required: false
-  read_more_text:
-    type: string
-    title: '"Read more" link label'
-    required: false
+  type: object
+  required:
+    - url
+  properties:
+    url:
+      type: string
+      title: 'Link URL'
+    card_title:
+      type: string
+      title: 'Card title'
+    image:
+      type: string
+      title: 'Rendered image (above title)'
+    date_iso:
+      type: string
+      title: 'Date in ISO format (datetime attribute)'
+    date_formatted:
+      type: string
+      title: 'Date formatted for display'
+    body:
+      type: string
+      title: 'Rendered excerpt/body content'
+    read_more_text:
+      type: string
+      title: '"Read more" link label'

@@ -1,6 +1,6 @@
 uuid: cc701156-044a-4db8-b56a-d88e0582bc55
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - views.view.blog
@@ -11,7 +11,7 @@ dependencies:
     - tailwind
 id: tailwind_views_block__blog_block_other_posts
 theme: tailwind
-region: footer
+region: content
 weight: 0
 provider: null
 plugin: 'views_block:blog-block_other_posts'

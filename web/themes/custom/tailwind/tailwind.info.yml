@@ -12,9 +12,7 @@ components:
       - components
 
 regions:
-  header: Header
   content: Content
-  footer: Footer
 
 libraries:
   - tailwind/global-styling
@@ -31,7 +29,6 @@ libraries-override:
         css/components/container-inline.module.css: false
         css/components/clearfix.module.css: false
         css/components/details.module.css: false
-        css/components/hidden.module.css: false
         css/components/item-list.module.css: false
         css/components/js.module.css: false
         css/components/nowrap.module.css: false

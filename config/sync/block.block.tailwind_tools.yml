@@ -12,7 +12,7 @@ _core:
   default_config_hash: 21gTvrC3-X1nBOt2rLuxMV9LqgyW8pnzfKXMeq-dnPI
 id: tailwind_tools
 theme: tailwind
-region: header
+region: content
 weight: 1
 provider: null
 plugin: 'system_menu_block:tools'
