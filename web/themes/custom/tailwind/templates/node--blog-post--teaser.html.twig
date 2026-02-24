@@ -12,11 +12,12 @@
  * @see template_preprocess_node()
  */
 #}
+{% set read_time = content.reading_time|render|striptags %}
 {{ include('tailwind:block-card', {
   url: url,
   card_title: label|render|striptags,
   image: node.field_image.entity ? content.field_image : null,
-  meta: content.reading_time|render|striptags,
+  meta: content.reading_time ? read_time ~ ' read' : '',
   body: content.body,
   read_more_text: 'Read more'|t
 }) }}
