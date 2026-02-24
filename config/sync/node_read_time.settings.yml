@@ -1,0 +1,8 @@
+_core:
+  default_config_hash: zmm-fQ8G89G2R7Se5kE4s6A5astPdyWlH_omoGrBkJs
+reading_time:
+  container:
+    blog_post:
+      is_activated: 1
+  words_per_minute: 225
+  unit_of_time: minute

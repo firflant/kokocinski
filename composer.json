@@ -25,6 +25,7 @@
     "drupal/focal_point": "^2.1",
     "drupal/gin": "^5.0",
     "drupal/metatag": "^2.0",
+    "drupal/node_read_time": "^1.15",
     "drupal/pathauto": "^1.14",
     "drupal/token_default": "2.0.0-rc2",
     "drush/drush": "^13.7"
@@ -105,11 +106,6 @@
         "  * Remove the plugin that prints this message:",
         "      composer remove drupal/core-project-message"
       ]
-    },
-    "patches": {
-      "drupal/core": {
-        "ComponentValidator: handle shorthand props without properties key": "patches/component-validator-shorthand-props.patch"
-      }
     }
   }
 }

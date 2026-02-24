@@ -10,6 +10,7 @@ dependencies:
     - node.type.blog_post
   module:
     - image
+    - node_read_time
     - text
     - user
 id: node.blog_post.teaser
@@ -39,6 +40,10 @@ content:
     third_party_settings: {  }
     weight: 101
     region: content
+  reading_time:
+    weight: 1
+    region: content
 hidden:
+  node_read_time: true
   promote: true
   sticky: true

@@ -12,10 +12,8 @@
       </h3>
     {% endif %}
 
-    {% if date_iso and date_formatted %}
-      <time datetime="{{ date_iso }}" class="text-slate-400 text-sm mb-3 block">
-        {{ date_formatted }}
-      </time>
+    {% if meta %}
+      <span class="text-slate-400 text-sm mb-3 block">{{ meta }}</span>
     {% endif %}
 
     {% if body %}

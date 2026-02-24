@@ -20,9 +20,7 @@ props:
         - narrow
       default: normal
       examples: ["normal", "narrow"]
-    date_iso:
+    meta:
       type: string
-      format: date
-      title: Date (ISO for datetime, formatted for display)
-      description: Wire to node Created/Changed for automatic date display
-      examples: ["2025-02-23"]
+      title: Meta line
+      description: Optional meta text (e.g. date, read time) shown above the title

@@ -35,6 +35,7 @@ module:
   mysql: 0
   navigation: 0
   node: 0
+  node_read_time: 0
   options: 0
   page_analytics: 0
   page_cache: 0
