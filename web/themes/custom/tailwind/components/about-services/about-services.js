@@ -18,7 +18,6 @@
       Drupal.tailwindAccordion.initAccordion(context, {
         targetSelector: ".services-accordions",
         singleOpen: false,
-        openedOnDesktop: true,
       });
     },
   };

@@ -2,21 +2,51 @@ $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schema
 name: Content
 status: stable
 group: Sections
-description: Universal centered content container with configurable width and child slot.
+description: Universal centered content container. Renders as <main> for page content or <section> for page sections, with optional background tint and top border.
 props:
   type: object
   properties:
     container:
       type: string
       title: Container width
-      description: Choose narrow (max-w-4xl) for content pages or normal (max-w-7xl) for wider layouts
+      description: Choose narrow (max-w-4xl) for content pages or normal (max-w-7xl) for wider layouts.
       enum:
         - normal
         - narrow
       default: normal
-      examples:
+    tag:
+      type: string
+      title: HTML tag
+      description: Outer wrapper element — main for page content, section for page sections.
+      enum:
+        - main
+        - section
+      default: main
+    padding:
+      type: string
+      title: Vertical padding
+      enum:
+        - compact
         - normal
-        - narrow
+        - spacious
+      default: normal
+    background:
+      type: string
+      title: Background
+      description: Optional translucent background tint.
+      enum:
+        - none
+        - primary
+      default: none
+    border:
+      type: boolean
+      title: Top border
+      description: When true, renders a subtle top border line (border-t border-white/5).
+      default: false
+    id:
+      type: string
+      title: ID
+      description: Optional HTML id attribute for the outer wrapper element.
 slots:
   children:
     title: Children

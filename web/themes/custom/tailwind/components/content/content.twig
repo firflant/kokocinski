@@ -1,8 +1,14 @@
 {% set container_class = container|default('normal') == 'narrow' ? 'max-w-4xl' : 'max-w-7xl' %}
-<main id="main-content" role="main" class="bg-primary-800/30 min-h-screen">
-  <div class="{{ container_class }} mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+{% set tag = tag|default('main') %}
+{% set padding_map = {'compact': 'py-12', 'normal': 'py-24', 'spacious': 'py-32'} %}
+{% set padding_class = padding_map[padding|default('compact')]|default('py-12') %}
+{% set bg_class = background|default('none') == 'primary' ? 'bg-primary-800/30' : '' %}
+{% set border_class = border ? 'border-t border-white/5' : '' %}
+
+<{{ tag }}{% if id %} id="{{ id }}"{% endif %}{% if tag == 'main' %} role="main"{% endif %} class="relative z-10 {{ padding_class }}{% if bg_class %} {{ bg_class }}{% endif %}{% if border_class %} {{ border_class }}{% endif %}">
+  <div class="{{ container_class }} mx-auto px-6">
     {% block children %}
       {{ children|default(slots.children|default('')) }}
     {% endblock %}
   </div>
-</main>
+</{{ tag }}>
