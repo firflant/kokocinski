@@ -34,7 +34,7 @@ class PageAnalyticsFilterForm extends FormBase {
 
     $form['#method'] = 'get';
     $form['#action'] = Url::fromRoute('page_analytics.report')->toString();
-    $form['#attached']['library'][] = 'page_analytics/filter';
+    $form['#attached']['library'][] = 'page_analytics/page_analytics.filter';
 
     $form['filters'] = [
       '#type' => 'container',
@@ -62,20 +62,13 @@ class PageAnalyticsFilterForm extends FormBase {
       '#value' => $period,
     ];
 
-    $form['filters']['actions'] = [
-      '#type' => 'actions',
-      '#attributes' => [
-        'class' => ['page-analytics-filter__actions'],
-      ],
-    ];
-
-    $form['filters']['actions']['submit'] = [
+    $form['filters']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Filter'),
     ];
 
     if ($path_filter !== '') {
-      $form['filters']['actions']['clear'] = [
+      $form['filters']['clear'] = [
         '#type' => 'link',
         '#title' => $this->t('Clear'),
         '#url' => Url::fromRoute('page_analytics.report', [], ['query' => ['period' => $period]]),

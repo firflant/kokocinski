@@ -7,14 +7,12 @@
 .page-analytics-filter {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-}
-
-.page-analytics-filter__actions {
-  display: flex;
-  flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
+}
+
+.page-analytics-filter input,
+.page-analytics-filter .form-item,
+.page-analytics-filter .button {
+  margin: 0;
 }

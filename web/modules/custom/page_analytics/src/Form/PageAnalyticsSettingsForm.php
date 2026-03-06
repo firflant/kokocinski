@@ -54,7 +54,7 @@ class PageAnalyticsSettingsForm extends ConfigFormBase {
       '#title' => $this->t('Keep data for (days)'),
       '#min' => 1,
       '#config_target' => 'page_analytics.settings:retention_days',
-      '#description' => $this->t('Rows older than this many days are deleted on cron. Default 365.'),
+      '#description' => $this->t('Analytics data older than this threshold are automatically purged by cron. Reports only include data from the retained window, and no aggregate of removed data is stored. A shorter retention period reduces table size and speeds up report queries, but limits historical insight. Default is 365 days'),
     ];
 
     $form['excluding'] = [
@@ -70,9 +70,7 @@ class PageAnalyticsSettingsForm extends ConfigFormBase {
     ];
 
     // Mirror core's role widget approach from user account form:
-    // load roles, exclude anonymous, keep authenticated and custom roles.
     $roles = Role::loadMultiple();
-    unset($roles[RoleInterface::ANONYMOUS_ID]);
     $role_options = array_map(static fn (RoleInterface $role): string => Html::escape($role->label()), $roles);
 
     $excluded_roles = $settings->get('excluded_roles');
@@ -93,7 +91,7 @@ class PageAnalyticsSettingsForm extends ConfigFormBase {
       '#title' => $this->t('Excluded paths'),
       '#config_target' => 'page_analytics.settings:excluded_paths',
       '#rows' => 6,
-      '#description' => $this->t('One path per line. Path must start with <code>/</code>. Use <code>*</code> as wildcard. E.g. <code>/user/login</code>, <code>/jsonapi/*</code>.'),
+      '#description' => $this->t("One exclusion path per line. Path must start with a leading slash (<code>/</code>).<br />Use <code>*</code> as wildcard. E.g. <code>/user/login\n/jsonapi/*</code>."),
     ];
 
     try {

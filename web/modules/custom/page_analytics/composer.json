@@ -1,0 +1,19 @@
+{
+    "name": "drupal/page_analytics",
+    "description": "Server-side analytics: Daily page view counts per non-admin page with admin report and charts.",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Michal Kokocinski (firflant)",
+            "homepage": "https://www.drupal.org/u/firflant",
+            "role": "Maintainer"
+        }
+    ],
+    "homepage": "https://drupal.org/project/page_analytics",
+    "support": {
+        "issues": "https://drupal.org/project/issues/page_analytics",
+        "source": "https://git.drupalcode.org/project/page_analytics"
+    }
+}
+

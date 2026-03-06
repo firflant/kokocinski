@@ -66,6 +66,22 @@ Go to **Administration » Configuration » System » Page analytics** to configu
 - The report reads from `page_analytics_daily` and uses the configured
   retention so that old rows are removed on cron.
 
+## Alternative modules
+
+- **[Statistics](https://www.drupal.org/project/statistics)** — Counts entity views
+  (nodes only, full page mode). Tracks a running grand total and daily subtotal per
+  node with no historical data. Lightweight and privacy-friendly (no PII collected).
+  Moved out of Drupal core into a contributed module as of Drupal 10.3.
+
+- **[Visitors](https://www.drupal.org/project/visitors)** — Comprehensive visitor
+  analytics with detailed user tracking (IP, location, browser, device, OS) and
+  server/browser performance metrics. Integrates with Views and Charts for reporting.
+  Collects more data than Page Analytics but includes personally identifiable
+  information.
+
+Page Analytics sits between these two: it tracks page views per path (not per entity)
+with daily historical data, without collecting any visitor-specific information.
+
 ## Dependencies
 
 The report page uses [Chart.js](https://www.chartjs.org/) for line charts,
