@@ -108,7 +108,7 @@ class PageAnalyticsReportController extends ControllerBase {
 
     $request_time = $this->time->getRequestTime();
     $today = date('Y-m-d', $request_time);
-    $chart_from = date('Y-m-d', strtotime('-' . $effective_days . ' days', $request_time));
+    $chart_from = date('Y-m-d', strtotime('-' . ($effective_days - 1) . ' days', $request_time));
 
     $query = $this->connection->select('page_analytics_daily', 'r')
       ->extend(PagerSelectExtender::class);
@@ -118,6 +118,7 @@ class PageAnalyticsReportController extends ControllerBase {
     $query->condition('r.stat_date', $today, '<=');
     $query->groupBy('r.path');
     $query->orderBy('total', 'DESC');
+    $query->orderBy('r.path', 'ASC');
     $query->limit(self::LIMIT_PER_PAGE);
     if ($path_filter !== '') {
       $query->condition('r.path', '%' . $this->connection->escapeLike($path_filter) . '%', 'LIKE');
@@ -238,7 +239,7 @@ class PageAnalyticsReportController extends ControllerBase {
 
       $rows[] = [
         'path' => $path,
-        'total' => $period_total,
+        'total' => $total,
         'chart_index' => $index,
         'chart_labels' => $chart_date_labels,
         'chart_values' => $chart_values,
