@@ -1,0 +1,6 @@
+services:
+  drush_tailwindcss.commands:
+    class: \Drupal\drush_tailwindcss\Commands\TailwindCssCommands
+    arguments: ['@drush_tailwindcss.runtime']
+    tags:
+      - { name: drush.command }

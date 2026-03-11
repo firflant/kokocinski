@@ -60,12 +60,7 @@ drush state:set system.maintenance_mode 1
 echo ""
 echo "[4/8] Building Tailwind CSS theme assets..."
 echo "-------------------------------------------"
-echo "Installing dependencies with --production=false to include devDependencies..."
-echo "Note: Tailwind CSS is in devDependencies as a build tool - needed to compile CSS, not at runtime"
-cd web/themes/custom/tailwind
-yarn install --frozen-lockfile --production=false
-yarn build
-cd "$SCRIPT_DIR"
+drush tailwind:build --minify
 
 echo ""
 echo "[5/8] Importing configuration..."

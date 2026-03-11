@@ -1,0 +1,5 @@
+name: Drush Tailwind CSS
+type: module
+description: 'Provides a Drush command that wraps the standalone Tailwind CSS CLI.'
+package: Development
+core_version_requirement: ^10 || ^11

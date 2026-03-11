@@ -12,24 +12,16 @@ A clean, blank Drupal 11 tailwind theme built with Tailwind CSS.
 
 ## Setup
 
-1. Install dependencies:
+The CSS build process natively uses the `tailwind_drush` module, which bundles the Tailwind standalone CLI.
+
+1. Build CSS (from within this theme directory):
    ```bash
-   yarn install
+   ddev drush tailwind:build --input src/css/styles.css --output dist/css/styles.css
    ```
 
-2. Build CSS for development:
+2. Watch for changes during development:
    ```bash
-   yarn build:dev
-   ```
-
-3. Watch for changes during development:
-   ```bash
-   yarn dev
-   ```
-
-4. Build CSS for production:
-   ```bash
-   yarn build
+   ddev drush tailwind:watch --input src/css/styles.css --output dist/css/styles.css
    ```
 
 ## Structure
@@ -42,7 +34,6 @@ tailwind/
 ├── src/                # Source files
 │   └── css/           # Source CSS files
 ├── templates/          # Twig templates
-├── package.json        # Node.js dependencies
 ├── tailwind.config.js  # Tailwind CSS configuration
 └── tailwind.info.yml # Theme definition
 ```

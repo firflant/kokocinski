@@ -1,0 +1,4 @@
+services:
+  drush_tailwindcss.runtime:
+    class: \Drupal\drush_tailwindcss\TailwindRuntime
+    arguments: ['@extension.list.module']
