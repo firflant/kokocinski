@@ -73,8 +73,8 @@ Refer to the [official Tailwind CSS CLI documentation](https://tailwindcss.com/d
 
 ## Available commands
 
-| Command            | Alias        | Description                                                        |
-| ------------------ | ------------ | ------------------------------------------------------------------ |
+| Command            | Alias | Description                                                        |
+| ------------------ | ----- | ------------------------------------------------------------------ |
 | `tailwind:install` | `twi` | Downloads the binary for the current platform                      |
 | `tailwind:build`   | `twb` | Compiles Tailwind CSS once (auto-detects theme paths)              |
 | `tailwind:watch`   | `tww` | Watches for file changes and recompiles (auto-detects theme paths) |
@@ -118,4 +118,17 @@ cache:
 
 ```bash
 TAILWIND_BINARY_DIR=/mnt/cache/tailwindcss drush tailwind:build
+```
+
+## Known limitations
+
+### Hosting providers running FreeBSD
+
+Some shared hosting providers run their servers on **FreeBSD** — a Unix-like operating system that is related to, but distinctly different from, Linux.
+
+The Tailwind CSS standalone CLI is only distributed as pre-compiled binaries for Linux and macOS — there is no native FreeBSD build. While FreeBSD includes a compatibility layer that can run Linux binaries, shared hosting providers typically do not enable it, and individual users cannot activate it themselves. As a result, attempting to execute the downloaded binary will fail with:
+
+```
+ELF binary type "0" not known
+Exec format error
 ```

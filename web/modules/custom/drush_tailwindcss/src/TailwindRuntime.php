@@ -255,11 +255,6 @@ class TailwindRuntime {
     elseif (stripos($os, 'windows') !== FALSE || stripos($os, 'win') !== FALSE) {
       $binaryOs = 'windows';
     }
-    elseif (stripos($os, 'freebsd') !== FALSE) {
-      // FreeBSD supports running Linux binaries via its Linux compatibility
-      // layer (linuxulator). Use the Linux binary.
-      $binaryOs = 'linux';
-    }
     else {
       throw new \Exception("Unsupported operating system: $os");
     }

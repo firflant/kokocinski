@@ -124,22 +124,39 @@ class TailwindCssCommands extends DrushCommands {
         $absolute_theme_path = \Drupal::root() . '/' . $theme_path;
 
         if (empty($options['input'])) {
-          if (file_exists($absolute_theme_path . '/src/css/styles.css')) {
-            $options['input'] = $absolute_theme_path . '/src/css/styles.css';
+          $inputCandidates = [
+            $absolute_theme_path . '/src/css/styles.css',
+            $absolute_theme_path . '/src/css/style.css',
+            $absolute_theme_path . '/src/css/main.css',
+            $absolute_theme_path . '/src/css/index.css',
+            $absolute_theme_path . '/src/main.css',
+            $absolute_theme_path . '/src/styles.css',
+            $absolute_theme_path . '/src/style.css',
+            $absolute_theme_path . '/src/index.css',
+            $absolute_theme_path . '/css/styles.css',
+            $absolute_theme_path . '/css/style.css',
+            $absolute_theme_path . '/css/main.css',
+            $absolute_theme_path . '/css/index.css',
+          ];
+          foreach ($inputCandidates as $candidate) {
+            if (file_exists($candidate)) {
+              $options['input'] = $candidate;
+              break;
+            }
           }
-          else {
-            $options['input'] = 'src/css/styles.css';
+          if (empty($options['input'])) {
+            $options['input'] = $absolute_theme_path . '/src/css/styles.css';
           }
           $auto_detected = TRUE;
         }
 
         if (empty($options['output'])) {
           $libraries_file = $absolute_theme_path . '/' . $default_theme . '.libraries.yml';
-          $css_path = null;
+          $css_path = NULL;
           if (file_exists($libraries_file)) {
             $libraries = \Drupal\Component\Serialization\Yaml::decode(file_get_contents($libraries_file));
 
-            // Look for global-styling first
+            // 1. global-styling library (explicit custom-theme convention).
             if (isset($libraries['global-styling']['css']['theme']) && is_array($libraries['global-styling']['css']['theme'])) {
               $css_path = array_key_first($libraries['global-styling']['css']['theme']);
             }
@@ -147,7 +164,33 @@ class TailwindCssCommands extends DrushCommands {
               $css_path = array_key_first($libraries['global-styling']['css']['base']);
             }
 
-            // Fallback to first found css theme file
+            // 2. Any CSS file explicitly marked minified: true (Mercury: build/main.min.css).
+            if (!$css_path && is_array($libraries)) {
+              foreach ($libraries as $lib_data) {
+                foreach (['theme', 'base', 'component'] as $bucket) {
+                  foreach ($lib_data['css'][$bucket] ?? [] as $path => $attrs) {
+                    if (!empty($attrs['minified'])) {
+                      $css_path = $path;
+                      break 3;
+                    }
+                  }
+                }
+              }
+            }
+
+            // 3. First css.theme file whose path starts with build/ or dist/.
+            if (!$css_path && is_array($libraries)) {
+              foreach ($libraries as $lib_data) {
+                foreach ($lib_data['css']['theme'] ?? [] as $path => $attrs) {
+                  if (str_starts_with($path, 'build/') || str_starts_with($path, 'dist/')) {
+                    $css_path = $path;
+                    break 2;
+                  }
+                }
+              }
+            }
+
+            // 4. First css.theme file from any library.
             if (!$css_path && is_array($libraries)) {
               foreach ($libraries as $lib_data) {
                 if (isset($lib_data['css']['theme']) && is_array($lib_data['css']['theme'])) {

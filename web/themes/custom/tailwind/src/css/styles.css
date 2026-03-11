@@ -3,38 +3,9 @@
  * Main stylesheet with Tailwind directives.
  */
 
-@import "tailwindcss";
-
-@plugin "@tailwindcss/forms";
-@plugin "@tailwindcss/typography";
-
-@theme {
-  --font-sans: "Inter", sans-serif;
-
-  --color-primary-50: #f8fafc;
-  --color-primary-100: #f1f5f9;
-  --color-primary-200: #e2e8f0;
-  --color-primary-300: #cbd5e1;
-  --color-primary-400: #94a3b8;
-  --color-primary-500: #64748b;
-  --color-primary-600: #475569;
-  --color-primary-700: #334155;
-  --color-primary-800: #1e293b;
-  --color-primary-900: #0f172a;
-
-  --color-accent-light: #818cf8;
-  --color-accent-main: #6366f1;
-  --color-accent-teal: #2dd4bf;
-
-  --animate-blob: blob 7s infinite;
-
-  @keyframes blob {
-    0%   { transform: translate(0px, 0px) scale(1); }
-    33%  { transform: translate(30px, -50px) scale(1.1); }
-    66%  { transform: translate(-20px, 20px) scale(0.9); }
-    100% { transform: translate(0px, 0px) scale(1); }
-  }
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /**
   * Custom base styles
@@ -49,31 +20,10 @@
   }
 }
 
-/* Custom Scrollbar for a premium feel */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #0f172a;
-}
-::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #475569;
-}
-
 /**
   * Custom component styles
   */
 @layer components {
-  #main-navbar.sticky-nav-active {
-    position: fixed !important;
-    border-bottom-style: solid;
-    @apply border-b bg-primary-900/80 backdrop-blur-md;
-  }
-
   /* Add your custom component styles here */
 
   .container-custom {
@@ -85,8 +35,7 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm;
-    @apply text-zinc-950 bg-primary-500 hover:bg-primary-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500;
+    @apply btn text-zinc-950 bg-primary-500 hover:bg-primary-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500;
     @apply shadow-lg shadow-primary-500/50 hover:shadow-xl hover:shadow-primary-500/60 transition-all duration-200;
   }
 
@@ -129,7 +78,7 @@
   input[type="datetime-local"],
   textarea,
   select {
-    @apply block w-full rounded-md border-zinc-700 bg-zinc-800 text-stone-200 placeholder:text-stone-500;
+    @apply block w-full rounded-md border-zinc-700 bg-zinc-800 text-stone-200 placeholder-stone-500;
     @apply focus:border-primary-500 focus:ring-primary-500 focus:ring-1;
     @apply transition-colors duration-200;
   }
@@ -249,11 +198,6 @@
   .text-golden-hover {
     @apply text-primary-400 hover:text-primary-300 transition-colors;
   }
-
-  /* Animation delay utility */
-  .animation-delay-2000 {
-    animation-delay: 2000ms;
-  }
 }
 
 /**
@@ -363,12 +307,6 @@
 
 .tabs.primary .is-active a {
   @apply text-primary-400;
-}
-
-/* Remove backticks from prose inline code (Typography plugin adds them by default) */
-.prose code::before,
-.prose code::after {
-  content: none !important;
 }
 
 /* GLightbox styles */
