@@ -25,51 +25,9 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 class PageAnalyticsMiddleware implements HttpKernelInterface {
 
   /**
-   * The wrapped HTTP kernel (or closure that returns it).
-   *
-   * @var \Closure|\Symfony\Component\HttpKernel\HttpKernelInterface
-   */
-  protected \Closure|HttpKernelInterface $httpKernel;
-
-  /**
-   * The config factory.
-   *
-   * @var \Drupal\Core\Config\ConfigFactoryInterface
-   */
-  protected ConfigFactoryInterface $configFactory;
-
-  /**
-   * The queue factory.
-   *
-   * @var \Drupal\Core\Queue\QueueFactory
-   */
-  protected QueueFactory $queueFactory;
-
-  /**
-   * The time service.
-   *
-   * @var \Drupal\Component\Datetime\TimeInterface
-   */
-  protected TimeInterface $time;
-
-  /**
-   * The current user.
-   *
-   * @var \Drupal\Core\Session\AccountProxyInterface
-   */
-  protected AccountProxyInterface $currentUser;
-
-  /**
-   * The path exclusion service.
-   *
-   * @var \Drupal\page_analytics\PathExclusion\PageAnalyticsExclusion|null
-   */
-  protected ?PageAnalyticsExclusion $pathExclusion;
-
-  /**
    * Constructs the middleware.
    *
-   * @param \Symfony\Component\HttpKernel\HttpKernelInterface|\Closure $http_kernel
+   * @param \Symfony\Component\HttpKernel\HttpKernelInterface|\Closure $httpKernel
    *   The inner kernel or a closure that returns it.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The config factory.
@@ -83,21 +41,16 @@ class PageAnalyticsMiddleware implements HttpKernelInterface {
    *   The path exclusion service.
    */
   public function __construct(
-    HttpKernelInterface|\Closure $http_kernel,
-    ConfigFactoryInterface $configFactory,
-    QueueFactory $queueFactory,
-    TimeInterface $time,
-    AccountProxyInterface $currentUser,
-    ?PageAnalyticsExclusion $pathExclusion = NULL,
+    protected HttpKernelInterface|\Closure $httpKernel,
+    protected ConfigFactoryInterface $configFactory,
+    protected QueueFactory $queueFactory,
+    protected TimeInterface $time,
+    protected AccountProxyInterface $currentUser,
+    protected ?PageAnalyticsExclusion $pathExclusion = NULL,
   ) {
-    $this->httpKernel = $http_kernel instanceof HttpKernelInterface
-      ? fn () => $http_kernel
-      : $http_kernel;
-    $this->configFactory = $configFactory;
-    $this->queueFactory = $queueFactory;
-    $this->time = $time;
-    $this->currentUser = $currentUser;
-    $this->pathExclusion = $pathExclusion;
+    $this->httpKernel = $httpKernel instanceof HttpKernelInterface
+      ? fn () => $httpKernel
+      : $httpKernel;
   }
 
   /**

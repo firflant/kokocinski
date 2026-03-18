@@ -29,41 +29,13 @@ class PageAnalyticsReportController extends ControllerBase {
   protected const ALLOWED_PERIODS = [0, 7, 30, 90];
 
   /**
-   * The database connection.
-   *
-   * @var \Drupal\Core\Database\Connection
-   */
-  protected Connection $connection;
-
-  /**
-   * The time service.
-   *
-   * @var \Drupal\Component\Datetime\TimeInterface
-   */
-  protected TimeInterface $time;
-
-  /**
-   * The config factory (for page_analytics.settings).
-   *
-   * @var \Drupal\Core\Config\ConfigFactoryInterface
-   */
-  protected ConfigFactoryInterface $settingsConfigFactory;
-
-  /**
    * Constructs the controller.
-   *
-   * @param \Drupal\Core\Database\Connection $connection
-   *   The database connection.
-   * @param \Drupal\Component\Datetime\TimeInterface $time
-   *   The time service.
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *   The config factory.
    */
-  public function __construct(Connection $connection, TimeInterface $time, ConfigFactoryInterface $config_factory) {
-    $this->connection = $connection;
-    $this->time = $time;
-    $this->settingsConfigFactory = $config_factory;
-  }
+  public function __construct(
+    protected Connection $connection,
+    protected TimeInterface $time,
+    protected ConfigFactoryInterface $settingsConfigFactory,
+  ) {}
 
   /**
    * Builds the page analytics report.

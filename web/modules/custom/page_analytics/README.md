@@ -5,6 +5,12 @@ daily view counts per non-admin path and displays an admin report with charts.
 No JavaScript tracking or third-party services are required; all data is stored
 in your database and processed via Drupal's queue on cron.
 
+## Requirements
+
+- Working cron setup (queue processing and retention cleanup run on cron).
+- If your site blocks scripts from other websites, load Chart.js from your own
+  site by overriding the `page_analytics/report` library.
+
 ## Installation
 
 Install and enable the module as usual. To see data in the report: visit some

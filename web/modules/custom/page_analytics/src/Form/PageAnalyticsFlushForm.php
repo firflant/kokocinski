@@ -17,21 +17,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class PageAnalyticsFlushForm extends ConfirmFormBase implements ContainerInjectionInterface {
 
   /**
-   * The database connection.
-   *
-   * @var \Drupal\Core\Database\Connection
-   */
-  protected Connection $connection;
-
-  /**
    * Constructs the form.
-   *
-   * @param \Drupal\Core\Database\Connection $connection
-   *   The database connection.
    */
-  public function __construct(Connection $connection) {
-    $this->connection = $connection;
-  }
+  public function __construct(protected Connection $connection) {}
 
   /**
    * {@inheritdoc}

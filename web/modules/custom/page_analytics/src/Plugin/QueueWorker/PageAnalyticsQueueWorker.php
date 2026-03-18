@@ -28,20 +28,6 @@ class PageAnalyticsQueueWorker extends QueueWorkerBase implements ContainerFacto
   protected const BATCH_SIZE = 99;
 
   /**
-   * The database connection.
-   *
-   * @var \Drupal\Core\Database\Connection
-   */
-  protected Connection $connection;
-
-  /**
-   * The queue factory.
-   *
-   * @var \Drupal\Core\Queue\QueueFactory
-   */
-  protected QueueFactory $queueFactory;
-
-  /**
    * Constructs the queue worker.
    *
    * @param array $configuration
@@ -59,12 +45,10 @@ class PageAnalyticsQueueWorker extends QueueWorkerBase implements ContainerFacto
     array $configuration,
     string $plugin_id,
     array $plugin_definition,
-    Connection $connection,
-    QueueFactory $queueFactory,
+    protected Connection $connection,
+    protected QueueFactory $queueFactory,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->connection = $connection;
-    $this->queueFactory = $queueFactory;
   }
 
   /**

@@ -21,56 +21,14 @@ use Symfony\Component\Routing\Route;
 class PageAnalyticsExclusion {
 
   /**
-   * The config factory.
-   *
-   * @var \Drupal\Core\Config\ConfigFactoryInterface
-   */
-  protected ConfigFactoryInterface $configFactory;
-
-  /**
-   * The path matcher (same as block visibility "Pages").
-   *
-   * @var \Drupal\Core\Path\PathMatcherInterface
-   */
-  protected PathMatcherInterface $pathMatcher;
-
-  /**
-   * Route provider service.
-   *
-   * @var \Drupal\Core\Routing\RouteProviderInterface
-   */
-  protected ?RouteProviderInterface $routeProvider;
-
-  /**
-   * Admin route helper.
-   *
-   * @var \Drupal\Core\Routing\AdminContext
-   */
-  protected ?AdminContext $adminContext;
-
-  /**
    * Constructs the service.
-   *
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The config factory.
-   * @param \Drupal\Core\Path\PathMatcherInterface $pathMatcher
-   *   The path matcher (core path.matcher).
-   * @param \Drupal\Core\Routing\RouteProviderInterface|null $routeProvider
-   *   Route provider service.
-   * @param \Drupal\Core\Routing\AdminContext|null $adminContext
-   *   Admin route helper service.
    */
   public function __construct(
-    ConfigFactoryInterface $configFactory,
-    PathMatcherInterface $pathMatcher,
-    ?RouteProviderInterface $routeProvider = NULL,
-    ?AdminContext $adminContext = NULL,
-  ) {
-    $this->configFactory = $configFactory;
-    $this->pathMatcher = $pathMatcher;
-    $this->routeProvider = $routeProvider;
-    $this->adminContext = $adminContext;
-  }
+    protected ConfigFactoryInterface $configFactory,
+    protected PathMatcherInterface $pathMatcher,
+    protected ?RouteProviderInterface $routeProvider = NULL,
+    protected ?AdminContext $adminContext = NULL,
+  ) {}
 
   /**
    * Checks whether a path is excluded by current rules.

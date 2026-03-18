@@ -1,3 +1,6 @@
+parameters:
+  hooks_converted: true
+
 services:
   page_analytics.report_controller:
     class: Drupal\page_analytics\Controller\PageAnalyticsReportController

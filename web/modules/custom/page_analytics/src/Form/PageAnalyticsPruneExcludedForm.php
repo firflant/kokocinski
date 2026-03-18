@@ -28,20 +28,6 @@ class PageAnalyticsPruneExcludedForm extends ConfirmFormBase implements Containe
   protected const DELETE_BATCH_SIZE = 500;
 
   /**
-   * The database connection.
-   *
-   * @var \Drupal\Core\Database\Connection
-   */
-  protected Connection $connection;
-
-  /**
-   * The path exclusion service.
-   *
-   * @var \Drupal\page_analytics\PathExclusion\PageAnalyticsExclusion
-   */
-  protected PageAnalyticsExclusion $pathExclusion;
-
-  /**
    * Paths that will be removed (excluded by current rules).
    *
    * @var string[]|null
@@ -50,16 +36,11 @@ class PageAnalyticsPruneExcludedForm extends ConfirmFormBase implements Containe
 
   /**
    * Constructs the form.
-   *
-   * @param \Drupal\Core\Database\Connection $connection
-   *   The database connection.
-   * @param \Drupal\page_analytics\PathExclusion\PageAnalyticsExclusion $pathExclusion
-   *   The path exclusion service.
    */
-  public function __construct(Connection $connection, PageAnalyticsExclusion $pathExclusion) {
-    $this->connection = $connection;
-    $this->pathExclusion = $pathExclusion;
-  }
+  public function __construct(
+    protected Connection $connection,
+    protected PageAnalyticsExclusion $pathExclusion,
+  ) {}
 
   /**
    * {@inheritdoc}
