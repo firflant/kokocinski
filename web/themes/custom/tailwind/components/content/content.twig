@@ -1,7 +1,11 @@
 {% set container_class = container|default('normal') == 'narrow' ? 'max-w-4xl' : 'max-w-7xl' %}
 {% set tag = tag|default('main') %}
-{% set padding_map = {'compact': 'py-12', 'normal': 'py-24', 'spacious': 'py-32'} %}
-{% set padding_class = padding_map[padding|default('compact')]|default('py-12') %}
+{% set padding_map = {
+  'compact': 'py-12 md:py-12',
+  'normal': 'py-12 md:py-24',
+  'spacious': 'py-12 md:py-32'
+} %}
+{% set padding_class = padding_map[padding|default('compact')]|default('py-12 md:py-12') %}
 {% set bg_class = background|default('none') == 'primary' ? 'bg-primary-800/30' : '' %}
 {% set border_class = border ? 'border-t border-white/5' : '' %}
 

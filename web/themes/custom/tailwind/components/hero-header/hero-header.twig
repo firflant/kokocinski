@@ -17,15 +17,23 @@
     I bridge modern frontend architecture with enterprise PHP/Drupal stability. Leveraging LLMs and Prompt Engineering to deliver quality software with optimized time-to-value.
   </p>
 
+  {% set social_tooltip = 'pointer-events-none absolute top-full left-1/2 z-20 mt-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-slate-900/95 px-2.5 py-1 text-xs font-medium text-slate-100 opacity-0 shadow-lg ring-1 ring-white/10 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100' %}
   <div class="flex space-x-6">
-    <a href="https://www.linkedin.com/in/michalkokocinski" target="_blank" rel="noopener noreferrer" class="group relative flex items-center justify-center w-12 h-12 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:scale-110 transition-all duration-300">
-      <i class="fab fa-linkedin-in text-xl text-white group-hover:text-accent-light"></i>
+    <a href="https://www.drupal.org/u/firflant" target="_blank" rel="noopener noreferrer" aria-label="Drupal.org profile" class="group relative flex items-center justify-center w-12 h-12 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:scale-110 transition-all duration-300">
+      <span class="{{ social_tooltip }}" aria-hidden="true">Drupal.org</span>
+      <i class="fab fa-drupal text-xl text-white group-hover:text-accent-light"></i>
     </a>
-    <a href="#contact" class="group relative flex items-center justify-center w-12 h-12 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:scale-110 transition-all duration-300">
-      <i class="fas fa-envelope text-xl text-white group-hover:text-accent-teal"></i>
-    </a>
-    <a href="https://github.com/firflant" target="_blank" rel="noopener noreferrer" class="group relative flex items-center justify-center w-12 h-12 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:scale-110 transition-all duration-300">
+    <a href="https://github.com/firflant" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" class="group relative flex items-center justify-center w-12 h-12 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:scale-110 transition-all duration-300">
+      <span class="{{ social_tooltip }}" aria-hidden="true">GitHub</span>
       <i class="fab fa-github text-xl text-white group-hover:text-accent-light"></i>
+    </a>
+    <a href="https://www.linkedin.com/in/michalkokocinski" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" class="group relative flex items-center justify-center w-12 h-12 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:scale-110 transition-all duration-300">
+      <span class="{{ social_tooltip }}" aria-hidden="true">LinkedIn</span>
+      <i class="fab fa-linkedin-in text-xl text-white group-hover:text-accent-teal"></i>
+    </a>
+    <a href="#contact" aria-label="Contact" class="group relative flex items-center justify-center w-12 h-12 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:scale-110 transition-all duration-300">
+      <span class="{{ social_tooltip }}" aria-hidden="true">Contact</span>
+      <i class="fas fa-envelope text-xl text-white group-hover:text-accent-teal"></i>
     </a>
   </div>
 
