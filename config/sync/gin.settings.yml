@@ -9,7 +9,7 @@ logo:
   use_default: true
 preset_accent_color: custom
 preset_focus_color: gin
-enable_darkmode: auto
+enable_darkmode: '0'
 classic_toolbar: null
 high_contrast_mode: false
 accent_color: '#1e293b'

@@ -43,6 +43,7 @@ module:
   path: 0
   path_alias: 0
   pathauto: 0
+  smtp: 0
   system: 0
   text: 0
   token: 0

@@ -6,3 +6,4 @@ ignored_config_entities:
   - 'canvas.component.sdc.*'
   - 'canvas.content_template.*'
   - 'canvas.folder.*'
+  - 'smtp.settings:smtp_password'

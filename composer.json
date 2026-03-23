@@ -27,6 +27,7 @@
     "drupal/metatag": "^2.0",
     "drupal/node_read_time": "^1.15",
     "drupal/pathauto": "^1.14",
+    "drupal/smtp": "^1.4",
     "drupal/token_default": "2.0.0-rc2",
     "drush/drush": "^13.7"
   },
