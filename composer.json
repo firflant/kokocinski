@@ -24,6 +24,7 @@
     "drupal/core-recommended": "^11.3",
     "drupal/focal_point": "^2.1",
     "drupal/gin": "^5.0",
+    "drupal/gin_login": "^2.1",
     "drupal/metatag": "^2.0",
     "drupal/node_read_time": "^1.15",
     "drupal/pathauto": "^1.14",
