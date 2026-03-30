@@ -1,0 +1,35 @@
+uuid: f85f2178-ef7e-41ba-ac45-ee83cc3ab1d6
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.dashboard_content
+  module:
+    - layout_builder
+    - layout_discovery
+    - views
+id: welcome
+label: 'Welcome to your site'
+description: ''
+layout:
+  -
+    layout_id: layout_onecol
+    layout_settings:
+      label: Content
+      context_mapping: {  }
+    components:
+      e0c590b2-6a2f-4555-9b89-add15ace4785:
+        uuid: e0c590b2-6a2f-4555-9b89-add15ace4785
+        region: content
+        configuration:
+          id: 'views_block:dashboard_content-block_site_content'
+          label: ''
+          label_display: visible
+          provider: views
+          context_mapping: {  }
+          views_label: ''
+          items_per_page: 12
+        weight: 0
+        additional: {  }
+    third_party_settings: {  }
+weight: 0
