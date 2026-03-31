@@ -39,6 +39,23 @@
     @apply shadow-lg shadow-primary-500/50 hover:shadow-xl hover:shadow-primary-500/60 transition-all duration-200;
   }
 
+  /**
+   * Rich text on light bands: prose-slate sets --tw-prose-pre-bg to slate-900 (dark block).
+   * Override only Typography’s pre tokens so <pre> matches a light page.
+   */
+  .prose.rich-text--light {
+    --tw-prose-pre-bg: theme("colors.slate.100");
+    --tw-prose-pre-code: theme("colors.slate.800");
+  }
+
+  /**
+   * Blockquotes: stronger surface than default prose quote striping + inset from the column.
+   */
+  .prose.rich-text--light
+    :where(blockquote):not(:where([class~="not-prose"] *)) {
+    @apply ml-6 border-l-4 border-slate-400 bg-slate-100/50 text-slate-700 pl-4 py-2 pr-4 rounded-r-lg;
+  }
+
   /* Form Styles for Dark Theme */
   form {
     @apply space-y-6;

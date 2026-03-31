@@ -6,9 +6,7 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
     "../../modules/custom/**/*.html.twig",
   ],
-  safelist: [
-    'sticky-nav-active',
-  ],
+  safelist: ["sticky-nav-active"],
   theme: {
     extend: {
       fontFamily: {

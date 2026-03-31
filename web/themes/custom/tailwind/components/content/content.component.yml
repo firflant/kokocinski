@@ -33,15 +33,17 @@ props:
     background:
       type: string
       title: Background
-      description: Optional translucent background tint.
+      description: Optional background — primary is a dark translucent tint; white is solid white; light is a soft vertical gradient (primary-50 → primary-100) for subtle depth on article-style layouts.
       enum:
         - none
         - primary
+        - white
+        - light
       default: none
     border:
       type: boolean
       title: Top border
-      description: When true, renders a subtle top border line (border-t border-white/5).
+      description: When true, renders a subtle top border — slate on white/light backgrounds, translucent white on dark/none.
       default: false
     id:
       type: string

@@ -13,4 +13,12 @@ props:
       title: "Rendered content (e.g. node body)"
       contentMediaType: text/html
       x-formatting-context: block
-      examples: ['<p>Sample content</p>']
+      examples: ["<p>Sample content</p>"]
+    variant:
+      type: string
+      title: Color scheme
+      description: Default is for light backgrounds (e.g. white or light content sections). Use invert for dark page sections that need light prose.
+      enum:
+        - default
+        - invert
+      default: default

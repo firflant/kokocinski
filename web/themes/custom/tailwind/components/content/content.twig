@@ -6,8 +6,24 @@
   'spacious': 'py-12 md:py-32'
 } %}
 {% set padding_class = padding_map[padding|default('compact')]|default('py-12 md:py-12') %}
-{% set bg_class = background|default('none') == 'primary' ? 'bg-primary-800/30' : '' %}
-{% set border_class = border ? 'border-t border-white/5' : '' %}
+{% set bg_key = background|default('none') %}
+{% set background_map = {
+  'none': '',
+  'primary': 'bg-primary-800/30',
+  'white': 'bg-white',
+  'light': 'bg-gradient-to-b from-primary-500 to-primary-800'
+} %}
+{% set bg_class = background_map[bg_key]|default('') %}
+{% set border_map = {
+  'none': 'border-t border-white/5',
+  'primary': 'border-t border-white/5',
+  'white': 'border-t border-slate-200',
+  'light': 'border-t border-slate-200'
+} %}
+{% set border_class = '' %}
+{% if border %}
+  {% set border_class = border_map[bg_key]|default('border-t border-white/5') %}
+{% endif %}
 
 <{{ tag }}{% if id %} id="{{ id }}"{% endif %}{% if tag == 'main' %} role="main"{% endif %} class="relative z-10 {{ padding_class }}{% if bg_class %} {{ bg_class }}{% endif %}{% if border_class %} {{ border_class }}{% endif %}">
   <div class="{{ container_class }} mx-auto px-6">
