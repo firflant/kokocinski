@@ -37,3 +37,9 @@ definitions:
     weight: 100
     expanded: false
     enabled: false
+  navigation__content__media_type__image:
+    menu_name: content
+    parent: navigation.create
+    weight: 1
+    expanded: false
+    enabled: false
