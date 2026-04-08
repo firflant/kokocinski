@@ -2,8 +2,38 @@ _core:
   default_config_hash: jdY7AU0tU-QsjmiOw3W8vwpYMb-By--_MSFgbqKUTYM
 definitions:
   navigation__create:
-    enabled: false
     menu_name: content
     parent: ''
-    expanded: false
     weight: -10
+    expanded: false
+    enabled: false
+  navigation__content__node_type__page:
+    menu_name: content
+    parent: navigation.create
+    weight: 0
+    expanded: false
+    enabled: false
+  navigation__content__node_type__blog_post:
+    menu_name: content
+    parent: navigation.create
+    weight: 0
+    expanded: false
+    enabled: false
+  navigation__content__node_type__portfolio_item:
+    menu_name: content
+    parent: navigation.create
+    weight: 0
+    expanded: false
+    enabled: false
+  navigation__content__media_type__document:
+    menu_name: content
+    parent: navigation.create
+    weight: 1
+    expanded: false
+    enabled: false
+  navigation__create__user:
+    menu_name: content
+    parent: navigation.create
+    weight: 100
+    expanded: false
+    enabled: false
