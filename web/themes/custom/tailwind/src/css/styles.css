@@ -8,51 +8,32 @@
 @tailwind utilities;
 
 /**
-  * Custom base styles
-  */
-@layer base {
-  html {
-    @apply antialiased;
-  }
-
-  body {
-    @apply text-stone-200 bg-zinc-950;
-  }
-}
-
-/**
   * Custom component styles
   */
 @layer components {
-  /* Add your custom component styles here */
-
-  .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-  }
-
-  .btn {
-    @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm;
-  }
-
-  .btn-primary {
-    @apply btn text-zinc-950 bg-primary-500 hover:bg-primary-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500;
-    @apply shadow-lg shadow-primary-500/50 hover:shadow-xl hover:shadow-primary-500/60 transition-all duration-200;
-  }
-
-  /**
-   * Rich text on light bands: prose-slate sets --tw-prose-pre-bg to slate-900 (dark block).
-   * Override only Typography’s pre tokens so <pre> matches a light page.
-   */
-  .prose.rich-text--light {
+  .prose.prose-slate {
     --tw-prose-pre-bg: theme("colors.slate.100");
     --tw-prose-pre-code: theme("colors.slate.800");
+    --tw-prose-code: theme("colors.slate.800");
+    --tw-prose-code-bg: theme("colors.slate.100");
   }
 
-  /**
-   * Blockquotes: stronger surface than default prose quote striping + inset from the column.
-   */
-  .prose.rich-text--light
-    :where(blockquote):not(:where([class~="not-prose"] *)) {
+  .prose.prose-invert {
+    --tw-prose-invert-code: theme("colors.stone.200");
+    --tw-prose-code-bg: theme("colors.zinc.800");
+  }
+
+  .prose :not(pre) > code::before,
+  .prose :not(pre) > code::after {
+    content: none;
+  }
+
+  .prose :not(pre) > code {
+    @apply rounded-md px-1.5 py-0.5 font-mono font-medium;
+    background-color: var(--tw-prose-code-bg);
+  }
+
+  .prose.prose-slate :where(blockquote):not(:where([class~="not-prose"] *)) {
     @apply ml-6 border-l-4 border-slate-400 bg-slate-100/50 text-slate-700 pl-4 py-2 pr-4 rounded-r-lg;
   }
 
@@ -188,32 +169,6 @@
     background-repeat: no-repeat;
     background-size: 1.5em 1.5em;
     padding-right: 2.5rem;
-  }
-}
-
-/**
-  * Custom utility styles
-  */
-@layer utilities {
-  /* Golden accent utilities */
-  .golden-glow {
-    box-shadow: 0 0 20px rgba(211, 157, 55, 0.3);
-  }
-
-  .golden-border {
-    @apply border-primary-500/30;
-  }
-
-  .golden-border-hover {
-    @apply border-primary-500/30 hover:border-primary-500/60 transition-colors;
-  }
-
-  .text-golden {
-    @apply text-primary-400;
-  }
-
-  .text-golden-hover {
-    @apply text-primary-400 hover:text-primary-300 transition-colors;
   }
 }
 
