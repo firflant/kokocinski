@@ -17,6 +17,6 @@ settings:
   label: Tabs
   label_display: '0'
   provider: core
-  primary: true
-  secondary: true
+  primary: false
+  secondary: false
 visibility: {  }

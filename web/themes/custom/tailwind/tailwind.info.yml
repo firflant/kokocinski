@@ -12,6 +12,7 @@ components:
       - components
 
 regions:
+  primary_menu: 'Primary menu'
   content: Content
 
 libraries:

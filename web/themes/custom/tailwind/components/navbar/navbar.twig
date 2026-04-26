@@ -8,8 +8,8 @@
 
     {# Primary Menu and Social Links #}
     <div class="hidden md:flex md:items-center md:space-x-8">
-      {% if primary_menu %}
-        {{ primary_menu }}
+      {% if page.primary_menu %}
+        {{ page.primary_menu }}
       {% endif %}
     </div>
 
@@ -42,9 +42,9 @@
     aria-labelledby="mobile-menu-button"
   >
     <div class="space-y-1 px-4 py-4 sm:px-6 lg:px-8">
-      {% if primary_menu %}
+      {% if page.primary_menu %}
         <div class="flex flex-col space-y-2 items-end">
-          {{ primary_menu }}
+          {{ page.primary_menu }}
         </div>
       {% endif %}
     </div>

@@ -1,0 +1,44 @@
+{#
+/**
+ * @file
+ * Full view for the blog post bundle. The page uses `no_page_layout` (Canvas
+ * or this bundle only), so this template adds `page-title` and the `content` SDC.
+ * Featured image comes from `content.field_image` (Manage display).
+ */
+#}
+{{ include('tailwind:page-title', {
+  title: label|render|striptags|trim,
+  container: 'narrow',
+  meta: 'Personal blog',
+}, with_context: false) }}
+
+{% embed 'tailwind:content' with {
+  container: 'narrow',
+  padding: 'compact',
+  tag: 'section',
+  background: 'white',
+} %}
+  {% block children %}
+    <article{{ attributes.addClass('blog-post--full') }}>
+      {{ title_prefix }}
+      {{ title_suffix }}
+
+      {% if node.field_image|length > 0 %}
+        <div class="mb-8 overflow-hidden rounded-2xl not-prose">
+          {{ content.field_image }}
+        </div>
+      {% endif %}
+
+      {{ include('tailwind:rich-text', {
+        content: content.body|render,
+        variant: 'default',
+      }, with_context: false) }}
+
+      {{ include('tailwind:authored-footer') }}
+
+      {{ content|without('field_image', 'body', 'links', 'reading_time') }}
+    </article>
+  {% endblock %}
+{% endembed %}
+
+{{ other_posts }}

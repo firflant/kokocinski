@@ -250,37 +250,6 @@
   border: 0 !important;
 }
 
-/**
-  * Local Tasks (Tabs) Styling
-  */
-.tabs.primary,
-.tabs.secondary {
-  @apply flex flex-wrap gap-0 mb-0 list-none;
-}
-
-.tabs.primary li,
-.tabs.secondary li {
-  @apply inline-block;
-}
-
-.tabs.primary li.is-active,
-.tabs.secondary li.is-active {
-  @apply border-b-2 border-primary-500;
-}
-
-.tabs.primary a,
-.tabs.secondary a {
-  @apply block px-4 py-3 text-sm font-medium transition-colors no-underline;
-}
-
-.tabs.primary a {
-  @apply text-stone-300 hover:text-primary-400;
-}
-
-.tabs.primary .is-active a {
-  @apply text-primary-400;
-}
-
 /* GLightbox styles */
 .glightbox-clean .gslide-description {
   background-color: #27272a !important;

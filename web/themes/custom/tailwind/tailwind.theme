@@ -6,29 +6,101 @@ declare(strict_types=1);
  * @file
  * Functions to support theming in the Tailwind theme.
  */
-use Drupal\Core\Menu\MenuTreeParameters;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_preprocess_HOOK() for page.html.twig.
- *
- * Renders the main navigation so it is available as {{ primary_menu }}
- * without using the primary_menu region.
  */
 function tailwind_preprocess_page(&$variables): void {
-  $menu_tree = \Drupal::menuTree();
-  $parameters = (new MenuTreeParameters())
-    ->setMinDepth(1)
-    ->setMaxDepth(3);
-  $tree = $menu_tree->load('main', $parameters);
-  $manipulators = [
-    ['callable' => 'menu.default_tree_manipulators:checkAccess'],
-    ['callable' => 'menu.default_tree_manipulators:generateIndexAndSort'],
-  ];
-  $tree = $menu_tree->transform($tree, $manipulators);
-  $build = $menu_tree->build($tree);
-  $variables['primary_menu'] = $build;
-  if (!empty($build['#cache'])) {
-    $variables['#cache']['contexts'] = array_merge($variables['#cache']['contexts'] ?? [], $build['#cache']['contexts'] ?? []);
-    $variables['#cache']['tags'] = array_merge($variables['#cache']['tags'] ?? [], $build['#cache']['tags'] ?? []);
+  $route_match = \Drupal::routeMatch();
+
+  // Is this page a Canvas page (UI or entity with a published full template)?
+  $route_name = $route_match->getRouteName() ?? '';
+  $route_object = $route_match->getRouteObject();
+  $route_path = $route_object !== NULL ? $route_object->getPath() : '';
+
+  $page_is_canvas = FALSE;
+  if ($route_name === 'entity.canvas_page.canonical' || str_starts_with($route_path, '/canvas/')) {
+    $page_is_canvas = TRUE;
   }
+  elseif ($route_name === 'entity.node.canonical' && \Drupal::moduleHandler()->moduleExists('canvas')) {
+    $canvas_node = $variables['node'] ?? NULL;
+    if (!$canvas_node instanceof NodeInterface) {
+      $canvas_node = _tailwind_route_node();
+    }
+    if ($canvas_node instanceof NodeInterface) {
+      $count = (int) \Drupal::entityTypeManager()->getStorage('content_template')->getQuery()
+        ->accessCheck(FALSE)
+        ->condition('content_entity_type_id', 'node')
+        ->condition('content_entity_type_bundle', $canvas_node->bundle())
+        ->condition('content_entity_type_view_mode', 'full')
+        ->condition('status', TRUE)
+        ->count()
+        ->execute();
+      $page_is_canvas = $count > 0;
+      $list_tags = \Drupal::entityTypeManager()->getDefinition('content_template')->getListCacheTags();
+      $variables['#cache']['tags'] = array_merge($variables['#cache']['tags'] ?? [], $list_tags);
+    }
+  }
+
+  $variables['no_page_layout'] = $page_is_canvas || _tailwind_is_blog_post_page($route_match);
+  $variables['page_is_canvas'] = $page_is_canvas;
+
+  // Page title: only used when the page template shows `page-title` (not
+  // `no_page_layout`); avoid resolving the title for Canvas / blog post shell.
+  if (!$variables['no_page_layout']) {
+    $request = \Drupal::request();
+    $title = \Drupal::service('title_resolver')->getTitle($request, $route_match->getRouteObject());
+    if (is_array($title)) {
+      $title = \Drupal::service('renderer')->renderPlain($title);
+    }
+    $variables['page_title_string'] = (string) $title;
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for node.html.twig.
+ *
+ * Shapes data for the classic blog post full template (parallels the Canvas
+ * `canvas.content_template.node.blog_post.full` tree: same SDCs + other posts view).
+ */
+function tailwind_preprocess_node(array &$variables): void {
+  $node = $variables['node'] ?? null;
+  if (!$node instanceof NodeInterface || $node->bundle() !== 'blog_post' || ($variables['view_mode'] ?? '') !== 'full') {
+    return;
+  }
+
+  $variables['other_posts'] = [
+    '#type' => 'view',
+    '#name' => 'blog',
+    '#display_id' => 'block_other_posts',
+    '#embed' => TRUE,
+  ];
+}
+
+/**
+ * Returns the node route parameter, if the current route provides one.
+ */
+function _tailwind_route_node(): ?NodeInterface {
+  $param = \Drupal::routeMatch()->getParameter('node');
+  return $param instanceof NodeInterface ? $param : NULL;
+}
+
+/**
+ * True on canonical / revision / preview routes for a blog_post node.
+ */
+function _tailwind_is_blog_post_page(?RouteMatchInterface $route_match): bool {
+  if ($route_match === NULL) {
+    return FALSE;
+  }
+  $name = (string) ($route_match->getRouteName() ?? '');
+  $node = NULL;
+  if ($name === 'entity.node.canonical' || $name === 'entity.node.revision') {
+    $node = $route_match->getParameter('node');
+  }
+  elseif ($name === 'entity.node.preview') {
+    $node = $route_match->getParameter('node_preview');
+  }
+  return $node instanceof NodeInterface && $node->bundle() === 'blog_post';
 }
