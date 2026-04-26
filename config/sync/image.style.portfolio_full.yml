@@ -1,0 +1,21 @@
+uuid: c4d5e6f7-a8b9-0c1d-2e3f-portfoliof01
+langcode: en
+status: true
+dependencies: {  }
+name: portfolio_full
+label: 'Portfolio full page'
+effects:
+  e1a2b3c4-d5e6-7890-abcd-ef0000000001:
+    uuid: e1a2b3c4-d5e6-7890-abcd-ef0000000001
+    id: image_scale
+    weight: 1
+    data:
+      width: 1792
+      height: null
+      upscale: false
+  f2a3b4c5-d6e7-8901-bcde-fa1111111102:
+    uuid: f2a3b4c5-d6e7-8901-bcde-fa1111111102
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

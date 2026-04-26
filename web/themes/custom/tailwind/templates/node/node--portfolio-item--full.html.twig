@@ -1,0 +1,45 @@
+{#
+/**
+ * @file
+ * Default (full) view for portfolio item nodes. The page title is provided by
+ * `page.html.twig` via the page title component; this template is only the
+ * project body: screenshot, skills, description, and optional external link.
+ */
+#}
+<article{{ attributes.addClass('portfolio-item--full not-prose') }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+
+  {% if content.field_image|render|trim %}
+    <div class="mb-8 overflow-hidden rounded-2xl border border-white/10 not-prose [&_img]:w-full [&_img]:h-auto">
+      {{ content.field_image }}
+    </div>
+  {% endif %}
+
+  {% if node.field_technologies.value|default('')|trim is not empty %}
+    <p class="text-slate-400 text-md mb-4">
+      {{ node.field_technologies.value }}
+    </p>
+  {% endif %}
+
+  {% if content.field_description|render|trim %}
+    <div class="mb-10">
+      {{ include('tailwind:rich-text', {
+        content: content.field_description|render,
+        variant: 'invert',
+      }, with_context: false) }}
+    </div>
+  {% endif %}
+
+  {% set project_url = node.field_link.isEmpty() ? '' : node.field_link.getString()|trim %}
+  {% if project_url %}
+    <div class="not-prose">
+      <a
+        href="{{ project_url|e('url') }}"
+        class="inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 bg-accent-main hover:bg-indigo-600 text-white font-semibold rounded-lg transition-all shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_30px_rgba(99,102,241,0.5)]"
+        target="_blank"
+        rel="noopener noreferrer"
+      >{{ 'Visit project'|t }}</a>
+    </div>
+  {% endif %}
+</article>

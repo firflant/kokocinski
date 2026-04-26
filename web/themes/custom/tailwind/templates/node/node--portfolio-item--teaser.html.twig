@@ -12,9 +12,8 @@
  * @see template_preprocess_node()
  */
 #}
-{% set link_url = node.field_link.value ?? url %}
 {{ include('tailwind:portfolio-card', {
-  url: link_url,
+  url: url,
   image: node.field_image.entity ? (content.field_image|render|striptags('<img>')) : null,
   card_title: label|render|striptags,
   technologies: node.field_technologies.value,
