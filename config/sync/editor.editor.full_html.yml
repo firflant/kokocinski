@@ -24,8 +24,9 @@ settings:
       - drupalInsertImage
       - insertTable
       - codeBlock
-      - '|'
       - heading
+      - '|'
+      - showBlocks
   plugins:
     ckeditor5_codeBlock:
       languages:
