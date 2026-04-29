@@ -1,24 +1,43 @@
+{% set items = [
+  {
+    icon: 'fa-rocket',
+    title: 'Content Startups',
+    description: 'Rapid deployment of scalable content architectures.',
+  },
+  {
+    icon: 'fa-newspaper',
+    title: 'Publishing Platforms',
+    description: 'High-traffic capability with complex editorial workflows.',
+  },
+  {
+    icon: 'fa-building',
+    title: 'Brands & Enterprises',
+    description: 'Editable, secure websites that empower marketing teams.',
+  },
+  {
+    icon: 'fa-users-cog',
+    title: 'Dev Teams',
+    description: 'Augmentation for teams lacking Senior Frontend expertise.',
+  },
+] %}
+
+{% set home_url = path('<front>') %}
+{% set card_class = [
+  'group flex h-full flex-col items-center text-center',
+  'p-6 rounded-xl bg-white/5 backdrop-blur-sm no-underline ring-1 ring-transparent transition-colors',
+  'hover:bg-white/[0.08] hover:ring-accent-main/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-main/60',
+]|join(' ') %}
+
 <h2 class="text-center text-2xl font-semibold text-white mb-12">Tailored Solutions For</h2>
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-  <div class="flex flex-col items-center text-center p-6 rounded-xl bg-white/5 backdrop-blur-sm">
-    <i class="fas fa-rocket text-accent-main text-3xl mb-4"></i>
-    <h4 class="text-white font-medium mb-2">Content Startups</h4>
-    <p class="text-sm text-slate-500">Rapid deployment of scalable content architectures.</p>
-  </div>
-  <div class="flex flex-col items-center text-center p-6 rounded-xl bg-white/5 backdrop-blur-sm">
-    <i class="fas fa-newspaper text-accent-main text-3xl mb-4"></i>
-    <h4 class="text-white font-medium mb-2">Publishing Platforms</h4>
-    <p class="text-sm text-slate-500">High-traffic capability with complex editorial workflows.</p>
-  </div>
-  <div class="flex flex-col items-center text-center p-6 rounded-xl bg-white/5 backdrop-blur-sm">
-    <i class="fas fa-building text-accent-main text-3xl mb-4"></i>
-    <h4 class="text-white font-medium mb-2">Brands & Enterprises</h4>
-    <p class="text-sm text-slate-500">Editable, secure websites that empower marketing teams.</p>
-  </div>
-  <div class="flex flex-col items-center text-center p-6 rounded-xl bg-white/5 backdrop-blur-sm">
-    <i class="fas fa-users-cog text-accent-main text-3xl mb-4"></i>
-    <h4 class="text-white font-medium mb-2">Dev Teams</h4>
-    <p class="text-sm text-slate-500">Augmentation for teams lacking Senior Frontend expertise.</p>
-  </div>
-</div>
+<ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 list-none m-0 p-0">
+  {% for row in items %}
+    <li class="relative">
+      <a href="{{ home_url }}" class="{{ card_class }}">
+        <i class="fas {{ row.icon }} text-accent-main text-3xl mb-4 shrink-0 group-hover:text-accent-light transition-colors" aria-hidden="true"></i>
+        <h4 class="text-white font-medium mb-2">{{ row.title }}</h4>
+        <p class="text-sm text-slate-500">{{ row.description }}</p>
+      </a>
+    </li>
+  {% endfor %}
+</ul>

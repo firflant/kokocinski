@@ -42,3 +42,14 @@
 {% endembed %}
 
 {{ other_posts }}
+
+{% embed 'tailwind:content' with {
+  container: 'narrow',
+  padding: 'normal',
+  tag: 'section',
+  background: 'primary',
+} %}
+  {% block children %}
+    {{ include('tailwind:tailored-solutions') }}
+  {% endblock %}
+{% endembed %}

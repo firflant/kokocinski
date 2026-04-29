@@ -1,0 +1,9 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+# Canvas: only props with a known storable field shape are allowed. Untyped arrays
+# (e.g. contributions) fail requirement checks and hide the component from the library.
+name: "Where I've contributed"
+status: stable
+description: Credibility strip for freelance Drupal work delivered through agencies (enterprise and public sector).
+props:
+  type: object
+  properties: {}
