@@ -35,7 +35,7 @@
   {% if project_url %}
     <div class="not-prose">
       <a
-        href="{{ project_url|e('url') }}"
+        href="{{ project_url|e('html_attr') }}"
         class="inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 bg-accent-main hover:bg-indigo-600 text-white font-semibold rounded-lg transition-all shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_30px_rgba(99,102,241,0.5)]"
         target="_blank"
         rel="noopener noreferrer"
