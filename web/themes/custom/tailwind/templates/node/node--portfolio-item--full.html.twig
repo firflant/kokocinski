@@ -3,7 +3,7 @@
  * @file
  * Default (full) view for portfolio item nodes. The page title is provided by
  * `page.html.twig` via the page title component; this template is only the
- * project body: screenshot, skills, description, and optional external link.
+ * project body: screenshot, skills, body text, and optional external link.
  */
 #}
 <article{{ attributes.addClass('portfolio-item--full not-prose') }}>
@@ -22,10 +22,10 @@
     </p>
   {% endif %}
 
-  {% if content.field_description|render|trim %}
+  {% if content.field_body|render|trim %}
     <div class="mb-10">
       {{ include('tailwind:rich-text', {
-        content: content.field_description|render,
+        content: content.field_body|render,
         variant: 'invert',
       }, with_context: false) }}
     </div>

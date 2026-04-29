@@ -12,10 +12,11 @@
  * @see template_preprocess_node()
  */
 #}
+{% set teaser_text = node.field_body.summary|trim ?: node.field_body.value %}
 {{ include('tailwind:portfolio-card', {
   url: url,
   image: node.field_image.entity ? (content.field_image|render|striptags('<img>')) : null,
   card_title: label|render|striptags,
   technologies: node.field_technologies.value,
-  card_description: node.field_description.value
+  card_description: teaser_text|striptags,
 }) }}

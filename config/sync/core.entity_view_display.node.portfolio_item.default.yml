@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.portfolio_item.field_body
     - field.field.node.portfolio_item.field_description
     - field.field.node.portfolio_item.field_image
     - field.field.node.portfolio_item.field_link
@@ -18,6 +19,13 @@ targetEntityType: node
 bundle: portfolio_item
 mode: default
 content:
+  field_body:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
   field_description:
     type: text_default
     label: hidden

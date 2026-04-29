@@ -1,8 +1,15 @@
 uuid: 2246a151-ecfb-4866-a56b-3e62d7e47dc4
 langcode: en
 status: true
-dependencies: {  }
-name: 'Portfolio Item'
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: 'Case study'
 type: portfolio_item
 description: 'A portfolio item showcasing a project or work.'
 help: 'Create a portfolio item to showcase your work, including an image, description, technologies used, and optional link.'

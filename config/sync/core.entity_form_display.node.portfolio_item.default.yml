@@ -3,13 +3,16 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.portfolio_item.field_body
     - field.field.node.portfolio_item.field_description
     - field.field.node.portfolio_item.field_image
     - field.field.node.portfolio_item.field_link
     - field.field.node.portfolio_item.field_technologies
+    - image.style.thumbnail
     - node.type.portfolio_item
   module:
     - image
+    - path
     - text
 id: node.portfolio_item.default
 targetEntityType: node
@@ -21,6 +24,16 @@ content:
     weight: 10
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_body:
+    type: text_textarea_with_summary
+    weight: 121
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
     third_party_settings: {  }
   field_description:
     type: text_textarea

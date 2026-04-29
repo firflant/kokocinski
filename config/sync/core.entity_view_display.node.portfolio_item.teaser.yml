@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.portfolio_item.field_body
     - field.field.node.portfolio_item.field_description
     - field.field.node.portfolio_item.field_image
     - field.field.node.portfolio_item.field_link
@@ -58,5 +59,7 @@ content:
     weight: 101
     region: content
 hidden:
+  field_body: true
+  node_read_time: true
   promote: true
   sticky: true
