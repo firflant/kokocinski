@@ -4,6 +4,7 @@ status: true
 dependencies:
   module:
     - editor
+    - linkit
 name: 'Full HTML'
 format: full_html
 weight: 2
@@ -47,3 +48,11 @@ filters:
     status: true
     weight: 15
     settings: {  }
+  linkit:
+    id: linkit
+    provider: linkit
+    status: true
+    weight: 0
+    settings:
+      title: true
+      media_substitution: metadata

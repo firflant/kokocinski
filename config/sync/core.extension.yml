@@ -2,10 +2,12 @@ _core:
   default_config_hash: 4GIX5Esnc_umpXUBj4IIocRX7Mt5fPhm4AgXfE3E56E
 module:
   automated_cron: 0
+  autosave_form: 0
   block: 0
   breakpoint: 0
   canvas: 0
   ckeditor5: 0
+  coffee: 0
   config: 0
   config_ignore: 0
   contextual: 0
@@ -25,9 +27,11 @@ module:
   gin_login: 0
   help: 0
   image: 0
+  inline_form_errors: 0
   layout_builder: 0
   layout_discovery: 0
   link: 0
+  linkit: 0
   media: 0
   media_library: 0
   menu_link_content: 0
