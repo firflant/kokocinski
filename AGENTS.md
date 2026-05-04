@@ -1,43 +1,33 @@
-# Drupal 11 Project
+# Agent guidance for this Drupal site
 
-## Essential Rules
+This codebase is a Composer-managed Drupal site. Local development uses `ddev`.
 
-- Web root is `/web/`
-- Custom modules go in `/web/modules/custom/`
-- Custom themes go in `/web/themes/custom/`
-- **Active theme: `tailwind` (Tailwind CSS) at `/web/themes/custom/tailwind/`**
-- Configuration lives in `/config/sync/`
-- Use Composer for all dependencies
-- Never hack core or contrib modules
-- DDEV is used for local development
+## Local environment (DDEV)
 
-## Workflow
+Run commands from the project root:
 
-After making changes:
-1. Export config: `ddev drush cex`
-2. Clear cache: `ddev drush cr`
-3. Check the local development url: `ddev status`
+- Start or restart the local environment with `ddev start`, `ddev restart`, and `ddev stop`.
+- Install PHP dependencies with `ddev composer install`.
+- Open the site with `ddev launch`.
+- Run Drush commands with `ddev drush <command>` such as `status`, `user:login`, `cache:rebuild`, and `update:db`.
 
-## Code Standards
+DDEV project config lives in `.ddev/config.yaml`. Use `.ddev/config.local.yaml` for machine-specific overrides.
 
-- Follow Drupal Coding Standards
-- Always avoid code redundancy
-- Use strict types: `declare(strict_types=1);`
-- Use dependency injection (not static calls)
-- Use Drupal APIs (not raw PHP globals)
-- Sanitize output: `Html::escape()`, `Xss::filter()`
-- Type hint parameters and return types
+## Common Drupal workflows
 
-## Naming
+- Add a module with `ddev composer require drupal/<project>`, then `ddev drush pm:enable --yes <module_machine_name>`, then `ddev drush cache:rebuild`.
+- Apply database updates after code changes with `ddev drush update:db --yes`.
+- Import repository configuration into the site with `ddev drush config:import --yes`.
+- Export site configuration back to the repo with `ddev drush config:export --yes`.
 
-- Modules: `snake_case`
-- Classes: `PascalCase`
-- Methods: `camelCase`
-- Hooks: `snake_case` (e.g., `hook_form_alter`)
+## Guardrails
 
-## Common Commands
+- Do not commit secrets or machine-local overrides such as `.env`, `settings.local.php`, or `.ddev/config.local.yaml`.
+- Do not commit `vendor/` or uploaded files under `web/sites/*/files`.
+- Do not edit Drupal core or contributed projects in place.
+- Put custom code in `web/modules/custom` and `web/themes/custom`.
 
-- `ddev drush cr` - Clear cache
-- `ddev drush cex` - Export config
-- `ddev drush cim` - Import config
-- `ddev drush uli` - Login link
+## References
+
+- https://docs.ddev.com/en/stable/
+- https://www.drupal.org/docs/administering-a-drupal-site/configuration-management/workflow-using-drush

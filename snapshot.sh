@@ -1,13 +1,10 @@
 #!/bin/bash
 
 ###############################################################################
-# Database Dump Script
-#
-# Creates a clean, compressed database dump with a timestamped filename.
-# Cache and session tables are exported as structure-only (no data) to keep
-# the dump file size minimal and the import free of stale cache entries.
-#
-# Output file: db_YYYY-MM-DD_HH-MM-SS.sql.gz  (saved in project root)
+# Full-site snapshot via `drush archive:dump` (DB + files + code).
+# https://www.drupal.org/docs/updating-drupal/how-to-back-up-your-drupal-site
+# Transient tables are structure-only so restore stays valid but caches/sessions stay empty.
+# Output: snapshot_YYYY-MM-DD_HH-MM-SS.tar.gz in project root.
 ###############################################################################
 
 set -e  # Exit on any error
@@ -23,16 +20,14 @@ if ! "$SCRIPT_DIR/vendor/bin/drush" --version >/dev/null 2>&1; then
 fi
 # [Optional on standard hosting - END]
 
-DUMP_FILE="$SCRIPT_DIR/db_$(date '+%Y-%m-%d_%H-%M-%S').sql"
+DEST="$SCRIPT_DIR/snapshot_$(date '+%Y-%m-%d_%H-%M-%S').tar.gz"
 
-echo "Clearing caches before dump..."
-drush cache:rebuild
-
-echo "Dumping database to ${DUMP_FILE}.gz ..."
-drush sql:dump \
-    --gzip \
-    --structure-tables-list="cache,cache_*,history,sessions,watchdog" \
-    --result-file="$DUMP_FILE"
+echo "Creating archive (database, files, code): ${DEST}"
+drush archive:dump \
+    --destination="$DEST" \
+    --structure-tables-list="cache,cache_*,flood,history,sessions,watchdog" \
+    -y
 
 echo ""
-echo "Done! File saved to: ${DUMP_FILE}.gz"
+echo "Done!"
+echo "Restore (from this machine, path as appropriate): drush archive:restore \"$DEST\""
