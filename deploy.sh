@@ -56,6 +56,8 @@ drush state:set system.maintenance_mode 1
 
 
 # 4. Build theme assets
+THEME_DIR="$SCRIPT_DIR/web/themes/custom/tailwind"
+cd "$THEME_DIR"
 npm ci --include=dev
 npm run build
 cd "$SCRIPT_DIR"

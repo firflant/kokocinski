@@ -34,7 +34,7 @@
                   width="{{ chart_width }}"
                   height="80"
                   role="img"
-                  aria-label="{{ 'Views per day for'|t }} {{ row.path }}"
+                  aria-label="{{ 'Views per day for'|t }} {{ row.path|e('html_attr') }}"
                 ></canvas>
               </div>
             </td>
